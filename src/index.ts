@@ -1,1 +1,1 @@
-export {MongoDbDriverExporter } from './exporter';
+export { monitorMongoDbDriver } from './exporter'

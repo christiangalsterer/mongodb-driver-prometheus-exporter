@@ -23,7 +23,7 @@ The exporter provides the following metrics.
 ```js
 import { MongoClient } from "mongodb";
 import { Registry } from "prom-client";
-import { MongoDbDriverExporter } from "@christiangalsterer/mongodb-driver-prometheus-exporter";
+import { monitorMongoDbDriver } from "@christiangalsterer/mongodb-driver-prometheus-exporter";
 
 ...
 
@@ -36,12 +36,12 @@ const Registry = promClient.Registry;
 const register = new Registry();
 collectDefaultMetrics({ register });
 
-// setup the MongoDbDriverExporter
-const exporter = new MongoDbDriverExporter(mongoClient, register);
+// monitor MongoDB driver
+monitorMongoDbDriver(mongoClient, register);
 
 ...
 
-// connect to MongoDB after the MongoDbDriverExporter
+// connect to MongoDB after monitorMongoDbDriver()
 mongoClient.connect();
 
 ``````
