@@ -3,10 +3,12 @@
     "version": "0.0.1",
     "author": "Christian Galsterer",
     "license": "MIT",
-    "description": "Prometheus exporter to monitor MongoDB driver",
+    "description": "Prometheus exporter to monitor the MongoDB Node.js driver",
     "files": [
-        "dist/"
+        "/dist"
     ],
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
     "scripts": {
         "build": "tsc",
         "clean": "",

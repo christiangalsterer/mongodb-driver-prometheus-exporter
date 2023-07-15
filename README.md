@@ -23,6 +23,8 @@ The exporter provides the following metrics.
 ```js
 import { MongoDbDriverExporter } from "@christiangalsterer/mongodb-driver-prometheus-exporter";
 
+exporter = new MongoDbDriverExporter(mongoClient, registry);
+
 
 ``````
 

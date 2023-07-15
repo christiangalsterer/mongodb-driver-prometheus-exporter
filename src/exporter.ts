@@ -4,9 +4,19 @@ import { Registry } from "prom-client";
 import { MongoClient } from "mongodb";
 
 export class MongoDbDriverExporter {
-    constructor(mongoClient: MongoClient) {
+    constructor(mongoClient: MongoClient, register: Registry) {
+
+        if (mongoClient == null) {
+            console.error("mongoClient is null or undefined. No metrics can be exported with MongoDbDriverExporter.");
+            return;
+        }
+
+        if (register == null) {
+            console.error("register is null or undefined. No metrics can be exported with MongoDbDriverExporter.");
+            return;
+        }
+
         const monitorCommands = mongoClient.options.monitorCommands.valueOf();
-        const register = new Registry();
 
         // pool metrics
         const poolSize = new Gauge({
@@ -72,10 +82,13 @@ export class MongoDbDriverExporter {
         mongoClient.on("connectionPoolClosed", () => checkedOut.reset());
         mongoClient.on("connectionPoolClosed", () => waitQueueSize.reset());
 
+        console.log("Successfully enabled connection pool metrics for the MongoDB Node.js driver.");
+
         // command metrics
         if (monitorCommands) {
             mongoClient.on("commandSucceeded", (event) => commands.observe({ "command": event.commandName, "server_address": event.address, "status": "SUCCESS" }, event.duration * 1000));
             mongoClient.on("commandFailed", (event) => commands.observe({ "command": event.commandName, "server_address": event.address, "status": "FAILED" }, event.duration * 1000));
+            console.log("Successfully enabled connection command metrics for the MongoDB Node.js driver.");
         }
     }
 }
