@@ -2,7 +2,7 @@
 
 A prometheus exporter exposing metrics for the official [MongoDB Node.js driver](https://www.mongodb.com/docs/drivers/node/current/).
 
-Metrics names follow the same to the metrics exposed by [micrometer](https://github.com/micrometer-metrics/micrometer)
+Metrics names follow the same patterns as exposed by [micrometer](https://github.com/micrometer-metrics/micrometer)
 
 ## Exported Metrics
 The exporter provides the following metrics.
