@@ -5,7 +5,8 @@
         "alwaysStrict": true,
         "outDir": "./dist",
         "strictNullChecks": true,
-        "declaration": true
+        "declaration": true,
+        "sourceMap": true
     },
     "include": [
         "src/**/*",
