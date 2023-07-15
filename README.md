@@ -27,7 +27,7 @@ import { monitorMongoDBDriver } from "@christiangalsterer/mongodb-driver-prometh
 
 ...
 
-// setup the MongoDB client
+// setup the MongoDB client, monitorCommands needs to be set to true to enable command monitoring.
 const mongoClient = new MongoClient(uri, { monitorCommands = true })
 
 // setup the prometheus client
