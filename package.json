@@ -1,0 +1,46 @@
+{
+    "name": "@christiangalsterer/mongodb-driver-prometheus-exporter",
+    "version": "0.0.1",
+    "author": "Christian Galsterer",
+    "license": "MIT",
+    "description": "Prometheus exporter to monitor MongoDB driver",
+    "files": [
+        "dist/"
+    ],
+    "scripts": {
+        "build": "tsc",
+        "clean": "",
+        "lint": "",
+        "test": "",
+        "release": "",
+        "publish": ""
+    },
+    "repository": {
+        "type": "git",
+        "url": "christiangalsterer/mongodb-driver-prometheus-exporter.git"
+    },
+    "keywords": [
+        "prometheus",
+        "prometheus metrics",
+        "prometheus monitoring",
+        "metrics",
+        "mongodb",
+        "mongodb metrics",
+        "mongodb monitoring",
+        "monitoring"
+    ],
+    "dependencies": {
+        "mongodb": "^5.7.0",
+        "prom-client": "^14.2.0"
+    },
+    "devDependencies": {
+        "@babel/preset-typescript": "^7.22.5",
+        "eslint": "^8.44.0",
+        "jest": "^29.6.1",
+        "ts-jest": "^29.1.1",
+        "typescript": "^5.1.6"
+    },
+    "engines": {
+        "node": ">=10"
+    }
+}
