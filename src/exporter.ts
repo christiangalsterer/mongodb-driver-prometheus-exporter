@@ -57,9 +57,10 @@ export function monitorMongoDBDriver(mongoClient: MongoClient, register: Registr
     register.registerMetric(maxSize);
     register.registerMetric(checkedOut);
     register.registerMetric(waitQueueSize);
-    if (monitorCommands)
+    if (monitorCommands) {
         register.registerMetric(commands);
-
+    }
+    
     // pool metrics
     mongoClient.on("connectionPoolCreated", (event) => poolSize.set({ server_address: event.address }, 0));
     mongoClient.on("connectionPoolCreated", (event) => minSize.set({ server_address: event.address }, event.options!.minPoolSize));

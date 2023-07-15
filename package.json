@@ -12,7 +12,8 @@
     "scripts": {
         "build": "tsc",
         "clean": "",
-        "lint": "eslint",
+        "lint": "eslint . --ext .ts",
+        "lint-and-fix": "eslint . --ext .ts --fix",
         "test": "",
         "release": "",
         "publish": ""
