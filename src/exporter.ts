@@ -2,7 +2,7 @@ import { Gauge, Histogram } from "prom-client";
 import type { Registry } from "prom-client";
 import type { MongoClient } from "mongodb";
 
-export function monitorMongoDbDriver(mongoClient: MongoClient, register: Registry) {
+export function monitorMongoDBDriver(mongoClient: MongoClient, register: Registry) {
     if (mongoClient == null) {
         console.error("mongoClient is null or undefined. No metrics can be exported with MongoDbDriverExporter.");
         return;

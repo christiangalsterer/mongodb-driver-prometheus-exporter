@@ -1,3 +1,3 @@
 import { Registry } from "prom-client";
-import { monitorMongoDbDriver} from "../src";
+import { monitorMongoDBDriver} from "../src";
 
