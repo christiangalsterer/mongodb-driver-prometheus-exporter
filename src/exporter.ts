@@ -6,6 +6,7 @@ import { MongoClient } from "mongodb";
 export class MongoDbDriverExporter {
     constructor(mongoClient: MongoClient, register: Registry) {
 
+
         if (mongoClient == null) {
             console.error("mongoClient is null or undefined. No metrics can be exported with MongoDbDriverExporter.");
             return;
