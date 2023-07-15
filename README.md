@@ -30,4 +30,5 @@ exporter = new MongoDbDriverExporter(mongoClient, registry);
 
 # Contributions
 
+Contributions are highly welcomed. If you want to contribute to this project please create a github issue and/or provide a pull reequest for review.
 
