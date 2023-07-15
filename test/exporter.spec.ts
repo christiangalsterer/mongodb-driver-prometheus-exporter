@@ -1,9 +1,22 @@
 import { Registry } from "prom-client";
-import { monitorMongoDBDriver} from "../src";
-import {describe, expect, test} from '@jest/globals';
+import { MongoClient } from "mongodb";
+import { monitorMongoDBDriver } from "../src";
+import { beforeEach, describe, expect, test, jest } from '@jest/globals';
 
-describe('sum module', () => {
-    test('adds 1 + 2 to equal 3', () => {
-      
-    });
+jest.mock("mongodb");
+jest.mock("prom-client")
+
+describe('test parameter checks', () => {
+  let mongoClient: MongoClient;
+  let register: Registry;
+
+  beforeEach(() => {
+    mongoClient = new MongoClient("");
+    register = new Registry();
   });
+
+  test('monitorMongoDBDriver', () => {
+    monitorMongoDBDriver(mongoClient, register);
+    expect(console.log())
+  });
+});

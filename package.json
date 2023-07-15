@@ -14,7 +14,7 @@
         "clean": "",
         "lint": "eslint . --ext .ts",
         "lint-and-fix": "eslint . --ext .ts --fix",
-        "test": "jest",
+        "test": "jest --forceExit --coverage --verbose",
         "release": "",
         "publish": ""
     },
