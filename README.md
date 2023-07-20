@@ -1,3 +1,8 @@
+![npm version](https://img.shields.io/npm/dt/@christiangalsterer/mongodb-driver-prometheus-exporter.svg)
+![npm version](https://img.shields.io/npm/v/@christiangalsterer/mongodb-driver-prometheus-exporter.svg)
+![npm version](https://img.shields.io/npm/l/@christiangalsterer/mongodb-driver-prometheus-exporter.svg)
+![npm version](https://img.shields.io/github/stars/christiangalsterer/mongodb-driver-prometheus-exporter.svg)
+
 # Prometheus Exporter for offical MongoDB Node.js driver
 
 A prometheus exporter exposing metrics for the official [MongoDB Node.js driver](https://www.mongodb.com/docs/drivers/node/current/).
