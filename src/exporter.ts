@@ -19,8 +19,7 @@ export function monitorMongoDBDriver (mongoClient: MongoClient, register: Regist
     return
   }
 
-  //const monitorCommands = mongoClient.options.monitorCommands.valueOf()
-  const monitorCommands = true
+  const monitorCommands = mongoClient.options.monitorCommands.valueOf()
 
   // pool metrics
   const poolSize = new Gauge({

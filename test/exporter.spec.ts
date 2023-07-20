@@ -11,7 +11,8 @@ describe('monitorMongoDBDriver', () => {
   let register: Registry
 
   beforeEach(() => {
-    mongoClient = new MongoClient('mongodb://localhost')
+    mongoClient = new MongoClient('mongodb://localhost:27017', { monitorCommands: true });
+
     register = new Registry()
   })
 
