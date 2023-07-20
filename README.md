@@ -19,6 +19,14 @@ The exporter provides the following metrics.
 
 # Usage
 
+## Add Dependency
+
+```sh
+npm install @christiangalsterer/mongodb-driver-prometheus-exporter
+```
+
+## Import Package
+
 ```js
 import { MongoClient } from "mongodb";
 import { Registry } from "prom-client";
