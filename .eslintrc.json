@@ -18,10 +18,17 @@
     "root": true,
     "overrides": [
         {
-            "files": ["*.ts"],
+            "files": ["src/**/*.ts"],
+            "parserOptions": {
+                "project": ["./tsconfig.json"]
+            }
+        },
+        {
+            "files": ["test/**/*.ts"],
             "parserOptions": {
                 "project": ["./tsconfig.eslint.json"]
             }
         }
-    ]
+    ],
+    "ignorePatterns": ["dist/**/*.*", "**/*.js"]
 }

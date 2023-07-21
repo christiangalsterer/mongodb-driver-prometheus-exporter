@@ -12,10 +12,13 @@
   "scripts": {
     "build": "tsc",
     "clean": "rm -rf ./dist",
-    "lint": "eslint . --ext .ts",
-    "lint-and-fix": "eslint . --ext .ts --fix",
+    "lint": "eslint .",
+    "lint-and-fix": "eslint . --fix",
     "test": "jest --forceExit --coverage --verbose",
-    "release": "",
+    "release:": "npm run lint && npm run test",
+    "release:major": "npm run release && npm version major",
+    "release:minor": "npm run release && npm version minor",
+    "release:patch": "npm run release && npm version patch",
     "publish": ""
   },
   "repository": {
