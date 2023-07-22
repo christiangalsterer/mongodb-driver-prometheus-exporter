@@ -1,15 +1,16 @@
 import { Registry } from 'prom-client'
-import { MongoClient } from 'mongodb'
+import { MongoClient, MongoClientOptions } from 'mongodb'
 import { monitorMongoDBDriver } from '../src'
 import { beforeEach, describe, expect, test, jest } from '@jest/globals'
 
-const mockMongoClient = jest.fn()
-const mockRegistry = jest.fn
+const mongoClientMock = jest.fn()
+const registryMock = jest.fn
+
 jest.mock('mongodb', () => {
   return {
     MongoClient: jest.fn().mockImplementation(() => {
       return {
-        new: mockMongoClient
+        new: mongoClientMock
       }
     })
   }
@@ -19,7 +20,7 @@ jest.mock('prom-client', () => {
   return {
     Registry: jest.fn().mockImplementation(() => {
       return {
-        new: mockRegistry
+        new: registryMock
       }
     })
   }

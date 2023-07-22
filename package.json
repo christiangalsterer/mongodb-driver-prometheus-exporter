@@ -15,11 +15,12 @@
     "lint": "eslint .",
     "lint-and-fix": "eslint . --fix",
     "test": "jest --forceExit --coverage --verbose",
-    "release:": "npm run lint && npm run test",
+    "release": "npm run lint && npm run test",
     "release:major": "npm run release && npm version major",
     "release:minor": "npm run release && npm version minor",
     "release:patch": "npm run release && npm version patch",
-    "publish": ""
+    "publish": "npm publish --access=public",
+    "publish:dry-run": "npm publish --access=public --dry-run"
   },
   "repository": {
     "type": "git",
