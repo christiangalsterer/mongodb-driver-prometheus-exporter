@@ -27,7 +27,7 @@ The exporter provides the following metrics.
 ## Add Dependency
 
 ```sh
-npm install @christiangalsterer/mongodb-driver-prometheus-exporter
+npm i @christiangalsterer/mongodb-driver-prometheus-exporter
 ```
 
 ## Import Package
