@@ -9,7 +9,7 @@ A prometheus exporter exposing metrics for the official [MongoDB Node.js driver]
 
 Metrics names follow the same patterns as exposed by [micrometer](https://github.com/micrometer-metrics/micrometer)
 
-## Exported Metrics
+## Available Metrics
 The exporter provides the following metrics.
 
 |Metric Name|Description|Labels|
@@ -32,7 +32,7 @@ npm i @christiangalsterer/mongodb-driver-prometheus-exporter
 
 ## Import Package
 
-```js
+```ts
 import { MongoClient } from "mongodb";
 import { Registry } from "prom-client";
 import { monitorMongoDBDriver } from "@christiangalsterer/mongodb-driver-prometheus-exporter";
