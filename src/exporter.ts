@@ -1,6 +1,6 @@
 import { Gauge, Histogram } from 'prom-client'
 import type { Registry } from 'prom-client'
-import type { ConnectionCreatedEvent, ConnectionClosedEvent, ConnectionPoolCreatedEvent, MongoClient, ConnectionCheckOutStartedEvent, ConnectionCheckedOutEvent, ConnectionCheckOutFailedEvent, ConnectionCheckedInEvent, ConnectionPoolClosedEvent } from 'mongodb'
+import type { ConnectionCreatedEvent, ConnectionClosedEvent, ConnectionPoolCreatedEvent, MongoClient, ConnectionCheckOutStartedEvent, ConnectionCheckedOutEvent, ConnectionCheckOutFailedEvent, ConnectionCheckedInEvent, ConnectionPoolClosedEvent, CommandSucceededEvent, CommandFailedEvent } from 'mongodb'
 
 // pool metrics
 const poolSize = new Gauge({
@@ -88,13 +88,12 @@ export function monitorMongoDBDriver (mongoClient: MongoClient, register: Regist
   mongoClient.on('connectionCheckedOut', (event) => { onConnectionCheckedOut(event) })
   mongoClient.on('connectionCheckOutFailed', (event) => { onConnectionCheckOutFailed(event) })
   mongoClient.on('connectionCheckedIn', (event) => { onConnectionCheckedIn(event) })
-
   console.log('Successfully enabled connection pool metrics for the MongoDB Node.js driver.')
 
   // command metrics
   if (monitorCommands) {
-    mongoClient.on('commandSucceeded', (event) => { commands.observe({ command: event.commandName, server_address: event.address, status: 'SUCCESS' }, event.duration * 1000) })
-    mongoClient.on('commandFailed', (event) => { commands.observe({ command: event.commandName, server_address: event.address, status: 'FAILED' }, event.duration * 1000) })
+    mongoClient.on('commandSucceeded', (event) => { onCommandSucceeded(event) })
+    mongoClient.on('commandFailed', (event) => { onCommandFailed(event) })
     console.log('Successfully enabled command metrics for the MongoDB Node.js driver.')
   }
 }
@@ -138,4 +137,12 @@ function onConnectionPoolClosed (event: ConnectionPoolClosedEvent): void {
   maxSize.reset()
   checkedOut.reset()
   waitQueueSize.reset()
+}
+
+function onCommandSucceeded (event: CommandSucceededEvent): void {
+  commands.observe({ command: event.commandName, server_address: event.address, status: 'SUCCESS' }, event.duration * 1000)
+}
+
+function onCommandFailed (event: CommandFailedEvent): void {
+  commands.observe({ command: event.commandName, server_address: event.address, status: 'FAILED' }, event.duration * 1000)
 }
