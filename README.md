@@ -30,21 +30,19 @@ The exporter provides the following metrics.
 npm i @christiangalsterer/mongodb-driver-prometheus-exporter
 ```
 
-## Import Package
+## Typescript
 
 ```ts
 import { MongoClient } from "mongodb";
-import { Registry } from "prom-client";
+import { Registry, collectDefaultMetrics } from "prom-client";
 import { monitorMongoDBDriver } from "@christiangalsterer/mongodb-driver-prometheus-exporter";
 
 ...
 
 // setup the MongoDB client, monitorCommands needs to be set to true to enable command monitoring.
-const mongoClient = new MongoClient(uri, { monitorCommands = true })
+const mongoClient = new MongoClient("mongodb", { monitorCommands: true })
 
 // setup the prometheus client
-const collectDefaultMetrics = promClient.collectDefaultMetrics;
-const Registry = promClient.Registry;
 const register = new Registry();
 collectDefaultMetrics({ register });
 
@@ -53,10 +51,9 @@ monitorMongoDBDriver(mongoClient, register);
 
 ...
 
-// connect to MongoDB after monitorMongoDBDriver()
+// connect to MongoDB after calling monitorMongoDBDriver()
 mongoClient.connect();
-
-``````
+```
 
 # Contributions
 
