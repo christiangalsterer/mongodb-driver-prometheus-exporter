@@ -86,7 +86,7 @@ export function monitorMongoDBDriver (mongoClient: MongoClient, register: Regist
   mongoClient.on('connectionPoolCreated', (event) => { checkedOut.set({ server_address: event.address }, 0) })
   mongoClient.on('connectionPoolCreated', (event) => { waitQueueSize.set({ server_address: event.address }, 0) })
   mongoClient.on('connectionCreated', (event) => { poolSize.inc({ server_address: event.address }) })
-  mongoClient.on('connectionCreated', (event) => { poolSize.dec({ server_address: event.address }) })
+  mongoClient.on('connectionClosed', (event) => { poolSize.dec({ server_address: event.address }) })
   mongoClient.on('connectionCheckOutStarted', (event) => { waitQueueSize.inc({ server_address: event.address }) })
   mongoClient.on('connectionCheckedOut', (event) => { checkedOut.inc({ server_address: event.address }) })
   mongoClient.on('connectionCheckedOut', (event) => { waitQueueSize.dec({ server_address: event.address }) })
