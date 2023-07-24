@@ -1,6 +1,6 @@
 import { Gauge, Histogram } from 'prom-client'
 import type { Registry } from 'prom-client'
-import type { ConnectionCreatedEvent, ConnectionClosedEvent, ConnectionPoolCreatedEvent, MongoClient, ConnectionCheckOutStartedEvent, ConnectionCheckedOutEvent, ConnectionCheckOutFailedEvent, ConnectionCheckedInEvent, ConnectionPoolClosedEvent, CommandSucceededEvent, CommandFailedEvent } from 'mongodb'
+import type { ConnectionCreatedEvent, ConnectionClosedEvent, ConnectionPoolCreatedEvent, ConnectionCheckOutStartedEvent, ConnectionCheckedOutEvent, ConnectionCheckOutFailedEvent, ConnectionCheckedInEvent, ConnectionPoolClosedEvent, CommandSucceededEvent, CommandFailedEvent, MongoClient } from 'mongodb'
 
 // pool metrics
 const poolSize = new Gauge({
