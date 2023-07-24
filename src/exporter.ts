@@ -1,6 +1,6 @@
 import { Gauge, Histogram } from 'prom-client'
 import type { Registry } from 'prom-client'
-import type { ConnectionPoolCreatedEvent, MongoClient } from 'mongodb'
+import type { ConnectionCreatedEvent, ConnectionClosedEvent, ConnectionPoolCreatedEvent, MongoClient, ConnectionCheckOutStartedEvent, ConnectionCheckedOutEvent, ConnectionCheckOutFailedEvent, ConnectionCheckedInEvent, ConnectionPoolClosedEvent } from 'mongodb'
 
 // pool metrics
 const poolSize = new Gauge({
@@ -81,18 +81,13 @@ export function monitorMongoDBDriver (mongoClient: MongoClient, register: Regist
 
   // pool metrics
   mongoClient.on('connectionPoolCreated', (event) => { onConnectionPoolCreated(event) })
-  mongoClient.on('connectionCreated', (event) => { poolSize.inc({ server_address: event.address }) })
-  mongoClient.on('connectionClosed', (event) => { poolSize.dec({ server_address: event.address }) })
-  mongoClient.on('connectionCheckOutStarted', (event) => { waitQueueSize.inc({ server_address: event.address }) })
-  mongoClient.on('connectionCheckedOut', (event) => { checkedOut.inc({ server_address: event.address }) })
-  mongoClient.on('connectionCheckedOut', (event) => { waitQueueSize.dec({ server_address: event.address }) })
-  mongoClient.on('connectionCheckOutFailed', (event) => { waitQueueSize.dec({ server_address: event.address }) })
-  mongoClient.on('connectionCheckedIn', (event) => { checkedOut.dec({ server_address: event.address }) })
-  mongoClient.on('connectionPoolClosed', (event) => { poolSize.set({ server_address: event.address }, 0) })
-  mongoClient.on('connectionPoolClosed', () => { minSize.reset() })
-  mongoClient.on('connectionPoolClosed', () => maxSize.reset)
-  mongoClient.on('connectionPoolClosed', () => { checkedOut.reset() })
-  mongoClient.on('connectionPoolClosed', () => { waitQueueSize.reset() })
+  mongoClient.on('connectionPoolClosed', (event) => { onConnectionPoolClosed(event) })
+  mongoClient.on('connectionCreated', (event) => { onConnectionCreated(event) })
+  mongoClient.on('connectionClosed', (event) => { onConnectionClosed(event) })
+  mongoClient.on('connectionCheckOutStarted', (event) => { onConnectionCheckOutStarted(event) })
+  mongoClient.on('connectionCheckedOut', (event) => { onConnectionCheckedOut(event) })
+  mongoClient.on('connectionCheckOutFailed', (event) => { onConnectionCheckOutFailed(event) })
+  mongoClient.on('connectionCheckedIn', (event) => { onConnectionCheckedIn(event) })
 
   console.log('Successfully enabled connection pool metrics for the MongoDB Node.js driver.')
 
@@ -110,6 +105,37 @@ function onConnectionPoolCreated (event: ConnectionPoolCreatedEvent): void {
   maxSize.set({ server_address: event.address }, event.options!.maxPoolSize)
   checkedOut.set({ server_address: event.address }, 0)
   waitQueueSize.set({ server_address: event.address }, 0)
+}
 
-  console.log('connection pool created')
+function onConnectionCreated (event: ConnectionCreatedEvent): void {
+  poolSize.inc({ server_address: event.address })
+}
+
+function onConnectionClosed (event: ConnectionClosedEvent): void {
+  poolSize.dec({ server_address: event.address })
+}
+
+function onConnectionCheckOutStarted (event: ConnectionCheckOutStartedEvent): void {
+  waitQueueSize.inc({ server_address: event.address })
+}
+
+function onConnectionCheckedOut (event: ConnectionCheckedOutEvent): void {
+  checkedOut.inc({ server_address: event.address })
+  waitQueueSize.dec({ server_address: event.address })
+}
+
+function onConnectionCheckOutFailed (event: ConnectionCheckOutFailedEvent): void {
+  waitQueueSize.dec({ server_address: event.address })
+}
+
+function onConnectionCheckedIn (event: ConnectionCheckedInEvent): void {
+  checkedOut.dec({ server_address: event.address })
+}
+
+function onConnectionPoolClosed (event: ConnectionPoolClosedEvent): void {
+  poolSize.set({ server_address: event.address }, 0)
+  minSize.reset()
+  maxSize.reset()
+  checkedOut.reset()
+  waitQueueSize.reset()
 }
