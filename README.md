@@ -7,7 +7,7 @@
 
 A prometheus exporter exposing metrics for the official [MongoDB Node.js driver](https://www.mongodb.com/docs/drivers/node/current/).
 
-Metrics names follow the same patterns as exposed by [micrometer](https://github.com/micrometer-metrics/micrometer)
+Metrics names follow the same naming convention used by [micrometer](https://github.com/micrometer-metrics/micrometer). This allows to use the same metrics in dashboards and alerts across different technology stacks, e.g. when you use Spring Boot and Node.js in different applications.
 
 ## Available Metrics
 The exporter provides the following metrics.
@@ -26,11 +26,15 @@ The exporter provides the following metrics.
 
 ## Add Dependency
 
+Add the following dependency to your project.
+
 ```sh
 npm i @christiangalsterer/mongodb-driver-prometheus-exporter
 ```
 
 ## Typescript
+
+The following example illustrates how to use the exporter to enable monitoring for the MongoDB Node.js driver.
 
 ```ts
 import { MongoClient } from "mongodb";
