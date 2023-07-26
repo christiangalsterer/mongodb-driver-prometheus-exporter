@@ -73,7 +73,7 @@ mongodb_driver_commands_seconds_bucket{le="10",command="ping",server_address="12
 mongodb_driver_commands_seconds_bucket{le="+Inf",command="ping",server_address="127.0.0.3:27017",status="SUCCESS"} 21
 mongodb_driver_commands_seconds_sum{command="ping",server_address="127.0.0.3:27017",status="SUCCESS"} 971000
 mongodb_driver_commands_seconds_count{command="ping",server_address="127.0.0.3:27017",status="SUCCESS"} 21
-``````
+```
 
 # Usage
 
