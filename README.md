@@ -30,49 +30,49 @@ Here an example output in the prometheus format of the provided metrics.
 # HELP mongodb_driver_pool_size the current size of the connection pool, including idle and and in-use members
 # TYPE mongodb_driver_pool_size gauge
 mongodb_driver_pool_size{server_address="127.0.0.1:27017"} 0
-mongodb_driver_pool_size{server_address="127.0.0.1:27017"} 1
-mongodb_driver_pool_size{server_address="127.0.0.1:27017"} 0
+mongodb_driver_pool_size{server_address="127.0.0.2:27017"} 0
+mongodb_driver_pool_size{server_address="127.0.0.3:27017"} 1
 
 # HELP mongodb_driver_pool_min the minimum size of the connection pool
 # TYPE mongodb_driver_pool_min gauge
 mongodb_driver_pool_min{server_address="127.0.0.1:27017"} 0
-mongodb_driver_pool_min{server_address="127.0.0.1:27017"} 0
-mongodb_driver_pool_min{server_address="127.0.0.1:27017"} 0
+mongodb_driver_pool_min{server_address="127.0.0.2:27017"} 0
+mongodb_driver_pool_min{server_address="127.0.0.3:27017"} 0
 
 # HELP mongodb_driver_pool_max the maximum size of the connection pool
 # TYPE mongodb_driver_pool_max gauge
 mongodb_driver_pool_max{server_address="127.0.0.1:27017"} 100
-mongodb_driver_pool_max{server_address="127.0.0.1:27017"} 100
-mongodb_driver_pool_max{server_address="127.0.0.1:27017"} 100
+mongodb_driver_pool_max{server_address="127.0.0.2:27017"} 100
+mongodb_driver_pool_max{server_address="127.0.0.3:27017"} 100
 
 # HELP mongodb_driver_pool_checkedout the count of connections that are currently in use
 # TYPE mongodb_driver_pool_checkedout gauge
 mongodb_driver_pool_checkedout{server_address="127.0.0.1:27017"} 0
-mongodb_driver_pool_checkedout{server_address="127.0.0.1:27017"} 1
-mongodb_driver_pool_checkedout{server_address="127.0.0.1:27017"} 0
+mongodb_driver_pool_checkedout{server_address="127.0.0.2:27017"} 0
+mongodb_driver_pool_checkedout{server_address="127.0.0.3:27017"} 1
 
 # HELP mongodb_driver_pool_waitqueuesize the current size of the wait queue for a connection from the pool
 # TYPE mongodb_driver_pool_waitqueuesize gauge
 mongodb_driver_pool_waitqueuesize{server_address="127.0.0.1:27017"} 0
-mongodb_driver_pool_waitqueuesize{server_address="127.0.0.1:27017"} 0
-mongodb_driver_pool_waitqueuesize{server_address="127.0.0.1:27017"} 0
+mongodb_driver_pool_waitqueuesize{server_address="127.0.0.2:27017"} 0
+mongodb_driver_pool_waitqueuesize{server_address="127.0.0.3:27017"} 0
 
 # HELP mongodb_driver_commands_seconds Timer of mongodb commands
 # TYPE mongodb_driver_commands_seconds histogram
-mongodb_driver_commands_seconds_bucket{le="0.005",command="ping",server_address="127.0.0.1:27017",status="SUCCESS"} 0
-mongodb_driver_commands_seconds_bucket{le="0.01",command="ping",server_address="127.0.0.1:27017",status="SUCCESS"} 0
-mongodb_driver_commands_seconds_bucket{le="0.025",command="ping",server_address="127.0.0.1:27017",status="SUCCESS"} 0
-mongodb_driver_commands_seconds_bucket{le="0.05",command="ping",server_address="127.0.0.1:27017",status="SUCCESS"} 0
-mongodb_driver_commands_seconds_bucket{le="0.1",command="ping",server_address="127.0.0.1:27017",status="SUCCESS"} 0
-mongodb_driver_commands_seconds_bucket{le="0.25",command="ping",server_address="127.0.0.1:27017",status="SUCCESS"} 0
-mongodb_driver_commands_seconds_bucket{le="0.5",command="ping",server_address="127.0.0.1:27017",status="SUCCESS"} 0
-mongodb_driver_commands_seconds_bucket{le="1",command="ping",server_address="127.0.0.1:27017",status="SUCCESS"} 0
-mongodb_driver_commands_seconds_bucket{le="2.5",command="ping",server_address="127.0.0.1:27017",status="SUCCESS"} 0
-mongodb_driver_commands_seconds_bucket{le="5",command="ping",server_address="127.0.0.1:27017",status="SUCCESS"} 0
-mongodb_driver_commands_seconds_bucket{le="10",command="ping",server_address="127.0.0.1:27017",status="SUCCESS"} 0
-mongodb_driver_commands_seconds_bucket{le="+Inf",command="ping",server_address="127.0.0.1:27017",status="SUCCESS"} 21
-mongodb_driver_commands_seconds_sum{command="ping",server_address="127.0.0.1:27017",status="SUCCESS"} 971000
-mongodb_driver_commands_seconds_count{command="ping",server_address="127.0.0.1:27017",status="SUCCESS"} 21
+mongodb_driver_commands_seconds_bucket{le="0.005",command="ping",server_address="127.0.0.3:27017",status="SUCCESS"} 0
+mongodb_driver_commands_seconds_bucket{le="0.01",command="ping",server_address="127.0.0.3:27017",status="SUCCESS"} 0
+mongodb_driver_commands_seconds_bucket{le="0.025",command="ping",server_address="127.0.0.3:27017",status="SUCCESS"} 0
+mongodb_driver_commands_seconds_bucket{le="0.05",command="ping",server_address="127.0.0.3:27017",status="SUCCESS"} 0
+mongodb_driver_commands_seconds_bucket{le="0.1",command="ping",server_address="127.0.0.3:27017",status="SUCCESS"} 0
+mongodb_driver_commands_seconds_bucket{le="0.25",command="ping",server_address="127.0.0.3:27017",status="SUCCESS"} 0
+mongodb_driver_commands_seconds_bucket{le="0.5",command="ping",server_address="127.0.0.3:27017",status="SUCCESS"} 0
+mongodb_driver_commands_seconds_bucket{le="1",command="ping",server_address="127.0.0.3:27017",status="SUCCESS"} 0
+mongodb_driver_commands_seconds_bucket{le="2.5",command="ping",server_address="127.0.0.3:27017",status="SUCCESS"} 0
+mongodb_driver_commands_seconds_bucket{le="5",command="ping",server_address="127.0.0.3:27017",status="SUCCESS"} 0
+mongodb_driver_commands_seconds_bucket{le="10",command="ping",server_address="127.0.0.3:27017",status="SUCCESS"} 0
+mongodb_driver_commands_seconds_bucket{le="+Inf",command="ping",server_address="127.0.0.3:27017",status="SUCCESS"} 21
+mongodb_driver_commands_seconds_sum{command="ping",server_address="127.0.0.3:27017",status="SUCCESS"} 971000
+mongodb_driver_commands_seconds_count{command="ping",server_address="127.0.0.3:27017",status="SUCCESS"} 21
 ``````
 
 # Usage
