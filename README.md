@@ -85,7 +85,7 @@ Add the following dependency to your project.
 npm i @christiangalsterer/mongodb-driver-prometheus-exporter
 ```
 
-## Typescript
+## TypeScript
 
 The following example illustrates how to use the exporter to enable monitoring for the MongoDB Node.js driver.
 
@@ -111,7 +111,7 @@ monitorMongoDBDriver(mongoClient, register);
 // connect to MongoDB after calling monitorMongoDBDriver()
 mongoClient.connect();
 ```
-## Javascript
+## JavaScript
 
 The following example illustrates how to use the exporter to enable monitoring for the MongoDB Node.js driver.
 
