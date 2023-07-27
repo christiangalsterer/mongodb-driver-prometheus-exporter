@@ -147,7 +147,7 @@ function onCommandFailed (event: CommandFailedEvent): void {
   commands.observe({ command: event.commandName, server_address: event.address, status: 'FAILED' }, event.duration * 1000)
 }
 /**
- * Optional parameter used by the exporter.
+ * Optional parameter to configure the exporter.
  */
 export interface MongoDBDriverExporterOptions {
   logger?: Logger
@@ -157,11 +157,19 @@ export interface MongoDBDriverExporterOptions {
  */
 export interface Logger {
   /**
-   * Prints regular messages
+   * Prints info messages
    * @param message the message to print
    * @returns void
    */
-  log: (message: string) => void
+  info: (message: string) => void
+
+  /**
+   * Prints warn messages
+   * @param message the warn message to print
+   * @returns void
+   */
+  warn: (message: string) => void
+
   /**
    * Prints error messages
    * @param message the error message to print
