@@ -88,13 +88,13 @@ export function monitorMongoDBDriver (mongoClient: MongoClient, register: Regist
   mongoClient.on('connectionCheckedOut', (event) => { onConnectionCheckedOut(event) })
   mongoClient.on('connectionCheckOutFailed', (event) => { onConnectionCheckOutFailed(event) })
   mongoClient.on('connectionCheckedIn', (event) => { onConnectionCheckedIn(event) })
-  options?.logger?.log('Successfully enabled connection pool metrics for the MongoDB Node.js driver.')
+  options?.logger?.info('Successfully enabled connection pool metrics for the MongoDB Node.js driver.')
 
   // command metrics
   if (monitorCommands) {
     mongoClient.on('commandSucceeded', (event) => { onCommandSucceeded(event) })
     mongoClient.on('commandFailed', (event) => { onCommandFailed(event) })
-    options?.logger?.log('Successfully enabled command metrics for the MongoDB Node.js driver.')
+    options?.logger?.info('Successfully enabled command metrics for the MongoDB Node.js driver.')
   }
 }
 
@@ -146,12 +146,14 @@ function onCommandSucceeded (event: CommandSucceededEvent): void {
 function onCommandFailed (event: CommandFailedEvent): void {
   commands.observe({ command: event.commandName, server_address: event.address, status: 'FAILED' }, event.duration * 1000)
 }
+
 /**
  * Optional parameter to configure the exporter.
  */
 export interface MongoDBDriverExporterOptions {
   logger?: Logger
 }
+
 /**
  * Logger which is used to print information from the exporter
  */
