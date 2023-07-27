@@ -15,7 +15,7 @@
     "lint": "eslint .",
     "lint-and-fix": "eslint . --fix",
     "test": "jest --forceExit --coverage --verbose",
-    "release": "npm run lint && npm run test",
+    "release": "npm run clean && npm run lint-and-fix && npm run build && npm run test",
     "release:major": "npm run release && npm version major",
     "release:minor": "npm run release && npm version minor",
     "release:patch": "npm run release && npm version patch",
