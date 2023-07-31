@@ -1,6 +1,6 @@
 import { Registry } from 'prom-client'
 import { MongoClient, MongoClientOptions } from 'mongodb'
-import { monitorMongoDBDriver } from '../src'
+import { monitorMongoDBDriver} from '../src'
 import { beforeEach, describe, expect, test, jest } from '@jest/globals'
 
 const mongoClientMock = jest.fn()
