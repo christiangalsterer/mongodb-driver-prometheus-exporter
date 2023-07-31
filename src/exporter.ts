@@ -38,18 +38,6 @@ const waitQueueSize = new Gauge({
   ]
 })
 
-// command metrics
-const commands = new Histogram({
-  name: 'mongodb_driver_commands_seconds',
-  help: 'Timer of mongodb commands',
-  buckets: [0.005, 0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 1, 2.5, 5, 10, 50, 100, 200, 500, 1000, 2000, 5000],
-  labelNames: [
-    'command',
-    'server_address',
-    'status'
-  ]
-})
-
 /**
  * Exposes metrics for the provided Mongo client in prometheus format.
  *
@@ -66,6 +54,19 @@ export function monitorMongoDBDriver (mongoClient: MongoClient, register: Regist
     options?.logger?.error('register is null or undefined. No metrics can be exported.')
     return
   }
+
+  // command metrics
+  const commandBuckets = options?.commandHistogramBuckets != null ? options.commandHistogramBuckets : [0.05, 0.1, 0.25, 0.5, 1, 2.5, 5, 10, 50, 100, 200, 500, 1000, 2000, 5000]
+  const commands = new Histogram({
+    name: 'mongodb_driver_commands_seconds',
+    help: 'Timer of mongodb commands',
+    buckets: commandBuckets,
+    labelNames: [
+      'command',
+      'server_address',
+      'status'
+    ]
+  })
 
   const monitorCommands = mongoClient.options.monitorCommands.valueOf()
 
@@ -92,8 +93,8 @@ export function monitorMongoDBDriver (mongoClient: MongoClient, register: Regist
 
   // command metrics
   if (monitorCommands) {
-    mongoClient.on('commandSucceeded', (event) => { onCommandSucceeded(event) })
-    mongoClient.on('commandFailed', (event) => { onCommandFailed(event) })
+    mongoClient.on('commandSucceeded', (event) => { onCommandSucceeded(event, commands) })
+    mongoClient.on('commandFailed', (event) => { onCommandFailed(event, commands) })
     options?.logger?.info('Successfully enabled command metrics for the MongoDB Node.js driver.')
   }
 }
@@ -139,12 +140,12 @@ function onConnectionPoolClosed (event: ConnectionPoolClosedEvent): void {
   waitQueueSize.reset()
 }
 
-function onCommandSucceeded (event: CommandSucceededEvent): void {
-  commands.observe({ command: event.commandName, server_address: event.address, status: 'SUCCESS' }, event.duration * 1000)
+function onCommandSucceeded (event: CommandSucceededEvent, commands: Histogram): void {
+  commands.observe({ command: event.commandName, server_address: event.address, status: 'SUCCESS' }, event.duration)
 }
 
-function onCommandFailed (event: CommandFailedEvent): void {
-  commands.observe({ command: event.commandName, server_address: event.address, status: 'FAILED' }, event.duration * 1000)
+function onCommandFailed (event: CommandFailedEvent, commands: Histogram): void {
+  commands.observe({ command: event.commandName, server_address: event.address, status: 'FAILED' }, event.duration)
 }
 
 /**
@@ -152,6 +153,7 @@ function onCommandFailed (event: CommandFailedEvent): void {
  */
 export interface MongoDBDriverExporterOptions {
   logger?: Logger
+  commandHistogramBuckets?: number[]
 }
 
 /**
