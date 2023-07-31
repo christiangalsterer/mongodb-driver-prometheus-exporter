@@ -42,6 +42,7 @@ const waitQueueSize = new Gauge({
 const commands = new Histogram({
   name: 'mongodb_driver_commands_seconds',
   help: 'Timer of mongodb commands',
+  buckets: [0.005, 0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 1, 2.5, 5, 10, 50, 100, 200, 500, 1000, 2000, 5000],
   labelNames: [
     'command',
     'server_address',
