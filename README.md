@@ -140,6 +140,10 @@ exporter.monitorMongoDBDriver(client, register);
 mongoClient.connect();
 ```
 
+# Changelog
+
+The changes to project can be found in the [changelog](/CHANGELOG.md).
+
 # Contributions
 
 Contributions are highly welcomed. If you want to contribute to this project please create a github issue and/or provide a pull request for review.
