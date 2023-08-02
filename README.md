@@ -140,6 +140,17 @@ exporter.monitorMongoDBDriver(client, register);
 mongoClient.connect();
 ```
 
+# Grafana Dashboard
+
+A Grafana dashboard is also available [at](add the link) displaying the provided metrics by the exporter.
+
+Here an example for collection metrics:
+![Grafana:Collection Metrics](/docs/images/grafana_mongodb_driver_collections_1.png "Grafana: Collection Metrics")
+
+Here an example for command metrics:
+![Grafana:Commands Metrics](/docs/images/grafana_mongodb_driver_commands_1.png "Grafana: Command Metrics")
+
+
 # Changelog
 
 The changes to project can be found in the [changelog](/CHANGELOG.md).
