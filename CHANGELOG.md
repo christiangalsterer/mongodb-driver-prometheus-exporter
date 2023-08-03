@@ -21,4 +21,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Fixed incorrect calculations of the histogram for the mongodb_driver_commands_seconds_bucket metric. Default buckets are now [0.001, 0.005, 0.010, 0.020, 0.030, 0.040, 0.050, 0.100, 0.200, 0.500, 1.0, 2.0, 5.0, 10]
+- Fixed incorrect calculations of the histogram for the mongodb_driver_commands_seconds_bucket metric. Default buckets are now [0.001, 0.005, 0.010, 0.020, 0.030, 0.040, 0.050, 0.100, 0.200, 0.500, 1.0, 2.0, 5.0, 10] in seconds.
