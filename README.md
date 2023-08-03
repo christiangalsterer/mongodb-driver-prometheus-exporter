@@ -142,7 +142,7 @@ mongoClient.connect();
 
 # Grafana Dashboard
 
-An example dashboard Grafana is available [at](add the link) displaying the provided metrics by the exporter.
+An example dashboard Grafana is available [here](/docs/grafana/dashbaord.json) displaying the provided metrics by the exporter.
 
 Here an example for collection metrics:
 ![Grafana:Collection Metrics](/docs/images/grafana_mongodb_driver_collections_1.png "Grafana: Collection Metrics")
