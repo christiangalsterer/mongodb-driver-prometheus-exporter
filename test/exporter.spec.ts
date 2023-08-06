@@ -25,6 +25,9 @@ describe('tests monitorMongoDBDriver', () => {
   test('tests if monitorMongoDBDriver called MongoDBDriverExporter constructor', () => {
     monitorMongoDBDriver(mongoClient, register)
     expect(mockMongoDBDriverExporter).toHaveBeenCalledTimes(1)
+    expect(mockMongoDBDriverExporter.mock.calls.length).toBe(1)
+    expect(mockMongoDBDriverExporter.mock.calls[0][0]).toBe(mongoClient)
+    expect(mockMongoDBDriverExporter.mock.calls[0][1]).toBe(register)
   })
 
   test('tests if monitorMongoDBDriver called methods of MongoDBDriverExporter instance', () => {
