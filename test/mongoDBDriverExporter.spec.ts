@@ -5,6 +5,10 @@ import { MongoClient } from 'mongodb'
 import { monitorMongoDBDriver } from '../src/exporter'
 import { MongoDBDriverExporter } from '../src/mongoDBDriverExporter'
 
+const mockPromClient = jest.createMockFromModule('prom-client')
+const mockMongodb = jest.createMockFromModule<typeof import('mongodb')>('mongodb')
+// const exporterMock = jest.createMockFromModule<typeof import('../src/exporter')>('../src/exporter')
+// const exporterMock = jest.createMockFromModule('../src/exporter')
 jest.mock('../src/mongoDBDriverExporter')
 const mockMongoDBDriverExporter = jest.mocked(MongoDBDriverExporter, { shallow: false })
 
