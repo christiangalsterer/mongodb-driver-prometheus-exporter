@@ -1,41 +1,38 @@
-import { Registry } from 'prom-client'
-import { MongoClient, MongoClientOptions } from 'mongodb'
-import { monitorMongoDBDriver } from '../src'
 import { beforeEach, describe, expect, test, jest } from '@jest/globals'
 
-const mongoClientMock = jest.fn()
-const registryMock = jest.fn
+import { Registry } from 'prom-client'
+import { MongoClient } from 'mongodb'
+import { monitorMongoDBDriver } from '../src/exporter'
+import { MongoDBDriverExporter } from '../src/mongoDBDriverExporter'
 
-jest.mock('mongodb', () => {
-  return {
-    MongoClient: jest.fn().mockImplementation(() => {
-      return {
-        new: mongoClientMock
-      }
-    })
-  }
-})
+const mockPromClient = jest.createMockFromModule('prom-client')
+const mockMongodb = jest.createMockFromModule<typeof import('mongodb')>('mongodb')
+// const exporterMock = jest.createMockFromModule<typeof import('../src/exporter')>('../src/exporter')
+// const exporterMock = jest.createMockFromModule('../src/exporter')
+jest.mock('../src/mongoDBDriverExporter')
+const mockMongoDBDriverExporter = jest.mocked(MongoDBDriverExporter, { shallow: false })
 
-jest.mock('prom-client', () => {
-  return {
-    Registry: jest.fn().mockImplementation(() => {
-      return {
-        new: registryMock
-      }
-    })
-  }
-})
-
-describe('monitorMongoDBDriver', () => {
+describe('tests monitorMongoDBDriver', () => {
   let mongoClient: MongoClient
   let register: Registry
 
   beforeEach(() => {
     mongoClient = new MongoClient('mongodb://localhost:27017', { monitorCommands: true })
     register = new Registry()
+    mockMongoDBDriverExporter.mockClear()
   })
 
-  test('monitorMongoDBDriver', () => {
+  test('tests if monitorMongoDBDriver called MongoDBDriverExporter constructor', () => {
     monitorMongoDBDriver(mongoClient, register)
+    expect(mockMongoDBDriverExporter).toHaveBeenCalledTimes(1)
+  })
+
+  test('tests if monitorMongoDBDriver called methods of MongoDBDriverExporter instance', () => {
+    monitorMongoDBDriver(mongoClient, register)
+    const mockMongoDBDriverExporterInstance = mockMongoDBDriverExporter.mock.instances[0]
+    const mockRegisterMetrics = mockMongoDBDriverExporterInstance.registerMetrics as jest.Mock
+    const mockEnableMetrics = mockMongoDBDriverExporterInstance.enableMetrics as jest.Mock
+    expect(mockRegisterMetrics).toHaveBeenCalledTimes(1)
+    expect(mockEnableMetrics).toHaveBeenCalledTimes(1)
   })
 })
