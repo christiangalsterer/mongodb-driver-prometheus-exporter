@@ -12,7 +12,7 @@ const mockMongodb = jest.createMockFromModule<typeof import('mongodb')>('mongodb
 jest.mock('../src/mongoDBDriverExporter')
 const mockMongoDBDriverExporter = jest.mocked(MongoDBDriverExporter, { shallow: false })
 
-describe('tests monitorMongoDBDriver', () => {
+describe('tests mongoDBDriverExporter', () => {
   let mongoClient: MongoClient
   let register: Registry
 
