@@ -1,16 +1,10 @@
-import { beforeEach, describe, expect, test, jest } from '@jest/globals'
-
+import { beforeEach, describe, expect, test, jest, afterEach } from '@jest/globals'
 import { Registry } from 'prom-client'
 import { MongoClient } from 'mongodb'
-import { monitorMongoDBDriver } from '../src/exporter'
 import { MongoDBDriverExporter } from '../src/mongoDBDriverExporter'
 
-const mockPromClient = jest.createMockFromModule('prom-client')
+const mockPromClient = jest.createMockFromModule<typeof import('prom-client')>('prom-client')
 const mockMongodb = jest.createMockFromModule<typeof import('mongodb')>('mongodb')
-// const exporterMock = jest.createMockFromModule<typeof import('../src/exporter')>('../src/exporter')
-// const exporterMock = jest.createMockFromModule('../src/exporter')
-jest.mock('../src/mongoDBDriverExporter')
-const mockMongoDBDriverExporter = jest.mocked(MongoDBDriverExporter, { shallow: false })
 
 describe('tests mongoDBDriverExporter', () => {
   let mongoClient: MongoClient
@@ -19,28 +13,31 @@ describe('tests mongoDBDriverExporter', () => {
   beforeEach(() => {
     mongoClient = new MongoClient('mongodb://localhost:27017', { monitorCommands: true })
     register = new Registry()
-    mockMongoDBDriverExporter.mockClear()
+    register.clear()
   })
 
-  test('tests if monitorMongoDBDriver called MongoDBDriverExporter constructor with mandatory parameter', () => {
-    monitorMongoDBDriver(mongoClient, register)
-    expect(mockMongoDBDriverExporter).toHaveBeenCalledTimes(1)
-    expect(mockMongoDBDriverExporter).toBeCalledWith(mongoClient, register, undefined)
+  afterEach(() => {
+    register.clear()
   })
 
-  test('tests if monitorMongoDBDriver called MongoDBDriverExporter constructor with optional parameter', () => {
-    const options = { mongodbDriverCommandsSecondsHistogramBuckets: [0.001, 0.005, 0.010, 0.020, 0.030, 0.040, 0.050, 0.100, 0.200, 0.500, 1.0, 2.0, 5.0, 20] }
-    monitorMongoDBDriver(mongoClient, register, options)
-    expect(mockMongoDBDriverExporter).toHaveBeenCalledTimes(1)
-    expect(mockMongoDBDriverExporter).toBeCalledWith(mongoClient, register, options)
+  test('tests if metrics are registered in registry', () => {
+    const exporter = new MongoDBDriverExporter(mongoClient, register)
+    exporter.registerMetrics()
+    expect(register.getMetricsAsArray().length).toBe(6)
+    // console.log(register.getMetricsAsArray())
   })
 
-  test('tests if monitorMongoDBDriver called methods of MongoDBDriverExporter instance', () => {
-    monitorMongoDBDriver(mongoClient, register)
-    const mockMongoDBDriverExporterInstance = mockMongoDBDriverExporter.mock.instances[0]
-    const mockRegisterMetrics = mockMongoDBDriverExporterInstance.registerMetrics as jest.Mock
-    const mockEnableMetrics = mockMongoDBDriverExporterInstance.enableMetrics as jest.Mock
-    expect(mockRegisterMetrics).toHaveBeenCalledTimes(1)
-    expect(mockEnableMetrics).toHaveBeenCalledTimes(1)
+  test('tests if event listeners are registered for mongo client events', () => {
+    const exporter = new MongoDBDriverExporter(mongoClient, register)
+    exporter.registerMetrics()
+    exporter.enableMetrics()
+    expect(mongoClient.listenerCount('connectionPoolCreated')).toBe(1)
+    expect(mongoClient.listenerCount('connectionPoolClosed')).toBe(1)
+    expect(mongoClient.listenerCount('connectionCreated')).toBe(1)
+    expect(mongoClient.listenerCount('connectionClosed')).toBe(1)
+    expect(mongoClient.listenerCount('connectionCheckOutStarted')).toBe(1)
+    expect(mongoClient.listenerCount('connectionCheckedOut')).toBe(1)
+    expect(mongoClient.listenerCount('connectionCheckOutFailed')).toBe(1)
+    expect(mongoClient.listenerCount('connectionCheckedIn')).toBe(1)
   })
 })
