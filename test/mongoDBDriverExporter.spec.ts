@@ -23,7 +23,12 @@ describe('tests mongoDBDriverExporter', () => {
     const exporter = new MongoDBDriverExporter(mongoClient, register)
     exporter.registerMetrics()
     expect(register.getMetricsAsArray().length).toBe(6)
-    // console.log(register.getMetricsAsArray())
+    expect(register.getSingleMetric('mongodb_driver_pool_size')).toBeDefined()
+    expect(register.getSingleMetric('mongodb_driver_pool_min')).toBeDefined()
+    expect(register.getSingleMetric('mongodb_driver_pool_max')).toBeDefined()
+    expect(register.getSingleMetric('mongodb_driver_pool_checkedout')).toBeDefined()
+    expect(register.getSingleMetric('mongodb_driver_pool_waitqueuesize')).toBeDefined()
+    expect(register.getSingleMetric('mongodb_driver_commands_seconds')).toBeDefined()
   })
 
   test('tests if only connection metrics are registered in registry', () => {
@@ -31,6 +36,12 @@ describe('tests mongoDBDriverExporter', () => {
     const exporter = new MongoDBDriverExporter(mongoClient, register)
     exporter.registerMetrics()
     expect(register.getMetricsAsArray().length).toBe(5)
+    expect(register.getSingleMetric('mongodb_driver_pool_size')).toBeDefined()
+    expect(register.getSingleMetric('mongodb_driver_pool_min')).toBeDefined()
+    expect(register.getSingleMetric('mongodb_driver_pool_max')).toBeDefined()
+    expect(register.getSingleMetric('mongodb_driver_pool_checkedout')).toBeDefined()
+    expect(register.getSingleMetric('mongodb_driver_pool_waitqueuesize')).toBeDefined()
+    expect(register.getSingleMetric('mongodb_driver_commands_seconds')).toBeUndefined()
   })
 
   test('tests if event connection and command listeners are registered for mongo client events', () => {
