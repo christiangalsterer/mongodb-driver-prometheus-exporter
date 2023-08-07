@@ -11,7 +11,6 @@ import { MongoDBDriverExporter } from './mongoDBDriverExporter'
  */
 export function monitorMongoDBDriver (mongoClient: MongoClient, register: Registry, options?: MongoDBDriverExporterOptions): void {
   const exporter = new MongoDBDriverExporter(mongoClient, register, options)
-  //exporter.registerMetrics()
   exporter.enableMetrics()
 }
 

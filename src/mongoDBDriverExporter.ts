@@ -37,7 +37,7 @@ export class MongoDBDriverExporter {
       labelNames: [
         'server_address'
       ],
-      registers: [register]
+      registers: [this.register]
     })
 
     this.minSize = new Gauge({
@@ -46,7 +46,7 @@ export class MongoDBDriverExporter {
       labelNames: [
         'server_address'
       ],
-      registers: [register]
+      registers: [this.register]
     })
 
     this.maxSize = new Gauge({
@@ -55,7 +55,7 @@ export class MongoDBDriverExporter {
       labelNames: [
         'server_address'
       ],
-      registers: [register]
+      registers: [this.register]
     })
 
     this.checkedOut = new Gauge({
@@ -64,7 +64,7 @@ export class MongoDBDriverExporter {
       labelNames: [
         'server_address'
       ],
-      registers: [register]
+      registers: [this.register]
     })
 
     this.waitQueueSize = new Gauge({
@@ -73,7 +73,7 @@ export class MongoDBDriverExporter {
       labelNames: [
         'server_address'
       ],
-      registers: [register]
+      registers: [this.register]
     })
 
     if (this.monitorCommands()) {
@@ -86,7 +86,7 @@ export class MongoDBDriverExporter {
           'server_address',
           'status'
         ],
-        registers: [register]
+        registers: [this.register]
       })
     }
   }
@@ -107,17 +107,6 @@ export class MongoDBDriverExporter {
       this.mongoClient.on('commandSucceeded', (event) => { this.onCommandSucceeded(event) })
       this.mongoClient.on('commandFailed', (event) => { this.onCommandFailed(event) })
       this.options?.logger?.info('Successfully enabled command metrics for the MongoDB Node.js driver.')
-    }
-  }
-
-  registerMetrics (): void {
-    this.register.registerMetric(this.poolSize)
-    this.register.registerMetric(this.minSize)
-    this.register.registerMetric(this.maxSize)
-    this.register.registerMetric(this.checkedOut)
-    this.register.registerMetric(this.waitQueueSize)
-    if (this.monitorCommands()) {
-      this.register.registerMetric(this.commands)
     }
   }
 

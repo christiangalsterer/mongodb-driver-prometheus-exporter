@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, test, jest, afterEach } from '@jest/globals'
+import { beforeEach, describe, expect, test} from '@jest/globals'
 import { Registry } from 'prom-client'
 import { MongoClient } from 'mongodb'
 import { MongoDBDriverExporter } from '../src/mongoDBDriverExporter'
@@ -16,7 +16,6 @@ describe('tests mongoDBDriverExporter', () => {
   test('tests if connection and commands metrics are registered in registry', () => {
     const mongoClient = new MongoClient('mongodb://localhost:27017', { monitorCommands: true })
     const exporter = new MongoDBDriverExporter(mongoClient, register)
-    exporter.registerMetrics()
     expect(register.getMetricsAsArray().length).toBe(6)
     expect(register.getSingleMetric('mongodb_driver_pool_size')).toBeDefined()
     expect(register.getSingleMetric('mongodb_driver_pool_min')).toBeDefined()
@@ -29,7 +28,6 @@ describe('tests mongoDBDriverExporter', () => {
   test('tests if only connection metrics are registered in registry', () => {
     const mongoClient = new MongoClient('mongodb://localhost:27017', { monitorCommands: false })
     const exporter = new MongoDBDriverExporter(mongoClient, register)
-    exporter.registerMetrics()
     console.log(register.getMetricsAsArray())
     expect(register.getMetricsAsArray().length).toBe(5)
     expect(register.getSingleMetric('mongodb_driver_pool_size')).toBeDefined()
