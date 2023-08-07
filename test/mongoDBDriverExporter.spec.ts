@@ -3,19 +3,14 @@ import { Registry } from 'prom-client'
 import { MongoClient } from 'mongodb'
 import { MongoDBDriverExporter } from '../src/mongoDBDriverExporter'
 
-const mockPromClient = jest.createMockFromModule<typeof import('prom-client')>('prom-client')
-const mockMongodb = jest.createMockFromModule<typeof import('mongodb')>('mongodb')
+// const mockPromClient = jest.createMockFromModule<typeof import('prom-client')>('prom-client')
+// const mockMongodb = jest.createMockFromModule<typeof import('mongodb')>('mongodb')
 
 describe('tests mongoDBDriverExporter', () => {
   let register: Registry
 
   beforeEach(() => {
     register = new Registry()
-    register.clear()
-  })
-
-  afterEach(() => {
-    register.clear()
   })
 
   test('tests if connection and commands metrics are registered in registry', () => {
@@ -35,6 +30,7 @@ describe('tests mongoDBDriverExporter', () => {
     const mongoClient = new MongoClient('mongodb://localhost:27017', { monitorCommands: false })
     const exporter = new MongoDBDriverExporter(mongoClient, register)
     exporter.registerMetrics()
+    console.log(register.getMetricsAsArray())
     expect(register.getMetricsAsArray().length).toBe(5)
     expect(register.getSingleMetric('mongodb_driver_pool_size')).toBeDefined()
     expect(register.getSingleMetric('mongodb_driver_pool_min')).toBeDefined()
@@ -47,7 +43,6 @@ describe('tests mongoDBDriverExporter', () => {
   test('tests if event connection and command listeners are registered for mongo client events', () => {
     const mongoClient = new MongoClient('mongodb://localhost:27017', { monitorCommands: true })
     const exporter = new MongoDBDriverExporter(mongoClient, register)
-    exporter.registerMetrics()
     exporter.enableMetrics()
     expect(mongoClient.listenerCount('connectionPoolCreated')).toBe(1)
     expect(mongoClient.listenerCount('connectionPoolClosed')).toBe(1)
@@ -64,7 +59,6 @@ describe('tests mongoDBDriverExporter', () => {
   test('tests if only event connection listeners are registered for mongo client events', () => {
     const mongoClient = new MongoClient('mongodb://localhost:27017', { monitorCommands: false })
     const exporter = new MongoDBDriverExporter(mongoClient, register)
-    exporter.registerMetrics()
     exporter.enableMetrics()
     expect(mongoClient.listenerCount('connectionPoolCreated')).toBe(1)
     expect(mongoClient.listenerCount('connectionPoolClosed')).toBe(1)

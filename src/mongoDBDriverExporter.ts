@@ -36,7 +36,8 @@ export class MongoDBDriverExporter {
       help: 'the current size of the connection pool, including idle and and in-use members',
       labelNames: [
         'server_address'
-      ]
+      ],
+      registers: [register]
     })
 
     this.minSize = new Gauge({
@@ -44,7 +45,8 @@ export class MongoDBDriverExporter {
       help: 'the minimum size of the connection pool',
       labelNames: [
         'server_address'
-      ]
+      ],
+      registers: [register]
     })
 
     this.maxSize = new Gauge({
@@ -52,7 +54,8 @@ export class MongoDBDriverExporter {
       help: 'the maximum size of the connection pool',
       labelNames: [
         'server_address'
-      ]
+      ],
+      registers: [register]
     })
 
     this.checkedOut = new Gauge({
@@ -60,7 +63,8 @@ export class MongoDBDriverExporter {
       help: 'the count of connections that are currently in use',
       labelNames: [
         'server_address'
-      ]
+      ],
+      registers: [register]
     })
 
     this.waitQueueSize = new Gauge({
@@ -68,19 +72,23 @@ export class MongoDBDriverExporter {
       help: 'the current size of the wait queue for a connection from the pool',
       labelNames: [
         'server_address'
-      ]
+      ],
+      registers: [register]
     })
 
-    this.commands = new Histogram({
-      name: 'mongodb_driver_commands_seconds',
-      help: 'Timer of mongodb commands',
-      buckets: this.commandHistogramBuckets(),
-      labelNames: [
-        'command',
-        'server_address',
-        'status'
-      ]
-    })
+    if (this.monitorCommands()) {
+      this.commands = new Histogram({
+        name: 'mongodb_driver_commands_seconds',
+        help: 'Timer of mongodb commands',
+        buckets: this.commandHistogramBuckets(),
+        labelNames: [
+          'command',
+          'server_address',
+          'status'
+        ],
+        registers: [register]
+      })
+    }
   }
 
   enableMetrics (): void {
