@@ -4,8 +4,6 @@
 ![github stars](https://img.shields.io/github/stars/christiangalsterer/mongodb-driver-prometheus-exporter.svg)
 ![Known Vulnerabilities](https://snyk.io/test/github/christiangalsterer/mongodb-driver-prometheus-exporter/badge.svg)
 
-(https://snyk.io/test/github/{username}/{repo})
-
 # Prometheus Exporter for offical MongoDB Node.js driver
 
 A prometheus exporter exposing metrics for the official [MongoDB Node.js driver](https://www.mongodb.com/docs/drivers/node/current/).
