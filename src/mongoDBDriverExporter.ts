@@ -18,15 +18,15 @@ export class MongoDBDriverExporter {
   private readonly commands: Histogram
 
   constructor (mongoClient: MongoClient, register: Registry, options?: MongoDBDriverExporterOptions) {
-    if (mongoClient == null) {
+    if (mongoClient == null || mongoClient === undefined) {
       options?.logger?.error('mongoClient is null or undefined. No metrics can be exported.')
-      return
+      throw new Error('mongoClient is null or undefined. No metrics can be exported.')
     }
     this.mongoClient = mongoClient
 
-    if (register == null) {
+    if (register == null || mongoClient === undefined) {
       options?.logger?.error('register is null or undefined. No metrics can be exported.')
-      return
+      throw new Error('register is null or undefined. No metrics can be exported.')
     }
     this.register = register
     this.options = options
