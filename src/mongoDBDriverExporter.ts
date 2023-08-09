@@ -106,15 +106,14 @@ export class MongoDBDriverExporter {
   }
 
   private mergeLabelNamesWithStandardLabels (labelNames: string[]): string[] {
-    if (this.options?.defaultLabels != null) return labelNames.concat(Object.keys(this.options.defaultLabels))
-    else return labelNames
+    let merged: string[]
+    this.options?.defaultLabels != null ? merged = labelNames.concat(Object.keys(this.options.defaultLabels)) : merged = labelNames
+    return merged
   }
 
-  private mergeLabelsWithStandardLabels (labels: {}): {} {
-    let merged: {}
-    if (this.options?.defaultLabels != null) merged = { ...this.options?.defaultLabels, ...labels }
-    else merged = labels
-
+  private mergeLabelsWithStandardLabels (labels: Record<string, string | number>): Record<string, string | number> {
+    let merged: Record<string, string | number>
+    this.options?.defaultLabels != null ? merged = { ...this.options?.defaultLabels, ...labels } : merged = labels
     return merged
   }
 
