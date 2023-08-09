@@ -139,7 +139,7 @@ export class MongoDBDriverExporter {
   }
 
   private onConnectionCheckedOut (event: ConnectionCheckedOutEvent): void {
-    this.checkedOut.inc({ server_address: event.address })
+    this.checkedOut.inc(this.mergeLabelsWithStandardLabels({ server_address: event.address }))
     this.waitQueueSize.dec(this.mergeLabelsWithStandardLabels({ server_address: event.address }))
   }
 
