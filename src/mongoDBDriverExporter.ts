@@ -113,7 +113,7 @@ export class MongoDBDriverExporter {
 
   private mergeLabelsWithStandardLabels (labels: Record<string, string | number>): Record<string, string | number> {
     let merged: Record<string, string | number>
-    this.options?.defaultLabels != null ? merged = { ...this.options?.defaultLabels, ...labels } : merged = labels
+    this.options?.defaultLabels != null ? merged = { ...labels, ...this.options?.defaultLabels } : merged = labels
     return merged
   }
 
