@@ -23,6 +23,11 @@ export interface MongoDBDriverExporterOptions {
    * Buckets for the mongodb_driver_commands_seconds_bucket metric. Default buckets are [0.001, 0.005, 0.010, 0.020, 0.030, 0.040, 0.050, 0.100, 0.200, 0.500, 1.0, 2.0, 5.0, 10]
    */
   mongodbDriverCommandsSecondsHistogramBuckets?: number[]
+
+  /**
+   * Default labels for all metrics, e.g. {'foo':'bar', alice: 3}
+   */
+  defaultLabels?: {}
 }
 
 /**
