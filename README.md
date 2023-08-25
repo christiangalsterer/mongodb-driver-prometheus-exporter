@@ -171,3 +171,7 @@ The changes to project can be found in the [changelog](/CHANGELOG.md).
 
 Contributions are highly welcomed. If you want to contribute to this project please create a github issue and/or provide a pull request for review.
 
+# Related Projects
+
+If you are looking for a way to monitor KafkaJS for Node.js you may have a look at https://github.com/christiangalsterer/kafkajs-prometheus-exporter
+
