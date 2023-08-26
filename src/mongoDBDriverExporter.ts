@@ -5,7 +5,10 @@ import { type MongoDBDriverExporterOptions } from './exporter'
 export class MongoDBDriverExporter {
   private readonly register: Registry
   private readonly mongoClient: MongoClient
-  private readonly options: MongoDBDriverExporterOptions | undefined
+  private readonly options: MongoDBDriverExporterOptions
+  private readonly defaultOptions: MongoDBDriverExporterOptions = {
+    mongodbDriverCommandsSecondsHistogramBuckets: [0.001, 0.005, 0.01, 0.02, 0.03, 0.04, 0.05, 0.1, 0.2, 0.5, 1, 2, 5, 10]
+  }
 
   // pool metrics
   private readonly poolSize: Gauge
@@ -29,7 +32,7 @@ export class MongoDBDriverExporter {
       throw new Error('register is null or undefined. No metrics can be exported.')
     }
     this.register = register
-    this.options = options
+    this.options = { ...this.defaultOptions, ...options }
 
     this.poolSize = new Gauge({
       name: 'mongodb_driver_pool_size',
@@ -70,7 +73,7 @@ export class MongoDBDriverExporter {
       this.commands = new Histogram({
         name: 'mongodb_driver_commands_seconds',
         help: 'Timer of mongodb commands',
-        buckets: this.commandHistogramBuckets(),
+        buckets: this.options.mongodbDriverCommandsSecondsHistogramBuckets,
         labelNames: this.mergeLabelNamesWithStandardLabels(['command', 'server_address', 'status']),
         registers: [this.register]
       })
@@ -98,11 +101,6 @@ export class MongoDBDriverExporter {
 
   private monitorCommands (): boolean {
     return this.mongoClient.options.monitorCommands.valueOf()
-  }
-
-  private commandHistogramBuckets (): number[] {
-    if (this.options?.mongodbDriverCommandsSecondsHistogramBuckets != null) return this.options.mongodbDriverCommandsSecondsHistogramBuckets
-    else return [0.001, 0.005, 0.01, 0.02, 0.03, 0.04, 0.05, 0.1, 0.2, 0.5, 1, 2, 5, 10]
   }
 
   private mergeLabelNamesWithStandardLabels (labelNames: string[]): string[] {
