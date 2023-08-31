@@ -117,8 +117,8 @@ export class MongoDBDriverExporter {
 
   private onConnectionPoolCreated (event: ConnectionPoolCreatedEvent): void {
     this.poolSize.set(this.mergeLabelsWithStandardLabels({ server_address: event.address }), 0)
-    this.minSize.set(this.mergeLabelsWithStandardLabels({ server_address: event.address }), event.options!.minPoolSize)
-    this.maxSize.set(this.mergeLabelsWithStandardLabels({ server_address: event.address }), event.options!.maxPoolSize)
+    this.minSize.set(this.mergeLabelsWithStandardLabels({ server_address: event.address }), event.options.minPoolSize)
+    this.maxSize.set(this.mergeLabelsWithStandardLabels({ server_address: event.address }), event.options.maxPoolSize)
     this.checkedOut.set(this.mergeLabelsWithStandardLabels({ server_address: event.address }), 0)
     this.waitQueueSize.set(this.mergeLabelsWithStandardLabels({ server_address: event.address }), 0)
   }
