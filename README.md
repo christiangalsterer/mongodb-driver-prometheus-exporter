@@ -154,7 +154,7 @@ _MongoDBDriverExporterOptions_.
 
 # Grafana Dashboard
 
-An example dashboard for Grafana is available [here](/docs/grafana/dashbaord.json) displaying the provided metrics by the exporter.
+An example dashboard for Grafana is available [here](/docs/grafana/dashboard.json) displaying the provided metrics by the exporter.
 
 Here an example for collection metrics:
 ![Grafana:Collection Metrics](/docs/images/grafana_mongodb_driver_collections_1.png "Grafana: Collection Metrics")
