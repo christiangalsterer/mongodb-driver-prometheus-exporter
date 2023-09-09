@@ -8,3 +8,9 @@ on:
 jobs:
   build:
     runs-on: ${{ fromJSON('["ubuntu-latest", "self-hosted"]')[github.repository == 'christiangalsterer/mongodb-driver-prometheus-exporter'] }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '14'
+      - run: npm run build
