@@ -1,4 +1,4 @@
-name: 'build'
+name: 'Continuous Integration'
 on:
   push:
     branches:
@@ -6,7 +6,7 @@ on:
   pull_request:
     
 jobs:
-  ci:
+  ci: 
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
