@@ -5,6 +5,5 @@
     ],
     "addLabels": [
         "renovate"
-    ],
-    "rebaseWhen": "behind-base-branch"
+    ]
 }
