@@ -11,7 +11,8 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "ci": "npm run lint && npm run build && npm run test",
+    "renovate": "npx renovate-config-validator",
+    "ci": "npm run lint && npm run build && npm run test && npm run renovate",
     "clean": "rm -rf ./dist",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
@@ -40,7 +41,8 @@
   ],
   "dependencies": {
     "mongodb": "^5.8.0",
-    "prom-client": "^14.2.0"
+    "prom-client": "^14.2.0",
+    "renovate": "^37.0.5"
   },
   "devDependencies": {
     "@jest/globals": "29.6.2",
