@@ -5,5 +5,7 @@
     ],
     "addLabels": [
         "renovate"
-    ]
+    ],
+    "semanticCommitScope": "",
+    "semanticCommitType": "build"
 }
