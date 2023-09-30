@@ -8,5 +8,6 @@
         "renovate"
     ],
     "semanticCommitScope": "",
-    "semanticCommitType": "build"
+    "semanticCommitType": "build",
+    "timezone": "Europe/Berlin"
 }
