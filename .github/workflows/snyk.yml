@@ -27,7 +27,7 @@ jobs:
           cache: 'npm'
       - run: npm i
       - name: Snyk monitor 
-        run: snyk monitor --file=package.json --org=christiangalsterer --project-name=package.json --project-environment=backend --project-lifecycle=production 
+        run: snyk monitor --dev --file=package.json --org=christiangalsterer --project-name=package.json --project-environment=backend --project-lifecycle=production 
         env:
            SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}   
       - name: Run Snyk to check for vulnerabilities
