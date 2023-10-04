@@ -26,17 +26,17 @@ jobs:
           node-version: '20'
           cache: 'npm'
       - run: npm i
-      # - name: Snyk monitor 
-      #   run: snyk monitor --file=package.json --project-name=package.json
-      #   env:
-      #     SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }} 
+      - name: Snyk monitor 
+        run: snyk monitor --file=package.json --project-name=package.json --project-environment=Backend --project-lifecycle=production
+        env:
+           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}   
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/node@master
         continue-on-error: true # To make sure that SARIF upload gets called
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          args: --all-projects --sarif-file-output=snyk.sarif 
+          args: --sarif-file-output=snyk.sarif 
       - name: Upload test result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v2
         with:
