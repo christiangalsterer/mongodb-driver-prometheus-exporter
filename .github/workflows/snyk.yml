@@ -27,7 +27,7 @@ jobs:
           cache: 'npm'
       - run: npm i
       - name: Snyk monitor 
-        run: snyk monitor --file=package.json --project-name=package.json --project-environment=backend --project-lifecycle=production
+        run: snyk monitor --file=package.json --org=christiangalsterer --project-name=package.json --project-environment=backend --project-lifecycle=production 
         env:
            SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}   
       - name: Run Snyk to check for vulnerabilities
@@ -36,7 +36,7 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          args: --sarif-file-output=snyk.sarif 
+          args: --org=christiangalsterer --sarif-file-output=snyk.sarif 
       - name: Upload test result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v2
         with:
