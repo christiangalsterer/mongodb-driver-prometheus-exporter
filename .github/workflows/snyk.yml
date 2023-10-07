@@ -42,12 +42,12 @@ jobs:
         with:
           sarif_file: snyk.sarif    
       - name: Snyk Code Test
-        if: ${{ github.event_name != 'pull_request' && ! github.event.label.name == 'renovate' }}
-        run: snyk code test --org=christiangalsterer --sarif-file-output=snyk_code_test.sarif
+        # if: ${{ github.event_name != 'pull_request' && ! github.event.label.name == 'renovate' }}
+        run: echo ${{ github.event.pull_request }}
+        # run: snyk code test --org=christiangalsterer --sarif-file-output=snyk_code_test.sarif
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}  
       - name: Upload code test result to GitHub Code Scanning
-        if: ${{ github.event_name != 'pull_request' && ! github.event.label.name == 'renovate' }}
         uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: snyk_code_test.sarif
