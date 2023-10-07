@@ -26,10 +26,10 @@ jobs:
           node-version: '20'
           cache: 'npm'
       - run: npm i
-      - name: Snyk monitor 
-        run: snyk monitor --file=package.json --org=christiangalsterer --project-name=package.json --project-environment=backend --project-lifecycle=production 
-        env:
-           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}   
+      # - name: Snyk monitor 
+      #   run: snyk monitor --file=package.json --org=christiangalsterer --project-name=package.json --project-environment=backend --project-lifecycle=production 
+      #   env:
+      #      SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/node@master
         continue-on-error: true # To make sure that SARIF upload gets called
@@ -40,12 +40,14 @@ jobs:
       - name: Upload test result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v2
         with:
-          sarif_file: snyk.sarif
-      - name: Snyk Code Test 
+          sarif_file: snyk.sarif    
+      - name: Snyk Code Test
+        if: ${{ github.event.label.name == 'renovate' }}
         run: snyk code test --org=christiangalsterer --sarif-file-output=snyk_code_test.sarif
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}  
       - name: Upload code test result to GitHub Code Scanning
+        if: ${{ github.event.label.name == 'renovate' }}
         uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: snyk_code_test.sarif
