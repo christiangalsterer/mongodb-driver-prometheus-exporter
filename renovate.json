@@ -13,13 +13,14 @@
     "packageRules": [
         {
             "groupName": "All dev dependencies",
-            "groupSlug": "all-dev-minor-patch",
+            "groupSlug": "all-dev-non-major",
             "matchDepTypes": [
                 "devDependencies"
             ],
             "matchUpdateTypes": [
                 "minor",
-                "patch"
+                "patch",
+                "pin"
             ],
             "prConcurrentLimit": 1
         }
