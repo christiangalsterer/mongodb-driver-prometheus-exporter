@@ -25,7 +25,7 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
-      - run: npm i
+      - run: npm ci
       # - name: Snyk monitor 
       #   run: snyk monitor --file=package.json --org=christiangalsterer --project-name=package.json --project-environment=backend --project-lifecycle=production 
       #   env:
