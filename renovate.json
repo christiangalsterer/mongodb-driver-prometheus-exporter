@@ -9,5 +9,12 @@
     ],
     "semanticCommitScope": "",
     "semanticCommitType": "build",
-    "timezone": "Europe/Berlin"
+    "timezone": "Europe/Berlin",
+    "packageRules": [
+        {
+            "matchDepTypes": [
+                "devDependencies"
+            ]
+        }
+    ]
 }
