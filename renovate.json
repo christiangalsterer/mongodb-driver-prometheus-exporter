@@ -12,9 +12,16 @@
     "timezone": "Europe/Berlin",
     "packageRules": [
         {
+            "groupName": "All dev dependencies",
+            "groupSlug": "all-dev-minor-patch",
             "matchDepTypes": [
                 "devDependencies"
-            ]
+            ],
+            "matchUpdateTypes": [
+                "minor",
+                "patch"
+            ],
+            "prConcurrentLimit": 1
         }
     ]
 }
