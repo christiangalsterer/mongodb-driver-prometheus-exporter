@@ -3,6 +3,7 @@
 ![npm downloads](https://img.shields.io/npm/dt/@christiangalsterer/mongodb-driver-prometheus-exporter.svg)
 ![npm version](https://img.shields.io/npm/v/@christiangalsterer/mongodb-driver-prometheus-exporter.svg)
 ![npm licence](https://img.shields.io/npm/l/@christiangalsterer/mongodb-driver-prometheus-exporter.svg)
+[![renovate](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://developer.mend.io/github/christiangalsterer/mongodb-driver-prometheus-exporter)
 ![github stars](https://img.shields.io/github/stars/christiangalsterer/mongodb-driver-prometheus-exporter.svg)
 
 # Prometheus Exporter for offical MongoDB Node.js driver
