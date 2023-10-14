@@ -41,7 +41,7 @@
   ],
   "dependencies": {
     "mongodb": "^6.0.0",
-    "prom-client": "^14.2.0"
+    "prom-client": "^15.0.0"
   },
   "devDependencies": {
     "@jest/globals": "29.7.0",
