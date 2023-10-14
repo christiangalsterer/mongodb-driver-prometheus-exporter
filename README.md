@@ -169,6 +169,14 @@ Here an example for command metrics:
 
 The changes to project can be found in the [changelog](/CHANGELOG.md).
 
+# Compatibility
+The following table list the compatibility of exporter versions with different MongoDB Driver and prom-client versions.
+
+|Exporter Version|MongoDB Driver Version|prom-client version|
+|---|---|---|
+|^1.0.0|^5.8.0|^14.2.0|
+|^2.0.0|^6.0.0|^15.0.0|
+
 # Contributions
 
 Contributions are highly welcomed. If you want to contribute to this project please create a github issue and/or provide a pull request for review.
