@@ -5,13 +5,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0] 2023-10-16
+
+The detailed changelog can be found [here](https://github.com/christiangalsterer/mongodb-driver-prometheus-exporter/compare/v1.1.1...v2.0.0).
+
+### Changed
+
+- upgraded mongodb from 5.8.0 to 6.0.0
+- upgraded prom-client from 14.2.0 to 15.0.0
+- added compatibility matrix to documentation
+- introduced Github actions for complete build process
+- added Github actions for build and snyk
+- added renovate to build process
+
 ## [1.1.1] 2023-08-31
+
+The detailed changelog can be found [here](https://github.com/christiangalsterer/mongodb-driver-prometheus-exporter/compare/v1.1.0...v1.1.1).
 
 ### Security
 
 - Security upgrade mongodb from 5.7.0 to 5.8.0
 
 ## [1.1.0] 2023-08-10
+
+The detailed changelog can be found [here](https://github.com/christiangalsterer/mongodb-driver-prometheus-exporter/compare/v1.0.1...v1.1.0).
 
 ### Added
 
@@ -24,12 +41,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.1] 2023-08-07
 
+The detailed changelog can be found [here](https://github.com/christiangalsterer/mongodb-driver-prometheus-exporter/compare/v1.0.0...v1.0.1).
+
 ### Changed
 
 - changed internal code structure for better testing
 - increased test coverage
 
 ## [1.0.0] 2023-08-03
+
+The detailed changelog can be found [here](https://github.com/christiangalsterer/mongodb-driver-prometheus-exporter/compare/v0.0.2...v1.0.0).
 
 ### Added
 
