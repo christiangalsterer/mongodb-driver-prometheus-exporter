@@ -11,7 +11,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "ci": "npm run lint && npm run build && npm run test && npm run renovate:config",
+    "ci": "npm ci --include=prod --include=dev && npm run lint && npm run build && npm run test && npm run renovate:config",
     "clean": "rm -rf ./dist",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",

@@ -14,5 +14,4 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
-      - run: npm ci --include=prod --include=dev
       - run: npm run ci
