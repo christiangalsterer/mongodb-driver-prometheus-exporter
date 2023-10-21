@@ -82,11 +82,4 @@ describe('tests mongoDBDriverExporter', () => {
     expect(mongoClient.listenerCount('commandSucceeded')).toBe(0)
     expect(mongoClient.listenerCount('commandFailed')).toBe(0)
   })
-
-  test('tests gauge', () => {
-    const mongoClient = new MongoClient('mongodb://localhost:27017', { monitorCommands: false })
-    const exporter = new MongoDBDriverExporter(mongoClient, register)
-    exporter.enableMetrics()
-    const fs = jest.createMockFromModule('prom-client')
-  })
 })
