@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, test } from '@jest/globals'
-import { Registry } from 'prom-client'
+import { Gauge, Registry } from 'prom-client'
 import { MongoClient } from 'mongodb'
 import { MongoDBDriverExporter } from '../src/mongoDBDriverExporter'
 
@@ -10,7 +10,7 @@ describe('tests mongoDBDriverExporter', () => {
     register = new Registry()
   })
 
-  test('tests if connection and commands metrics are registered in registry', () => {
+  test('tests if connection and commands metrics are registered in registry', async () => {
     const mongoClient = new MongoClient('mongodb://localhost:27017', { monitorCommands: true })
     const exporter = new MongoDBDriverExporter(mongoClient, register)
     exporter.enableMetrics()
@@ -81,5 +81,12 @@ describe('tests mongoDBDriverExporter', () => {
     expect(mongoClient.listenerCount('connectionCheckedIn')).toBe(1)
     expect(mongoClient.listenerCount('commandSucceeded')).toBe(0)
     expect(mongoClient.listenerCount('commandFailed')).toBe(0)
+  })
+
+  test('tests gauge', () => {
+    const mongoClient = new MongoClient('mongodb://localhost:27017', { monitorCommands: false })
+    const exporter = new MongoDBDriverExporter(mongoClient, register)
+    exporter.enableMetrics()
+    const fs = jest.createMockFromModule('prom-client')
   })
 })
