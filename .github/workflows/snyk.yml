@@ -10,7 +10,26 @@ permissions:
   contents: read
 
 jobs:
+  pre_snyk:
+    permissions:
+      contents: read # for actions/checkout to fetch code
+    runs-on: ubuntu-latest
+    outputs:
+      any_changed: ${{ steps.changed-files.outputs.any_changed }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Get all files that have changed
+        id: changed-files
+        uses: tj-actions/changed-files@v39
+        with:
+          files: |
+            src/**/*.ts
+            test/**/*.ts
+            package.json
+            package-lock.json
   snyk:
+    needs: pre_snyk
+    if: ${{ needs.pre_snyk.outputs.any_changed == 'true' }}
     permissions:
       contents: read # for actions/checkout to fetch code
       security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
@@ -23,13 +42,12 @@ jobs:
         uses: tj-actions/changed-files@v39
         with:
           files_yaml: |
-            src:
+            code:
               - 'src/**/*.ts'
-            test:
               - 'test/**/*.ts'
             package:
-              - packagae.json
-              - packagae-lock.json
+              - package.json
+              - package-lock.json
       - name: Set up Snyk CLI to check for security issues
         uses: snyk/actions/setup@master
       - name: Setup Node
@@ -37,7 +55,6 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
-      - run: npm ci
       # - name: Snyk monitor 
       #   run: snyk monitor --file=package.json --org=christiangalsterer --project-name='christiangalsterer/mongodb-driver-prometheus-exporter:package.json' --project-environment=backend --project-lifecycle=production
       #   env:
@@ -45,7 +62,7 @@ jobs:
       - name: Run Snyk to check for vulnerabilities
         if: ${{ steps.changed-files.outputs.package_any_changed == 'true' }}
         uses: snyk/actions/node@master
-        continue-on-error: true # To make sure that SARIF upload gets called
+        continue-on-error: true # to make sure that SARIF upload gets called
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
@@ -56,12 +73,12 @@ jobs:
         with:
           sarif_file: snyk.sarif    
       - name: Snyk Code Test
-        if: ${{ ! (github.event_name == 'pull_request' && github.event.pull_request.user.login == 'renovate[bot]' && contains(github.event.pull_request.labels.*.name, 'renovate')) && (steps.changed-files.outputs.src_any_changed == 'true' || steps.changed-files.outputs.test_any_changed == 'true') }}
+        if: ${{ ! (github.event_name == 'pull_request' && github.event.pull_request.user.login == 'renovate[bot]' && contains(github.event.pull_request.labels.*.name, 'renovate')) && (steps.changed-files.outputs.code_any_changed == 'true') }}
         run: snyk code test --org=christiangalsterer --sarif-file-output=snyk_code_test.sarif
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       - name: Upload code test result to GitHub Code Scanning
-        if: ${{ ! (github.event_name == 'pull_request' && github.event.pull_request.user.login == 'renovate[bot]' && contains(github.event.pull_request.labels.*.name, 'renovate')) && (steps.changed-files.outputs.src_any_changed == 'true' || steps.changed-files.outputs.test_any_changed == 'true') }}
+        if: ${{ ! (github.event_name == 'pull_request' && github.event.pull_request.user.login == 'renovate[bot]' && contains(github.event.pull_request.labels.*.name, 'renovate')) && (steps.changed-files.outputs.code_any_changed == 'true') }}
         uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: snyk_code_test.sarif
