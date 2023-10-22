@@ -18,6 +18,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Get all files that have changed
+        id: changed-files
+        uses: tj-actions/changed-files@v39
+        with:
+          files_yaml: |
+            src:
+              - 'src/**/*.ts'
+            test:
+              - 'test/**/*.ts'
+            package:
+              - packagae.json
+              - packagae-lock.json
       - name: Set up Snyk CLI to check for security issues
         uses: snyk/actions/setup@master
       - name: Setup Node
@@ -31,6 +43,7 @@ jobs:
       #   env:
       #      SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       - name: Run Snyk to check for vulnerabilities
+        if: ${{ steps.changed-files.outputs.package_any_changed == 'true' }}
         uses: snyk/actions/node@master
         continue-on-error: true # To make sure that SARIF upload gets called
         env:
@@ -38,17 +51,18 @@ jobs:
         with:
           args: --org=christiangalsterer --sarif-file-output=snyk.sarif 
       - name: Upload test result to GitHub Code Scanning
+        if: ${{ steps.changed-files.outputs.package_any_changed == 'true' }}
         uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: snyk.sarif    
       - name: Snyk Code Test
-        if: ${{ ! (github.event_name == 'pull_request' && github.event.pull_request.user.login == 'renovate[bot]' &&  contains(github.event.pull_request.labels.*.name, 'renovate')) }}
+        if: ${{ ! (github.event_name == 'pull_request' && github.event.pull_request.user.login == 'renovate[bot]' && contains(github.event.pull_request.labels.*.name, 'renovate')) && (steps.changed-files.outputs.src_any_changed == 'true' || steps.changed-files.outputs.test_any_changed == 'true') }}
         run: snyk code test --org=christiangalsterer --sarif-file-output=snyk_code_test.sarif
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       - name: Upload code test result to GitHub Code Scanning
-        if: ${{ ! (github.event_name == 'pull_request' && github.event.pull_request.user.login == 'renovate[bot]' &&  contains(github.event.pull_request.labels.*.name, 'renovate')) }}
+        if: ${{ ! (github.event_name == 'pull_request' && github.event.pull_request.user.login == 'renovate[bot]' && contains(github.event.pull_request.labels.*.name, 'renovate')) && (steps.changed-files.outputs.src_any_changed == 'true' || steps.changed-files.outputs.test_any_changed == 'true') }}
         uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: snyk_code_test.sarif
-          category: snyk_code_test          
+          category: snyk_code_test
