@@ -6,12 +6,15 @@ on:
   pull_request:
     
 jobs:
-  ci: 
+  ci:
+    strategy:
+      matrix:
+        node-version: ['18.x', '20.x', '21.x']
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v3
         with:
-          node-version: '20'
+          node-version: ${{ matrix.node-version }}
           cache: 'npm'
       - run: npm run ci
