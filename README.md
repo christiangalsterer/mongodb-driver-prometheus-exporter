@@ -181,6 +181,10 @@ The following table list the compatibility of exporter versions with different M
 
 Contributions are highly welcomed. If you want to contribute to this project please create a github issue and/or provide a pull request for review.
 
+# Projects Using The Exporter
+
+If you want to support this project, please add a link to your project and/or company when you use this exporter.
+
 # Related Projects
 
 If you are looking for a way to monitor KafkaJS for Node.js you may have a look at https://github.com/christiangalsterer/kafkajs-prometheus-exporter
