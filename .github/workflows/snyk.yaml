@@ -15,8 +15,6 @@ permissions:
 
 jobs:
   pre_snyk:
-    permissions:
-      contents: read # for actions/checkout to fetch code
     runs-on: ubuntu-latest
     outputs:
       any_changed: ${{ steps.changed-files.outputs.any_changed }}
@@ -36,7 +34,6 @@ jobs:
     needs: pre_snyk
     if: ${{ needs.pre_snyk.outputs.any_changed == 'true' }}
     permissions:
-      contents: read # for actions/checkout to fetch code
       security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
       actions: read # only required for a private repository by github/codeql-action/upload-sarif to get the Action run status
     runs-on: ubuntu-latest
