@@ -31,6 +31,7 @@ jobs:
             test/**/*.ts
             package.json
             package-lock.json
+            .github/workflows/**.yaml
   snyk:
     needs: pre_snyk
     if: ${{ needs.pre_snyk.outputs.any_changed == 'true' }}
@@ -49,9 +50,10 @@ jobs:
             code:
               - 'src/**/*.ts'
               - 'test/**/*.ts'
-            package:
+            deps:
               - package.json
               - package-lock.json
+              - '.github/workflows/*.yaml'
       - name: Set up Snyk CLI to check for security issues
         uses: snyk/actions/setup@master
       - name: Setup Node
@@ -64,7 +66,7 @@ jobs:
       #   env:
       #      SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       - name: Run Snyk to check for vulnerabilities
-        if: ${{ steps.changed-files.outputs.package_any_changed == 'true' }}
+        if: ${{ steps.changed-files.outputs.deps_any_changed == 'true' }}
         uses: snyk/actions/node@master
         continue-on-error: true # to make sure that SARIF upload gets called
         env:
@@ -72,7 +74,7 @@ jobs:
         with:
           args: --org=christiangalsterer --sarif-file-output=snyk.sarif 
       - name: Upload test result to GitHub Code Scanning
-        if: ${{ steps.changed-files.outputs.package_any_changed == 'true' }}
+        if: ${{ steps.changed-files.outputs.deps_any_changed == 'true' }}
         uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: snyk.sarif    
