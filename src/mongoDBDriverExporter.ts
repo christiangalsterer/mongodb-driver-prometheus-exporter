@@ -36,7 +36,7 @@ export class MongoDBDriverExporter {
 
     this.poolSize = new Gauge({
       name: 'mongodb_driver_pool_size',
-      help: 'the current size of the connection pool, including idle and and in-use members',
+      help: 'the current size of the connection pool, including idle and in-use members',
       labelNames: this.mergeLabelNamesWithStandardLabels(['server_address']),
       registers: [this.register]
     })
