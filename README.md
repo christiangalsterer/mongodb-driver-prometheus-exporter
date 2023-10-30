@@ -17,7 +17,7 @@ The exporter provides the following metrics.
 
 |Metric Name|Description|Labels|Since|
 |---|---|---|---|
-|mongodb_driver_pool_size | the current size of the connection pool, including idle and and in-use members | <ul><li>_server_address_: URL of the MongoDB Service instance where the driver is connected to </li><ul>| 1.0.0 |
+|mongodb_driver_pool_size | the current size of the connection pool, including idle and in-use members | <ul><li>_server_address_: URL of the MongoDB Service instance where the driver is connected to </li><ul>| 1.0.0 |
 |mongodb_driver_pool_min|the minimum size of the connection pool|<ul><li>_server_address_: URL of the MongoDB Service instance where the driver is connected to </li><ul> | 1.0.0 |
 |mongodb_driver_pool_max|the maximum size of the connection pool|<ul><li>_server_address_: URL of the MongoDB Service instance where the driver is connected to </li><ul> | 1.0.0 |
 |mongodb_driver_pool_checkedout|the count of connections that are currently in use|<ul><li>_server_address_: URL of the MongoDB Service instance where the driver is connected to </li><ul> | 1.0.0 |
