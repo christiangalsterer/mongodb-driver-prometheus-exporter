@@ -28,6 +28,11 @@ export interface MongoDBDriverExporterOptions {
    * Default labels for all metrics, e.g. {'foo':'bar', alice: 3}
    */
   defaultLabels?: Record<string, string | number>
+
+  /**
+   * Name prefix for all metrics, e.g. 'service1_'
+   */
+  prefix?: string;
 }
 
 /**
