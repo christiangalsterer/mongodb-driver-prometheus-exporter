@@ -34,36 +34,38 @@ export class MongoDBDriverExporter {
     this.register = register
     this.options = { ...this.defaultOptions, ...options }
 
+    const prefix = options?.prefix ?? '';
+
     this.poolSize = new Gauge({
-      name: 'mongodb_driver_pool_size',
+      name: `${prefix}mongodb_driver_pool_size`,
       help: 'the current size of the connection pool, including idle and in-use members',
       labelNames: this.mergeLabelNamesWithStandardLabels(['server_address']),
       registers: [this.register]
     })
 
     this.minSize = new Gauge({
-      name: 'mongodb_driver_pool_min',
+      name: `${prefix}mongodb_driver_pool_min`,
       help: 'the minimum size of the connection pool',
       labelNames: this.mergeLabelNamesWithStandardLabels(['server_address']),
       registers: [this.register]
     })
 
     this.maxSize = new Gauge({
-      name: 'mongodb_driver_pool_max',
+      name: `${prefix}mongodb_driver_pool_max`,
       help: 'the maximum size of the connection pool',
       labelNames: this.mergeLabelNamesWithStandardLabels(['server_address']),
       registers: [this.register]
     })
 
     this.checkedOut = new Gauge({
-      name: 'mongodb_driver_pool_checkedout',
+      name: `${prefix}mongodb_driver_pool_checkedout`,
       help: 'the count of connections that are currently in use',
       labelNames: this.mergeLabelNamesWithStandardLabels(['server_address']),
       registers: [this.register]
     })
 
     this.waitQueueSize = new Gauge({
-      name: 'mongodb_driver_pool_waitqueuesize',
+      name: `${prefix}mongodb_driver_pool_waitqueuesize`,
       help: 'the current size of the wait queue for a connection from the pool',
       labelNames: this.mergeLabelNamesWithStandardLabels(['server_address']),
       registers: [this.register]
@@ -71,7 +73,7 @@ export class MongoDBDriverExporter {
 
     if (this.monitorCommands()) {
       this.commands = new Histogram({
-        name: 'mongodb_driver_commands_seconds',
+        name: `${prefix}mongodb_driver_commands_seconds`,
         help: 'Timer of mongodb commands',
         buckets: this.options.mongodbDriverCommandsSecondsHistogramBuckets,
         labelNames: this.mergeLabelNamesWithStandardLabels(['command', 'server_address', 'status']),
