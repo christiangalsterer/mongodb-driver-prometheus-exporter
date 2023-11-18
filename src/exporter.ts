@@ -32,7 +32,7 @@ export interface MongoDBDriverExporterOptions {
   /**
    * Name prefix for all metrics, e.g. 'service1_'
    */
-  prefix?: string;
+  prefix?: string
 }
 
 /**
