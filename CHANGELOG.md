@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.0] 2023-11-19
+
+The detailed changelog can be found [here](https://github.com/christiangalsterer/mongodb-driver-prometheus-exporter/compare/v2.0.0...v2.1.0).
+
+Many thanks to the contributers for this release
+- [Klem3n](https://github.com/Klem3n)
+
+### Added
+
+- added support for an optional metric name prefix ([issue 56](https://github.com/christiangalsterer/mongodb-driver-prometheus-exporter/issues/56))
+- added contribution guidelines
+
+
 ## [2.0.0] 2023-10-16
 
 The detailed changelog can be found [here](https://github.com/christiangalsterer/mongodb-driver-prometheus-exporter/compare/v1.1.1...v2.0.0).
