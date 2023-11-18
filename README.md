@@ -179,7 +179,7 @@ The following table list the compatibility of exporter versions with different M
 
 # Contributions
 
-Contributions are highly welcomed. If you want to contribute to this project please create a github issue and/or provide a pull request for review.
+Contributions are highly welcome. If you want to contribute to this project please follow the steps described in the [contribution guidelines](/CONTRIBUTING.md).
 
 # Projects Using The Exporter
 
