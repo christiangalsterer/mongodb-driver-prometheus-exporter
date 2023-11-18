@@ -34,7 +34,7 @@ export class MongoDBDriverExporter {
     this.register = register
     this.options = { ...this.defaultOptions, ...options }
 
-    const prefix = options?.prefix ?? '';
+    const prefix = options?.prefix ?? ''
 
     this.poolSize = new Gauge({
       name: `${prefix}mongodb_driver_pool_size`,
