@@ -26,6 +26,7 @@
         },
         {
             "files": ["test/**/*.ts"],
+            "plugins": ["jest"],
             "parserOptions": {
                 "project": ["./tsconfig.eslint.json"]
             }
