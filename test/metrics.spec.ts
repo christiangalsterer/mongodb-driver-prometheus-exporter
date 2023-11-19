@@ -33,8 +33,8 @@ describe('test if all metrics are created with the correct parameters', () => {
     // eslint-disable-next-line no-new
     new MongoDBDriverExporter(mongoClient, register)
 
-    expect(Gauge).toBeCalledTimes(5)
-    expect(Histogram).toBeCalledTimes(1)
+    expect(Gauge).toHaveBeenCalledTimes(5)
+    expect(Histogram).toHaveBeenCalledTimes(1)
 
     expect(Gauge).toHaveBeenCalledWith({
       name: 'mongodb_driver_pool_size',
@@ -84,8 +84,8 @@ describe('test if all metrics are created with the correct parameters', () => {
     // eslint-disable-next-line no-new
     new MongoDBDriverExporter(mongoClient, register, options)
 
-    expect(Gauge).toBeCalledTimes(5)
-    expect(Histogram).toBeCalledTimes(1)
+    expect(Gauge).toHaveBeenCalledTimes(5)
+    expect(Histogram).toHaveBeenCalledTimes(1)
 
     expect(Gauge).toHaveBeenCalledWith({
       name: 'mongodb_driver_pool_size',
@@ -135,8 +135,8 @@ describe('test if all metrics are created with the correct parameters', () => {
     // eslint-disable-next-line no-new
     new MongoDBDriverExporter(mongoClient, register, { prefix: 'test_' })
 
-    expect(Gauge).toBeCalledTimes(5)
-    expect(Histogram).toBeCalledTimes(1)
+    expect(Gauge).toHaveBeenCalledTimes(5)
+    expect(Histogram).toHaveBeenCalledTimes(1)
 
     expect(Gauge).toHaveBeenCalledWith({
       name: 'test_mongodb_driver_pool_size',
