@@ -10,7 +10,7 @@ describe('tests mongoDBDriverExporter', () => {
     register = new Registry()
   })
 
-  test('tests if connection and commands metrics are registered in registry', async () => {
+  test('tests if connection and commands metrics are registered in registry', () => {
     const mongoClient = new MongoClient('mongodb://localhost:27017', { monitorCommands: true })
     // eslint-disable-next-line no-new
     new MongoDBDriverExporter(mongoClient, register)
