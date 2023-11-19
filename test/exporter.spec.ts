@@ -33,6 +33,7 @@ describe('tests monitorMongoDBDriver', () => {
   test('tests if monitorMongoDBDriver called methods of MongoDBDriverExporter instance', () => {
     monitorMongoDBDriver(mongoClient, register)
     const mockMongoDBDriverExporterInstance = mockMongoDBDriverExporter.mock.instances[0]
+    // eslint-disable-next-line jest/unbound-method
     const mockEnableMetrics = mockMongoDBDriverExporterInstance.enableMetrics as jest.Mock
     expect(mockEnableMetrics).toHaveBeenCalledTimes(1)
   })
