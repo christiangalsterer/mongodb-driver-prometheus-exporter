@@ -5,7 +5,7 @@ import { type MongoDBDriverExporterOptions } from './exporter'
 export class MongoDBDriverExporter {
   private readonly register: Registry
   private readonly mongoClient: MongoClient
-  private readonly options?: MongoDBDriverExporterOptions
+  private readonly options: MongoDBDriverExporterOptions
   private readonly defaultOptions: MongoDBDriverExporterOptions = {
     mongodbDriverCommandsSecondsHistogramBuckets: [0.001, 0.005, 0.01, 0.02, 0.03, 0.04, 0.05, 0.1, 0.2, 0.5, 1, 2, 5, 10]
   }
