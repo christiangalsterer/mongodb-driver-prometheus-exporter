@@ -91,13 +91,13 @@ export class MongoDBDriverExporter {
     this.mongoClient.on('connectionCheckedOut', (event) => { this.onConnectionCheckedOut(event) })
     this.mongoClient.on('connectionCheckOutFailed', (event) => { this.onConnectionCheckOutFailed(event) })
     this.mongoClient.on('connectionCheckedIn', (event) => { this.onConnectionCheckedIn(event) })
-    this.options?.logger?.info('Successfully enabled connection pool metrics for the MongoDB Node.js driver.')
+    this.options.logger?.info('Successfully enabled connection pool metrics for the MongoDB Node.js driver.')
 
     // command metrics
     if (this.monitorCommands()) {
       this.mongoClient.on('commandSucceeded', (event) => { this.onCommandSucceeded(event) })
       this.mongoClient.on('commandFailed', (event) => { this.onCommandFailed(event) })
-      this.options?.logger?.info('Successfully enabled command metrics for the MongoDB Node.js driver.')
+      this.options.logger?.info('Successfully enabled command metrics for the MongoDB Node.js driver.')
     }
   }
 
@@ -107,13 +107,13 @@ export class MongoDBDriverExporter {
 
   private mergeLabelNamesWithStandardLabels (labelNames: string[]): string[] {
     let merged: string[]
-    this.options?.defaultLabels != null ? merged = labelNames.concat(Object.keys(this.options.defaultLabels)) : merged = labelNames
+    this.options.defaultLabels != null ? merged = labelNames.concat(Object.keys(this.options.defaultLabels)) : merged = labelNames
     return merged
   }
 
   private mergeLabelsWithStandardLabels (labels: Record<string, string | number>): Record<string, string | number> {
     let merged: Record<string, string | number>
-    this.options?.defaultLabels != null ? merged = { ...labels, ...this.options.defaultLabels } : merged = labels
+    this.options.defaultLabels != null ? merged = { ...labels, ...this.options.defaultLabels } : merged = labels
     return merged
   }
 
