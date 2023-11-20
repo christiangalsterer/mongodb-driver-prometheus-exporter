@@ -32,7 +32,7 @@
             "files": ["test/**/*.ts"],
             "plugins": ["jest"],
             "parserOptions": {
-                "project": ["./tsconfig.eslint.json"]
+                "project": ["./tsconfig.test.json"]
             },
             "rules": {
                 "@typescript-eslint/unbound-method": "off",
