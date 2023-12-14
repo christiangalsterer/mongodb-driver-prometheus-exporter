@@ -72,7 +72,7 @@ jobs:
           args: --org=christiangalsterer --sarif-file-output=snyk.sarif 
       - name: Upload test result to GitHub Code Scanning
         if: ${{ steps.changed-files.outputs.deps_any_changed == 'true' }}
-        uses: github/codeql-action/upload-sarif@v2
+        uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: snyk.sarif    
       - name: Snyk Code Test
@@ -82,7 +82,7 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       - name: Upload code test result to GitHub Code Scanning
         if: ${{ ! (github.event_name == 'pull_request' && github.event.pull_request.user.login == 'renovate[bot]' && contains(github.event.pull_request.labels.*.name, 'renovate')) && (steps.changed-files.outputs.code_any_changed == 'true') }}
-        uses: github/codeql-action/upload-sarif@v2
+        uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: snyk_code_test.sarif
           category: snyk_code_test
