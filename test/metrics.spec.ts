@@ -26,7 +26,7 @@ describe('test if all metrics are created with the correct parameters', () => {
   const register: Registry = {} as Registry
 
   beforeEach(() => {
-    jest.resetAllMocks()
+    jest.clearAllMocks()
   })
 
   test('tests if all metrics are created', () => {
