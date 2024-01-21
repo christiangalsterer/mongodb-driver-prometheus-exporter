@@ -22,7 +22,8 @@
                 "patch",
                 "pin"
             ],
-            "prConcurrentLimit": 1
+            "prConcurrentLimit": 1,
+            "automerge": true
         }
     ]
 }
