@@ -53,8 +53,8 @@
     "eslint-plugin-jest": "27.6.3",
     "jest": "29.7.0",
     "prettier": "3.2.4",
-    "renovate": "37.141.0",
-    "ts-jest": "29.1.1",
+    "renovate": "37.146.0",
+    "ts-jest": "29.1.2",
     "typescript": "5.3.3"
   },
   "engines": {
