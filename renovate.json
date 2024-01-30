@@ -23,7 +23,8 @@
                 "pin"
             ],
             "prConcurrentLimit": 1,
-            "automerge": true
+            "automerge": true,
+            "automergeType": "branch"
         }
     ]
 }
