@@ -2,8 +2,7 @@
     "$schema": "https://docs.renovatebot.com/renovate-schema.json",
     "extends": [
         "config:js-lib",
-        "schedule:earlyMondays",
-        "schedule:automergeEarlyMondays"
+        "schedule:daily"
     ],
     "addLabels": [
         "renovate"
