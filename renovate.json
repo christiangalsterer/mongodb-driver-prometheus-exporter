@@ -11,6 +11,7 @@
     "semanticCommitScope": "",
     "semanticCommitType": "build",
     "timezone": "Europe/Berlin",
+    "platformAutomerge": true,
     "packageRules": [
         {
             "groupName": "All dev dependencies",
