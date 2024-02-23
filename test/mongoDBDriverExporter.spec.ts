@@ -61,7 +61,7 @@ describe('tests mongoDBDriverExporter', () => {
     const mongoClient = new MongoClient('mongodb://localhost:27017', { monitorCommands: true })
     const exporter = new MongoDBDriverExporter(mongoClient, register)
     exporter.enableMetrics()
-    expect(mongoClient.eventNames()).toHaveLength(10)
+    expect(mongoClient.eventNames()).toHaveLength(events.length)
     expect(mongoClient.eventNames()).toEqual(expect.arrayContaining(events))
     events.forEach(event => {
       expect(mongoClient.listenerCount(event)).toBe(1)
@@ -77,7 +77,7 @@ describe('tests mongoDBDriverExporter', () => {
     const mongoClient = new MongoClient('mongodb://localhost:27017', { monitorCommands: false })
     const exporter = new MongoDBDriverExporter(mongoClient, register)
     exporter.enableMetrics()
-    expect(mongoClient.eventNames()).toHaveLength(8)
+    expect(mongoClient.eventNames()).toHaveLength(events.length)
     expect(mongoClient.eventNames()).toEqual(expect.arrayContaining(events))
     events.forEach(event => {
       expect(mongoClient.listenerCount(event)).toBe(1)
