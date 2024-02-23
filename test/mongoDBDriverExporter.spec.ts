@@ -25,7 +25,10 @@ describe('tests mongoDBDriverExporter', () => {
 
   test('tests if connection and commands metrics are registered in registry with optional configurations', () => {
     const mongoClient = new MongoClient('mongodb://localhost:27017', { monitorCommands: true })
-    const options = { mongodbDriverCommandsSecondsHistogramBuckets: [0.001, 0.005, 0.010, 0.020, 0.030, 0.040, 0.050, 0.100, 0.200, 0.500, 1.0, 2.0, 5.0, 20], defaultLabels: { foo: 'bar', alice: 2 } }
+    const options = {
+      mongodbDriverCommandsSecondsHistogramBuckets: [0.001, 0.005, 0.010, 0.020, 0.030, 0.040, 0.050, 0.100, 0.200, 0.500, 1.0, 2.0, 5.0, 20], 
+      defaultLabels: { foo: 'bar', alice: 2 }
+    }
     // eslint-disable-next-line no-new
     new MongoDBDriverExporter(mongoClient, register, options)
     expect(register.getMetricsAsArray().length).toBe(6)
