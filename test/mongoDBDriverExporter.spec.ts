@@ -51,35 +51,34 @@ describe('tests mongoDBDriverExporter', () => {
   })
 
   test('tests if event connection and command listeners are registered for mongo client events', () => {
+    const events: string[] = [
+      'connectionPoolCreated', 'connectionPoolClosed', 'connectionCreated', 'connectionClosed', 'connectionCheckOutStarted',
+      'connectionCheckedOut', 'connectionCheckOutFailed', 'connectionCheckedIn', 'commandSucceeded', 'commandFailed'
+    ]
     const mongoClient = new MongoClient('mongodb://localhost:27017', { monitorCommands: true })
     const exporter = new MongoDBDriverExporter(mongoClient, register)
     exporter.enableMetrics()
-    expect(mongoClient.listenerCount('connectionPoolCreated')).toBe(1)
-    expect(mongoClient.listenerCount('connectionPoolClosed')).toBe(1)
-    expect(mongoClient.listenerCount('connectionCreated')).toBe(1)
-    expect(mongoClient.listenerCount('connectionClosed')).toBe(1)
-    expect(mongoClient.listenerCount('connectionCheckOutStarted')).toBe(1)
-    expect(mongoClient.listenerCount('connectionCheckedOut')).toBe(1)
-    expect(mongoClient.listenerCount('connectionCheckOutFailed')).toBe(1)
-    expect(mongoClient.listenerCount('connectionCheckedIn')).toBe(1)
-    expect(mongoClient.listenerCount('commandSucceeded')).toBe(1)
-    expect(mongoClient.listenerCount('commandFailed')).toBe(1)
+    expect(mongoClient.eventNames()).toHaveLength(10)
+    expect(mongoClient.eventNames()).toEqual(expect.arrayContaining(events))
+    events.forEach(event => {
+      expect(mongoClient.listenerCount(event)).toBe(1)
+      expect(mongoClient.listeners(event).at(0)).toBeInstanceOf(Function)
+    })
   })
 
   test('tests if only event connection listeners are registered for mongo client events', () => {
+    const events: string[] = [
+      'connectionPoolCreated', 'connectionPoolClosed', 'connectionCreated', 'connectionClosed', 'connectionCheckOutStarted',
+      'connectionCheckedOut', 'connectionCheckOutFailed', 'connectionCheckedIn'
+    ]
     const mongoClient = new MongoClient('mongodb://localhost:27017', { monitorCommands: false })
-    // eslint-disable-next-line no-new
     const exporter = new MongoDBDriverExporter(mongoClient, register)
     exporter.enableMetrics()
-    expect(mongoClient.listenerCount('connectionPoolCreated')).toBe(1)
-    expect(mongoClient.listenerCount('connectionPoolClosed')).toBe(1)
-    expect(mongoClient.listenerCount('connectionCreated')).toBe(1)
-    expect(mongoClient.listenerCount('connectionClosed')).toBe(1)
-    expect(mongoClient.listenerCount('connectionCheckOutStarted')).toBe(1)
-    expect(mongoClient.listenerCount('connectionCheckedOut')).toBe(1)
-    expect(mongoClient.listenerCount('connectionCheckOutFailed')).toBe(1)
-    expect(mongoClient.listenerCount('connectionCheckedIn')).toBe(1)
-    expect(mongoClient.listenerCount('commandSucceeded')).toBe(0)
-    expect(mongoClient.listenerCount('commandFailed')).toBe(0)
+    expect(mongoClient.eventNames()).toHaveLength(8)
+    expect(mongoClient.eventNames()).toEqual(expect.arrayContaining(events))
+    events.forEach(event => {
+      expect(mongoClient.listenerCount(event)).toBe(1)
+      expect(mongoClient.listeners(event).at(0)).toBeInstanceOf(Function)
+    })
   })
 })
