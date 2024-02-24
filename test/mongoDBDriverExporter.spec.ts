@@ -14,7 +14,7 @@ describe('tests mongoDBDriverExporter', () => {
     const mongoClient = new MongoClient('mongodb://localhost:27017', { monitorCommands: true })
     // eslint-disable-next-line no-new
     new MongoDBDriverExporter(mongoClient, register)
-    expect(register.getMetricsAsArray().length).toBe(6)
+    expect(register.getMetricsAsArray()).toHaveLength(6)
     expect(register.getSingleMetric('mongodb_driver_pool_size')).toBeDefined()
     expect(register.getSingleMetric('mongodb_driver_pool_min')).toBeDefined()
     expect(register.getSingleMetric('mongodb_driver_pool_max')).toBeDefined()
@@ -66,7 +66,7 @@ describe('tests mongoDBDriverExporter', () => {
     expect(mongoClient.eventNames()).toHaveLength(events.length)
     expect(mongoClient.eventNames()).toEqual(expect.arrayContaining(events))
     events.forEach(event => {
-      expect(mongoClient.listenerCount(event)).toBe(1)
+      expect(mongoClient.listeners(event)).toHaveLength(1)
       expect(mongoClient.listeners(event).at(0)).toBeInstanceOf(Function)
     })
   })
@@ -82,7 +82,7 @@ describe('tests mongoDBDriverExporter', () => {
     expect(mongoClient.eventNames()).toHaveLength(events.length)
     expect(mongoClient.eventNames()).toEqual(expect.arrayContaining(events))
     events.forEach(event => {
-      expect(mongoClient.listenerCount(event)).toBe(1)
+      expect(mongoClient.listeners(event)).toHaveLength(1)
       expect(mongoClient.listeners(event).at(0)).toBeInstanceOf(Function)
     })
   })
