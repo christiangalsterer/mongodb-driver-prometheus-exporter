@@ -1,9 +1,9 @@
 import { beforeEach, describe, expect, test } from '@jest/globals'
-import { Registry } from 'prom-client'
+import { Registry, register } from 'prom-client'
 import { MongoClient } from 'mongodb'
 import { MongoDBDriverExporter } from '../src/mongoDBDriverExporter'
 
-describe('tests mongoDBDriverExporter', () => {
+describe('tests mongoDBDriverExporter with real mongo client', () => {
   let register: Registry
 
   beforeEach(() => {
@@ -85,5 +85,66 @@ describe('tests mongoDBDriverExporter', () => {
       expect(mongoClient.listeners(event)).toHaveLength(1)
       expect(mongoClient.listeners(event).at(0)).toBeInstanceOf(Function)
     })
+  })
+})
+
+describe('tests if enableMetrics attach event listeners', () => {
+  let mockMongoClient
+  let register
+  let exporter: MongoDBDriverExporter
+
+  beforeEach(() => {
+    jest.clearAllMocks()
+    register = new Registry()
+  })
+
+  it('should attach event listeners for connection metrics and log success message', () => {
+    mockMongoClient = {
+      on: jest.fn(),
+      options: {
+        monitorCommands: false
+      }
+    }
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    exporter = new MongoDBDriverExporter(mockMongoClient, register)
+    const events: string[] = [
+      'connectionPoolCreated', 'connectionPoolClosed', 'connectionCreated', 'connectionClosed', 'connectionCheckOutStarted',
+      'connectionCheckedOut', 'connectionCheckOutFailed', 'connectionCheckedIn'
+    ]
+    exporter.enableMetrics()
+
+    events.forEach(event => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      expect(mockMongoClient.on).toHaveBeenCalledTimes(events.length)
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      expect(mockMongoClient.on).toHaveBeenCalledWith(event, expect.any(Function))
+    })
+
+    // expect(mockOptions.logger.info).toHaveBeenCalledWith('Successfully enabled connection pool metrics for the MongoDB Node.js driver.')
+  })
+
+  it('should attach event listeners for connection and command metrics and log success message', () => {
+    mockMongoClient = {
+      on: jest.fn(),
+      options: {
+        monitorCommands: true
+      }
+    }
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    exporter = new MongoDBDriverExporter(mockMongoClient, register)
+    const events: string[] = [
+      'connectionPoolCreated', 'connectionPoolClosed', 'connectionCreated', 'connectionClosed', 'connectionCheckOutStarted',
+      'connectionCheckedOut', 'connectionCheckOutFailed', 'connectionCheckedIn', 'commandSucceeded', 'commandFailed'
+    ]
+    exporter.enableMetrics()
+
+    events.forEach(event => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      expect(mockMongoClient.on).toHaveBeenCalledTimes(events.length)
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      expect(mockMongoClient.on).toHaveBeenCalledWith(event, expect.any(Function))
+    })
+
+    // expect(mockOptions.logger.info).toHaveBeenCalledWith('Successfully enabled connection pool metrics for the MongoDB Node.js driver.')
   })
 })
