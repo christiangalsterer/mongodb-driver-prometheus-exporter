@@ -1,5 +1,34 @@
 import { describe, expect, test } from '@jest/globals'
-import { mergeLabelNamesWithStandardLabels, mergeLabelsWithStandardLabels } from '../src/utils'
+import { ConsoleLogger, mergeLabelNamesWithStandardLabels, mergeLabelsWithStandardLabels } from '../src/utils'
+
+describe('ConsoleLogger', () => {
+  let consoleLogger: ConsoleLogger
+
+  beforeEach(() => {
+    consoleLogger = new ConsoleLogger()
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    jest.spyOn(console, 'log').mockImplementation(() => {})
+  })
+
+  afterEach(() => {
+    jest.restoreAllMocks()
+  })
+
+  test('should log an info message', () => {
+    consoleLogger.info('Info message')
+    expect(console.log).toHaveBeenCalledWith('Info message')
+  })
+
+  test('should log a warning message', () => {
+    consoleLogger.warn('Warning message')
+    expect(console.log).toHaveBeenCalledWith('Warning message')
+  })
+
+  test('should log an error message', () => {
+    consoleLogger.error('Error message')
+    expect(console.log).toHaveBeenCalledWith('Error message')
+  })
+})
 
 describe('tests mergeLabelNamesWithStandardLabels', () => {
   const defaultLabels = { foo: 'bar', alice: 3 }
