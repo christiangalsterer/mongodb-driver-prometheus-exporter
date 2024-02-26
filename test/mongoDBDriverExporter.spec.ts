@@ -90,11 +90,17 @@ describe('tests mongoDBDriverExporter with real mongo client', () => {
 
 describe('tests if enableMetrics attach event listeners', () => {
   let mockMongoClient
+  let mockOptions
   let register: Registry
   let exporter: MongoDBDriverExporter
 
   beforeEach(() => {
     jest.clearAllMocks()
+    mockOptions = {
+      logger: {
+        info: jest.fn()
+      }
+    }
     register = new Registry()
   })
 
@@ -106,7 +112,7 @@ describe('tests if enableMetrics attach event listeners', () => {
       }
     }
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    exporter = new MongoDBDriverExporter(mockMongoClient, register)
+    exporter = new MongoDBDriverExporter(mockMongoClient, register, mockOptions)
     const events: string[] = [
       'connectionPoolCreated', 'connectionPoolClosed', 'connectionCreated', 'connectionClosed', 'connectionCheckOutStarted',
       'connectionCheckedOut', 'connectionCheckOutFailed', 'connectionCheckedIn'
@@ -120,7 +126,8 @@ describe('tests if enableMetrics attach event listeners', () => {
       expect(mockMongoClient.on).toHaveBeenCalledWith(event, expect.any(Function))
     })
 
-    // expect(mockOptions.logger.info).toHaveBeenCalledWith('Successfully enabled connection pool metrics for the MongoDB Node.js driver.')
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    expect(mockOptions.logger.info).toHaveBeenCalledWith('Successfully enabled connection pool metrics for the MongoDB Node.js driver.')
   })
 
   test('should attach event listeners for connection and command metrics and log success message', () => {
@@ -131,7 +138,7 @@ describe('tests if enableMetrics attach event listeners', () => {
       }
     }
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    exporter = new MongoDBDriverExporter(mockMongoClient, register)
+    exporter = new MongoDBDriverExporter(mockMongoClient, register, mockOptions)
     const events: string[] = [
       'connectionPoolCreated', 'connectionPoolClosed', 'connectionCreated', 'connectionClosed', 'connectionCheckOutStarted',
       'connectionCheckedOut', 'connectionCheckOutFailed', 'connectionCheckedIn', 'commandSucceeded', 'commandFailed'
@@ -145,6 +152,9 @@ describe('tests if enableMetrics attach event listeners', () => {
       expect(mockMongoClient.on).toHaveBeenCalledWith(event, expect.any(Function))
     })
 
-    // expect(mockOptions.logger.info).toHaveBeenCalledWith('Successfully enabled connection pool metrics for the MongoDB Node.js driver.')
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    expect(mockOptions.logger.info).toHaveBeenCalledWith('Successfully enabled connection pool metrics for the MongoDB Node.js driver.')
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    expect(mockOptions.logger.info).toHaveBeenCalledWith('Successfully enabled command metrics for the MongoDB Node.js driver.')
   })
 })
