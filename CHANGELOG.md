@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 The detailed changelog can be found [here](https://github.com/christiangalsterer/mongodb-driver-prometheus-exporter/compare/v2.0.0...v2.1.0).
 
-Many thanks to the contributers for this release
+Many thanks to the contributors for this release
 - [Klem3n](https://github.com/Klem3n)
 
 ### Added
