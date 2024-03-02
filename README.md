@@ -3,7 +3,7 @@
 [![npm downloads](https://img.shields.io/npm/dt/@christiangalsterer/mongodb-driver-prometheus-exporter.svg)](https://www.npmjs.com/package/@christiangalsterer/mongodb-driver-prometheus-exporter)
 [![npm version](https://img.shields.io/npm/v/@christiangalsterer/mongodb-driver-prometheus-exporter.svg)](https://www.npmjs.com/package/@christiangalsterer/mongodb-driver-prometheus-exporter?activeTab=versions)
 [![npm license](https://img.shields.io/npm/l/@christiangalsterer/mongodb-driver-prometheus-exporter.svg)](https://www.npmjs.com/package/@christiangalsterer/mongodb-driver-prometheus-exporter)
-![semver](https://img.shields.io/badge/semver-2.0.0-green)
+[![semver](https://img.shields.io/badge/semver-2.0.0-green)](https://semver.org)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
 [![renovate](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://developer.mend.io/github/christiangalsterer/mongodb-driver-prometheus-exporter)
 ![github stars](https://img.shields.io/github/stars/christiangalsterer/mongodb-driver-prometheus-exporter.svg)
