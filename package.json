@@ -53,7 +53,7 @@
     "eslint-plugin-jest": "27.9.0",
     "jest": "29.7.0",
     "prettier": "3.2.5",
-    "renovate": "37.221.0",
+    "renovate": "37.222.3",
     "ts-jest": "29.1.2",
     "typescript": "5.3.3"
   },
