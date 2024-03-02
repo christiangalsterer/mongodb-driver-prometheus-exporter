@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/consistent-type-assertions */
 import { beforeEach } from '@jest/globals'
-import { MongoDBDriverExporter } from '../src/mongoDBDriverExporter'
 import { MongoClient } from 'mongodb'
 import { Gauge, Histogram, type Registry } from 'prom-client'
+import { MongoDBDriverExporter } from '../src/mongoDBDriverExporter'
 
 jest.mock('prom-client', () => ({
   Gauge: jest.fn(() => {

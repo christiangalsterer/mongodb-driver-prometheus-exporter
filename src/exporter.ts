@@ -1,5 +1,5 @@
-import { type Registry } from 'prom-client'
 import type { MongoClient } from 'mongodb'
+import { type Registry } from 'prom-client'
 import { MongoDBDriverExporter } from './mongoDBDriverExporter'
 
 /**

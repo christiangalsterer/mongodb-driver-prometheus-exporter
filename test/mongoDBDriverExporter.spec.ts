@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, test } from '@jest/globals'
-import { Registry } from 'prom-client'
 import { MongoClient } from 'mongodb'
+import { Registry } from 'prom-client'
 import { MongoDBDriverExporter } from '../src/mongoDBDriverExporter'
 
 describe('tests mongoDBDriverExporter with real mongo client', () => {

@@ -1,5 +1,5 @@
+import type { CommandFailedEvent, CommandSucceededEvent, ConnectionCheckOutFailedEvent, ConnectionCheckOutStartedEvent, ConnectionCheckedInEvent, ConnectionCheckedOutEvent, ConnectionClosedEvent, ConnectionCreatedEvent, ConnectionPoolClosedEvent, ConnectionPoolCreatedEvent, MongoClient } from 'mongodb'
 import { Gauge, Histogram, type Registry } from 'prom-client'
-import type { ConnectionCreatedEvent, ConnectionClosedEvent, ConnectionPoolCreatedEvent, ConnectionCheckOutStartedEvent, ConnectionCheckedOutEvent, ConnectionCheckOutFailedEvent, ConnectionCheckedInEvent, ConnectionPoolClosedEvent, CommandSucceededEvent, CommandFailedEvent, MongoClient } from 'mongodb'
 import { type MongoDBDriverExporterOptions } from './exporter'
 import { mergeLabelNamesWithStandardLabels, mergeLabelsWithStandardLabels } from './utils'
 
