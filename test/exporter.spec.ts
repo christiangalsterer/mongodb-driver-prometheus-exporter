@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, jest, test } from '@jest/globals'
 import { MongoClient } from 'mongodb'
 import { Registry } from 'prom-client'
+
 import { monitorMongoDBDriver } from '../src/exporter'
 import { MongoDBDriverExporter } from '../src/mongoDBDriverExporter'
 

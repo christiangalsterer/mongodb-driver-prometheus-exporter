@@ -3,6 +3,7 @@
 import { beforeEach } from '@jest/globals'
 import { MongoClient } from 'mongodb'
 import { Gauge, Histogram, type Registry } from 'prom-client'
+
 import { MongoDBDriverExporter } from '../src/mongoDBDriverExporter'
 
 jest.mock('prom-client', () => ({
