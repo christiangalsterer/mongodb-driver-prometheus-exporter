@@ -10,13 +10,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 The detailed changelog can be found [here](https://github.com/christiangalsterer/mongodb-driver-prometheus-exporter/compare/v2.0.0...v2.1.0).
 
 Many thanks to the contributors for this release
+
 - [Klem3n](https://github.com/Klem3n)
 
 ### Added
 
 - added support for an optional metric name prefix ([issue 56](https://github.com/christiangalsterer/mongodb-driver-prometheus-exporter/issues/56))
 - added contribution guidelines
-
 
 ## [2.0.0] 2023-10-16
 
@@ -45,7 +45,7 @@ The detailed changelog can be found [here](https://github.com/christiangalsterer
 
 ### Added
 
-- Added possibility to specify default labels to be added to each metric 
+- Added possibility to specify default labels to be added to each metric
 
 ### Changed
 
@@ -72,7 +72,7 @@ The detailed changelog can be found [here](https://github.com/christiangalsterer
 ### Fixed
 
 ## [0.2.0] 2023-08-01
- 
+
 ### Added
 
 - Added possibility to specify the buckets for the mongodb_driver_commands_seconds_bucket metric via the new optional parameter MongoDBDriverExporterOptions

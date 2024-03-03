@@ -15,6 +15,7 @@ A prometheus exporter exposing metrics for the official [MongoDB Node.js driver]
 Metrics names follow the same naming convention used by [micrometer](https://github.com/micrometer-metrics/micrometer). This allows to use the same metrics in dashboards and alerts across different technology stacks, e.g. when you use Spring Boot and Node.js in different applications.
 
 ## Available Metrics
+
 The exporter provides the following metrics.
 
 |Metric Name|Description|Labels|Since|
@@ -116,6 +117,7 @@ monitorMongoDBDriver(mongoClient, register);
 // connect to MongoDB after calling monitorMongoDBDriver()
 mongoClient.connect();
 ```
+
 ## JavaScript
 
 The following example illustrates how to use the exporter to enable monitoring for the MongoDB Node.js driver.
@@ -147,7 +149,7 @@ mongoClient.connect();
 
 # Configuration
 
-The exporter can be configured via properties specified on the optional parameter of type 
+The exporter can be configured via properties specified on the optional parameter of type
 _MongoDBDriverExporterOptions_.
 
 |property|Description|Example|Since |
@@ -166,12 +168,12 @@ Here an example for collection metrics:
 Here an example for command metrics:
 ![Grafana:Commands Metrics](/docs/images/grafana_mongodb_driver_commands_1.png "Grafana: Command Metrics")
 
-
 # Changelog
 
 The changes to project can be found in the [changelog](/CHANGELOG.md).
 
 # Compatibility
+
 The following table list the compatibility of exporter versions with different MongoDB Driver and prom-client versions.
 
 |Exporter Version|MongoDB Driver Version|prom-client version|
@@ -189,6 +191,6 @@ If you want to support this project, please add a link to your project and/or co
 
 # Related Projects
 
-If you are looking for a way to monitor KafkaJS for Node.js you may have a look at https://github.com/christiangalsterer/kafkajs-prometheus-exporter.
+If you are looking for a way to monitor KafkaJS for Node.js you may have a look at <https://github.com/christiangalsterer/kafkajs-prometheus-exporter>.
 
-If you are looking for a way to monitor node-postgres you may have a look at https://github.com/christiangalsterer/node-postgres-prometheus-exporter.
+If you are looking for a way to monitor node-postgres you may have a look at <https://github.com/christiangalsterer/node-postgres-prometheus-exporter>.
