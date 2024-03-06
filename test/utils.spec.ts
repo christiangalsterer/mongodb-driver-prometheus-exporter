@@ -14,23 +14,23 @@ describe('consoleLogger', () => {
     jest.restoreAllMocks()
   })
 
-  test('should log an info message', () => {
+  test('log an info message', () => {
     consoleLogger.info('Info message')
     expect(console.log).toHaveBeenCalledWith('Info message')
   })
 
-  test('should log a warning message', () => {
+  test('log a warning message', () => {
     consoleLogger.warn('Warning message')
     expect(console.log).toHaveBeenCalledWith('Warning message')
   })
 
-  test('should log an error message', () => {
+  test('log an error message', () => {
     consoleLogger.error('Error message')
     expect(console.log).toHaveBeenCalledWith('Error message')
   })
 })
 
-describe('tests mergeLabelNamesWithStandardLabels', () => {
+describe('mergeLabelNamesWithStandardLabels', () => {
   const defaultLabels = { foo: 'bar', alice: 3 }
   const labels = ['label1', 'label2']
   const emptylabels = []
@@ -52,7 +52,7 @@ describe('tests mergeLabelNamesWithStandardLabels', () => {
   })
 })
 
-describe('tests mergeLabelsWithStandardLabels', () => {
+describe('mergeLabelsWithStandardLabels', () => {
   const defaultLabels = { foo: 'bar', alice: 3 }
   const labels = { label1: 'value1', label2: 2, label3: undefined }
   const emptyLabels = {}

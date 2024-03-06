@@ -11,7 +11,7 @@ describe('tests mongoDBDriverExporter with real mongo client', () => {
     register = new Registry()
   })
 
-  test('tests if connection and commands metrics are registered in registry', () => {
+  test('connection and commands metrics are registered in registry', () => {
     const mongoClient = new MongoClient('mongodb://localhost:27017', { monitorCommands: true })
     // eslint-disable-next-line no-new
     new MongoDBDriverExporter(mongoClient, register)
@@ -24,7 +24,7 @@ describe('tests mongoDBDriverExporter with real mongo client', () => {
     expect(register.getSingleMetric('mongodb_driver_commands_seconds')).toBeDefined()
   })
 
-  test('tests if connection and commands metrics are registered in registry with optional configurations', () => {
+  test('connection and commands metrics are registered in registry with optional configurations', () => {
     const metrics: string[] = [
       'mongodb_driver_pool_size', 'mongodb_driver_pool_min', 'mongodb_driver_pool_max',
       'mongodb_driver_pool_checkedout', 'mongodb_driver_pool_waitqueuesize', 'mongodb_driver_commands_seconds'
@@ -42,7 +42,7 @@ describe('tests mongoDBDriverExporter with real mongo client', () => {
     })
   })
 
-  test('tests if only connection metrics are registered in registry', () => {
+  test('only connection metrics are registered in registry', () => {
     const metrics: string[] = [
       'mongodb_driver_pool_size', 'mongodb_driver_pool_min', 'mongodb_driver_pool_max',
       'mongodb_driver_pool_checkedout', 'mongodb_driver_pool_waitqueuesize'
@@ -56,7 +56,7 @@ describe('tests mongoDBDriverExporter with real mongo client', () => {
     })
   })
 
-  test('tests if event connection and command listeners are registered for mongo client events', () => {
+  test('event connection and command listeners are registered for mongo client events', () => {
     const events: string[] = [
       'connectionPoolCreated', 'connectionPoolClosed', 'connectionCreated', 'connectionClosed', 'connectionCheckOutStarted',
       'connectionCheckedOut', 'connectionCheckOutFailed', 'connectionCheckedIn', 'commandSucceeded', 'commandFailed'
@@ -72,7 +72,7 @@ describe('tests mongoDBDriverExporter with real mongo client', () => {
     })
   })
 
-  test('tests if only event connection listeners are registered for mongo client events', () => {
+  test('only event connection listeners are registered for mongo client events', () => {
     const events: string[] = [
       'connectionPoolCreated', 'connectionPoolClosed', 'connectionCreated', 'connectionClosed', 'connectionCheckOutStarted',
       'connectionCheckedOut', 'connectionCheckOutFailed', 'connectionCheckedIn'
@@ -89,7 +89,7 @@ describe('tests mongoDBDriverExporter with real mongo client', () => {
   })
 })
 
-describe('tests if enableMetrics attach event listeners', () => {
+describe('enableMetrics attach event listeners', () => {
   let mockMongoClient
   let mockOptions
   let register: Registry
@@ -105,7 +105,7 @@ describe('tests if enableMetrics attach event listeners', () => {
     register = new Registry()
   })
 
-  test('should attach event listeners for connection metrics and log success message', () => {
+  test('attach event listeners for connection metrics and log success message', () => {
     mockMongoClient = {
       on: jest.fn(),
       options: {
@@ -131,7 +131,7 @@ describe('tests if enableMetrics attach event listeners', () => {
     expect(mockOptions.logger.info).toHaveBeenCalledWith('Successfully enabled connection pool metrics for the MongoDB Node.js driver.')
   })
 
-  test('should attach event listeners for connection and command metrics and log success message', () => {
+  test('attach event listeners for connection and command metrics and log success message', () => {
     mockMongoClient = {
       on: jest.fn(),
       options: {

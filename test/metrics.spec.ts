@@ -21,7 +21,7 @@ jest.mock('prom-client', () => ({
   })
 }))
 
-describe('test if all metrics are created with the correct parameters', () => {
+describe('all metrics are created with the correct parameters', () => {
   const options = { defaultLabels: { foo: 'bar', alice: 2 } }
   const mongoClient = new MongoClient('mongodb://localhost:27017', { monitorCommands: true })
   const register: Registry = {} as Registry
@@ -30,7 +30,7 @@ describe('test if all metrics are created with the correct parameters', () => {
     jest.clearAllMocks()
   })
 
-  test('tests if all metrics are created', () => {
+  test('all metrics are created', () => {
     // eslint-disable-next-line no-new
     new MongoDBDriverExporter(mongoClient, register)
 
@@ -81,7 +81,7 @@ describe('test if all metrics are created with the correct parameters', () => {
     })
   })
 
-  test('tests if all metrics are created with default labels', () => {
+  test('all metrics are created with default labels', () => {
     // eslint-disable-next-line no-new
     new MongoDBDriverExporter(mongoClient, register, options)
 
@@ -132,7 +132,7 @@ describe('test if all metrics are created with the correct parameters', () => {
     })
   })
 
-  test('tests if all metrics include the name prefix.', () => {
+  test('all metrics include the name prefix.', () => {
     // eslint-disable-next-line no-new
     new MongoDBDriverExporter(mongoClient, register, { prefix: 'test_' })
 
