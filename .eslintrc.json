@@ -16,7 +16,8 @@
     },
     "plugins": [
         "@typescript-eslint",
-        "simple-import-sort"
+        "simple-import-sort",
+        "eslint-plugin-jest"
     ],
     "rules": {
         "@typescript-eslint/no-non-null-assertion": "warn",
@@ -37,13 +38,24 @@
         {
             "files": ["test/**/*.ts"],
             "plugins": ["jest"],
+            "extends": [
+                "plugin:jest/recommended", 
+                "plugin:jest/style"
+            ],
             "parserOptions": {
                 "project": ["./tsconfig.test.json"]
             },
             "rules": {
+                // you should turn the original rule off *only* for test files
                 "@typescript-eslint/unbound-method": "off",
+                "jest/expect-expect": "error",
+                "jest/prefer-comparison-matcher": "error",
+                "jest/prefer-called-with": "error",
+                "jest/prefer-equality-matcher": "error",
+                "jest/prefer-lowercase-title": "error",
+                "jest/require-top-level-describe": "error",
                 "jest/unbound-method": "error"
-            }   
+            } 
         }
     ],
     "ignorePatterns": ["dist/**/*.*", "**/*.js"]
