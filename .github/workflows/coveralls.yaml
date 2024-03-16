@@ -10,6 +10,6 @@ permissions:
   contents: read
 
 jobs:
-  ci:
+  coveralls:
     uses:
       christiangalsterer/github-actions/.github/workflows/node_coveralls.yaml@main
