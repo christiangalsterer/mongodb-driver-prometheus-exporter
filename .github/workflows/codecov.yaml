@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - 'main'
+    paths:
+      - '**.ts'
 
 permissions:
   contents: read
@@ -11,4 +13,4 @@ jobs:
   codecov:
     uses:
       christiangalsterer/github-actions/.github/workflows/node_codecov.yaml@main
-    secrets: inherit  
+    secrets: inherit
