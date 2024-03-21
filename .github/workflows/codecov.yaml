@@ -1,0 +1,14 @@
+name: Codecov
+on:
+  push:
+    branches:
+      - 'main'
+
+permissions:
+  contents: read
+
+jobs:
+  codecov:
+    uses:
+      christiangalsterer/github-actions/.github/workflows/node_codecov.yaml@main
+    secrets: inherit  
