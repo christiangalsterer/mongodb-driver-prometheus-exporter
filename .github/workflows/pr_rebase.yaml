@@ -1,8 +1,6 @@
 name: Rebase Pull Request
 on:
   push:
-    branches:
-      - '!renovate/**'
 
 permissions:
   contents: write
