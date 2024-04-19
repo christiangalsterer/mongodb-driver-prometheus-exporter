@@ -1,0 +1,13 @@
+name: NPM Publish
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+
+jobs:
+  npm-publish:
+    uses:
+      christiangalsterer/github-actions/.github/workflows/node_npm_publish.yaml@main
+    secrets: inherit
