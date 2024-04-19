@@ -1,0 +1,13 @@
+name: Rebase Pull Request
+on:
+  push:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  rebase:
+    uses:
+      christiangalsterer/github-actions/.github/workflows/common_pr_rebase.yaml@main
+    secrets: inherit
