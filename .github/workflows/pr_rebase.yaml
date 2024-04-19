@@ -2,6 +2,7 @@ name: Rebase Pull Request
 on:
   push:
     branches:
+      - 'main'
       - '!renovate/**'
 
 permissions:
