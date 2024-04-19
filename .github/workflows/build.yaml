@@ -4,6 +4,7 @@ on:
     branches:
       - 'main'
       - 'renovate/**'
+      - 'release-please**'
     paths-ignore:
       - '**.md'
   pull_request:
