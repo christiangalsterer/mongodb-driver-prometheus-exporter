@@ -59,7 +59,7 @@
     "typescript": "5.4.5"
   },
   "engines": {
-    "node": ">=10"
+    "node": ">=18"
   },
   "bugs": {
     "url": "https://github.com/christiangalsterer/mongodb-driver-prometheus-exporter/issues"
