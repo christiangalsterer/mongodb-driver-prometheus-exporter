@@ -4,7 +4,7 @@
         "es2021": true
     },
     "extends": [
-        "standard-with-typescript",
+        "love",
         "plugin:@typescript-eslint/strict-type-checked",
         "plugin:@typescript-eslint/stylistic-type-checked"
     ],
@@ -12,7 +12,9 @@
     "parserOptions": {
         "ecmaVersion": "latest",
         "sourceType": "module",
-        "project": ["./tsconfig.json"]
+        "project": [
+            "./tsconfig.json"
+        ]
     },
     "plugins": [
         "@typescript-eslint",
@@ -30,20 +32,30 @@
     "root": true,
     "overrides": [
         {
-            "files": ["src/**/*.ts"],
+            "files": [
+                "src/**/*.ts"
+            ],
             "parserOptions": {
-                "project": ["./tsconfig.json"]
+                "project": [
+                    "./tsconfig.json"
+                ]
             }
         },
         {
-            "files": ["test/**/*.ts"],
-            "plugins": ["jest"],
+            "files": [
+                "test/**/*.ts"
+            ],
+            "plugins": [
+                "jest"
+            ],
             "extends": [
-                "plugin:jest/recommended", 
+                "plugin:jest/recommended",
                 "plugin:jest/style"
             ],
             "parserOptions": {
-                "project": ["./tsconfig.test.json"]
+                "project": [
+                    "./tsconfig.test.json"
+                ]
             },
             "rules": {
                 // you should turn the original rule off *only* for test files
@@ -55,8 +67,11 @@
                 "jest/prefer-lowercase-title": "error",
                 "jest/require-top-level-describe": "error",
                 "jest/unbound-method": "error"
-            } 
+            }
         }
     ],
-    "ignorePatterns": ["dist/**/*.*", "**/*.js"]
+    "ignorePatterns": [
+        "dist/**/*.*",
+        "**/*.js"
+    ]
 }
