@@ -1,4 +1,4 @@
-[![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/christiangalsterer/mongodb-driver-prometheus-exporter/build.yaml)](https://github.com/christiangalsterer/mongodb-driver-prometheus-exporter/actions/workflows/build.yaml)
+[![GitHub Actions CI Status](https://github.com/christiangalsterer/mongodb-driver-prometheus-exporter/actions/workflows/build.yaml/badge.svg)](https://github.com/christiangalsterer/mongodb-driver-prometheus-exporter/actions/workflows/build.yaml)
 [![codecov](https://codecov.io/gh/christiangalsterer/mongodb-driver-prometheus-exporter/graph/badge.svg?token=Q4POJZ46LC)](https://codecov.io/gh/christiangalsterer/mongodb-driver-prometheus-exporter)
 [![Coveralls](https://coveralls.io/repos/github/christiangalsterer/mongodb-driver-prometheus-exporter/badge.svg?branch=main)](https://coveralls.io/github/christiangalsterer/mongodb-driver-prometheus-exporter?branch=main)
 [![Known Vulnerabilities](https://snyk.io/test/github/christiangalsterer/mongodb-driver-prometheus-exporter/badge.svg)](https://github.com/christiangalsterer/mongodb-driver-prometheus-exporter/security/advisories)
