@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.0](https://github.com/christiangalsterer/mongodb-driver-prometheus-exporter/compare/v2.1.0...v2.2.0) (2024-05-08)
+
+
+### Features
+
+* add support for node coveralls reports ([5d05840](https://github.com/christiangalsterer/mongodb-driver-prometheus-exporter/commit/5d058406ec35d53144bd44a976a5ed2a846dabcd))
+* support for multiple instances of exporter, multiple registrations of metrics ([85fda82](https://github.com/christiangalsterer/mongodb-driver-prometheus-exporter/commit/85fda82889a098a357c162a2545cc59eaa9414ce))
+
 ## [2.1.0] 2023-11-19
 
 The detailed changelog can be found [here](https://github.com/christiangalsterer/mongodb-driver-prometheus-exporter/compare/v2.0.0...v2.1.0).
