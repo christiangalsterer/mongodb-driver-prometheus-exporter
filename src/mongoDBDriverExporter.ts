@@ -19,8 +19,15 @@ export class MongoDBDriverExporter {
   private readonly checkedOut: Gauge
   private readonly waitQueueSize: Gauge
 
+  private readonly MONGODB_DRIVER_POOL_SIZE = 'mongodb_driver_pool_size'
+  private readonly MONGODB_DRIVER_POOL_MIN = 'mongodb_driver_pool_min'
+  private readonly MONGODB_DRIVER_POOL_MAX = 'mongodb_driver_pool_max'
+  private readonly MONGODB_DRIVER_POOL_CHECKEDOUT = 'mongodb_driver_pool_checkedout'
+  private readonly MONGODB_DRIVER_POOL_WAITQUEUESIZE = 'mongodb_driver_pool_waitqueuesize'
+
   // command metrics
   private readonly commands: Histogram
+  private readonly MONGODB_DRIVER_COMMANDS_SECONDS = 'mongodb_driver_commands_seconds'
 
   constructor (mongoClient: MongoClient, register: Registry, options?: MongoDBDriverExporterOptions) {
     this.mongoClient = mongoClient
@@ -29,49 +36,55 @@ export class MongoDBDriverExporter {
 
     const prefix = options?.prefix ?? ''
 
-    this.poolSize = new Gauge({
-      name: `${prefix}mongodb_driver_pool_size`,
-      help: 'the current size of the connection pool, including idle and in-use members',
-      labelNames: mergeLabelNamesWithStandardLabels(['server_address'], this.options.defaultLabels),
-      registers: [this.register]
-    })
+    this.poolSize = (this.register.getSingleMetric(`${prefix}${this.MONGODB_DRIVER_POOL_SIZE}`) ??
+      new Gauge({
+        name: `${prefix}${this.MONGODB_DRIVER_POOL_SIZE}`,
+        help: 'the current size of the connection pool, including idle and in-use members',
+        labelNames: mergeLabelNamesWithStandardLabels(['server_address'], this.options.defaultLabels),
+        registers: [this.register]
+      })) as Gauge
 
-    this.minSize = new Gauge({
-      name: `${prefix}mongodb_driver_pool_min`,
-      help: 'the minimum size of the connection pool',
-      labelNames: mergeLabelNamesWithStandardLabels(['server_address'], this.options.defaultLabels),
-      registers: [this.register]
-    })
+    this.minSize = (this.register.getSingleMetric(`${prefix}${this.MONGODB_DRIVER_POOL_MIN}`) ??
+      new Gauge({
+        name: `${prefix}${this.MONGODB_DRIVER_POOL_MIN}`,
+        help: 'the minimum size of the connection pool',
+        labelNames: mergeLabelNamesWithStandardLabels(['server_address'], this.options.defaultLabels),
+        registers: [this.register]
+      })) as Gauge
 
-    this.maxSize = new Gauge({
-      name: `${prefix}mongodb_driver_pool_max`,
-      help: 'the maximum size of the connection pool',
-      labelNames: mergeLabelNamesWithStandardLabels(['server_address'], this.options.defaultLabels),
-      registers: [this.register]
-    })
+    this.maxSize = (this.register.getSingleMetric(`${prefix}${this.MONGODB_DRIVER_POOL_MAX}`) ??
+      new Gauge({
+        name: `${prefix}${this.MONGODB_DRIVER_POOL_MAX}`,
+        help: 'the maximum size of the connection pool',
+        labelNames: mergeLabelNamesWithStandardLabels(['server_address'], this.options.defaultLabels),
+        registers: [this.register]
+      })) as Gauge
 
-    this.checkedOut = new Gauge({
-      name: `${prefix}mongodb_driver_pool_checkedout`,
-      help: 'the count of connections that are currently in use',
-      labelNames: mergeLabelNamesWithStandardLabels(['server_address'], this.options.defaultLabels),
-      registers: [this.register]
-    })
+    this.checkedOut = (this.register.getSingleMetric(`${prefix}${this.MONGODB_DRIVER_POOL_CHECKEDOUT}`) ??
+      new Gauge({
+        name: `${prefix}${this.MONGODB_DRIVER_POOL_CHECKEDOUT}`,
+        help: 'the count of connections that are currently in use',
+        labelNames: mergeLabelNamesWithStandardLabels(['server_address'], this.options.defaultLabels),
+        registers: [this.register]
+      })) as Gauge
 
-    this.waitQueueSize = new Gauge({
-      name: `${prefix}mongodb_driver_pool_waitqueuesize`,
-      help: 'the current size of the wait queue for a connection from the pool',
-      labelNames: mergeLabelNamesWithStandardLabels(['server_address'], this.options.defaultLabels),
-      registers: [this.register]
-    })
+    this.waitQueueSize = (this.register.getSingleMetric(`${prefix}${this.MONGODB_DRIVER_POOL_WAITQUEUESIZE}`) ??
+      new Gauge({
+        name: `${prefix}${this.MONGODB_DRIVER_POOL_WAITQUEUESIZE}`,
+        help: 'the current size of the wait queue for a connection from the pool',
+        labelNames: mergeLabelNamesWithStandardLabels(['server_address'], this.options.defaultLabels),
+        registers: [this.register]
+      })) as Gauge
 
     if (this.monitorCommands()) {
-      this.commands = new Histogram({
-        name: `${prefix}mongodb_driver_commands_seconds`,
-        help: 'Timer of mongodb commands',
-        buckets: this.options.mongodbDriverCommandsSecondsHistogramBuckets,
-        labelNames: mergeLabelNamesWithStandardLabels(['command', 'server_address', 'status'], this.options.defaultLabels),
-        registers: [this.register]
-      })
+      this.commands = (this.register.getSingleMetric(`${prefix}${this.MONGODB_DRIVER_COMMANDS_SECONDS}`) ??
+        new Histogram({
+          name: `${prefix}${this.MONGODB_DRIVER_COMMANDS_SECONDS}`,
+          help: 'Timer of mongodb commands',
+          buckets: this.options.mongodbDriverCommandsSecondsHistogramBuckets,
+          labelNames: mergeLabelNamesWithStandardLabels(['command', 'server_address', 'status'], this.options.defaultLabels),
+          registers: [this.register]
+        })) as Histogram
     }
   }
 
