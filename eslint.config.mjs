@@ -11,9 +11,8 @@ export default [
     plugins: {
       jest,
       "simple-import-sort": simpleImportSortPlugin,
-      tseslint,
-      
-    },   
+      tseslint
+    },
     rules: {
       "@typescript-eslint/no-non-null-assertion": "warn",
       "import/first": "error",
@@ -47,7 +46,7 @@ export default [
       }
     }
   },
-  { 
+  {
     files: ["test/**/*.ts"],
     ...jest.configs['flat/recommended'],
     ...jest.configs['flat/style'],
