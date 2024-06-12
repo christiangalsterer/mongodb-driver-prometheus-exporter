@@ -10,7 +10,7 @@ import { MongoDBDriverExporter } from './mongoDBDriverExporter'
  * @param register the prometheus registry used to expose the metrics.
  * @param options optional parameters to configure the exporter
  */
-export function monitorMongoDBDriver (mongoClient: MongoClient, register: Registry, options?: MongoDBDriverExporterOptions): void {
+export function monitorMongoDBDriver(mongoClient: MongoClient, register: Registry, options?: MongoDBDriverExporterOptions): void {
   const exporter = new MongoDBDriverExporter(mongoClient, register, options)
   exporter.enableMetrics()
 }

@@ -1,29 +1,17 @@
 {
-    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-    "extends": [
-        "config:js-lib",
-        "schedule:nonOfficeHours",
-        "schedule:automergeNonOfficeHours"
-    ],
-    "addLabels": [
-        "renovate"
-    ],
-    "timezone": "Europe/Berlin",
-    "packageRules": [
-        {
-            "groupName": "All dev dependencies",
-            "groupSlug": "all-dev-non-major",
-            "matchDepTypes": [
-                "devDependencies"
-            ],
-            "matchUpdateTypes": [
-                "minor",
-                "patch",
-                "pin"
-            ],
-            "prConcurrentLimit": 1,
-            "automerge": true,
-            "automergeType": "branch"
-        }
-    ]
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:js-lib", "schedule:nonOfficeHours", "schedule:automergeNonOfficeHours"],
+  "addLabels": ["renovate"],
+  "timezone": "Europe/Berlin",
+  "packageRules": [
+    {
+      "groupName": "All dev dependencies",
+      "groupSlug": "all-dev-non-major",
+      "matchDepTypes": ["devDependencies"],
+      "matchUpdateTypes": ["minor", "patch", "pin"],
+      "prConcurrentLimit": 1,
+      "automerge": true,
+      "automergeType": "branch"
+    }
+  ]
 }

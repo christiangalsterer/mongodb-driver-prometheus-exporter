@@ -2,7 +2,7 @@ name: Snyk
 
 on:
   push:
-    branches: 
+    branches:
       - 'main'
       - 'renovate/**'
     paths-ignore:
@@ -18,6 +18,5 @@ permissions:
 
 jobs:
   snyk:
-    uses:
-      christiangalsterer/github-actions/.github/workflows/node_snyk.yaml@main
+    uses: christiangalsterer/github-actions/.github/workflows/node_snyk.yaml@main
     secrets: inherit

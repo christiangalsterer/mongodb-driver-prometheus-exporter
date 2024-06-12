@@ -8,6 +8,5 @@ permissions:
 
 jobs:
   npm-publish:
-    uses:
-      christiangalsterer/github-actions/.github/workflows/node_npm_publish.yaml@main
+    uses: christiangalsterer/github-actions/.github/workflows/node_npm_publish.yaml@main
     secrets: inherit

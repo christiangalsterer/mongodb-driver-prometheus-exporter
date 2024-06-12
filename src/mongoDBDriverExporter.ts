@@ -1,4 +1,16 @@
-import type { CommandFailedEvent, CommandSucceededEvent, ConnectionCheckedInEvent, ConnectionCheckedOutEvent, ConnectionCheckOutFailedEvent, ConnectionCheckOutStartedEvent, ConnectionClosedEvent, ConnectionCreatedEvent, ConnectionPoolClosedEvent, ConnectionPoolCreatedEvent, MongoClient } from 'mongodb'
+import type {
+  CommandFailedEvent,
+  CommandSucceededEvent,
+  ConnectionCheckedInEvent,
+  ConnectionCheckedOutEvent,
+  ConnectionCheckOutFailedEvent,
+  ConnectionCheckOutStartedEvent,
+  ConnectionClosedEvent,
+  ConnectionCreatedEvent,
+  ConnectionPoolClosedEvent,
+  ConnectionPoolCreatedEvent,
+  MongoClient
+} from 'mongodb'
 import { Gauge, Histogram, type Registry } from 'prom-client'
 
 import { type MongoDBDriverExporterOptions } from './exporter'
@@ -29,7 +41,7 @@ export class MongoDBDriverExporter {
   private readonly commands: Histogram
   private readonly MONGODB_DRIVER_COMMANDS_SECONDS = 'mongodb_driver_commands_seconds'
 
-  constructor (mongoClient: MongoClient, register: Registry, options?: MongoDBDriverExporterOptions) {
+  constructor(mongoClient: MongoClient, register: Registry, options?: MongoDBDriverExporterOptions) {
     this.mongoClient = mongoClient
     this.register = register
     this.options = { ...this.defaultOptions, ...options }
@@ -88,30 +100,50 @@ export class MongoDBDriverExporter {
     }
   }
 
-  enableMetrics (): void {
-    this.mongoClient.on('connectionPoolCreated', (event) => { this.onConnectionPoolCreated(event) })
-    this.mongoClient.on('connectionPoolClosed', (event) => { this.onConnectionPoolClosed(event) })
-    this.mongoClient.on('connectionCreated', (event) => { this.onConnectionCreated(event) })
-    this.mongoClient.on('connectionClosed', (event) => { this.onConnectionClosed(event) })
-    this.mongoClient.on('connectionCheckOutStarted', (event) => { this.onConnectionCheckOutStarted(event) })
-    this.mongoClient.on('connectionCheckedOut', (event) => { this.onConnectionCheckedOut(event) })
-    this.mongoClient.on('connectionCheckOutFailed', (event) => { this.onConnectionCheckOutFailed(event) })
-    this.mongoClient.on('connectionCheckedIn', (event) => { this.onConnectionCheckedIn(event) })
+  enableMetrics(): void {
+    this.mongoClient.on('connectionPoolCreated', (event) => {
+      this.onConnectionPoolCreated(event)
+    })
+    this.mongoClient.on('connectionPoolClosed', (event) => {
+      this.onConnectionPoolClosed(event)
+    })
+    this.mongoClient.on('connectionCreated', (event) => {
+      this.onConnectionCreated(event)
+    })
+    this.mongoClient.on('connectionClosed', (event) => {
+      this.onConnectionClosed(event)
+    })
+    this.mongoClient.on('connectionCheckOutStarted', (event) => {
+      this.onConnectionCheckOutStarted(event)
+    })
+    this.mongoClient.on('connectionCheckedOut', (event) => {
+      this.onConnectionCheckedOut(event)
+    })
+    this.mongoClient.on('connectionCheckOutFailed', (event) => {
+      this.onConnectionCheckOutFailed(event)
+    })
+    this.mongoClient.on('connectionCheckedIn', (event) => {
+      this.onConnectionCheckedIn(event)
+    })
     this.options.logger?.info('Successfully enabled connection pool metrics for the MongoDB Node.js driver.')
 
     // command metrics
     if (this.monitorCommands()) {
-      this.mongoClient.on('commandSucceeded', (event) => { this.onCommandSucceeded(event) })
-      this.mongoClient.on('commandFailed', (event) => { this.onCommandFailed(event) })
+      this.mongoClient.on('commandSucceeded', (event) => {
+        this.onCommandSucceeded(event)
+      })
+      this.mongoClient.on('commandFailed', (event) => {
+        this.onCommandFailed(event)
+      })
       this.options.logger?.info('Successfully enabled command metrics for the MongoDB Node.js driver.')
     }
   }
 
-  private monitorCommands (): boolean {
+  private monitorCommands(): boolean {
     return this.mongoClient.options.monitorCommands.valueOf()
   }
 
-  private onConnectionPoolCreated (event: ConnectionPoolCreatedEvent): void {
+  private onConnectionPoolCreated(event: ConnectionPoolCreatedEvent): void {
     this.poolSize.set(mergeLabelsWithStandardLabels({ server_address: event.address }), 0)
     this.minSize.set(mergeLabelsWithStandardLabels({ server_address: event.address }), event.options.minPoolSize)
     this.maxSize.set(mergeLabelsWithStandardLabels({ server_address: event.address }), event.options.maxPoolSize)
@@ -119,32 +151,32 @@ export class MongoDBDriverExporter {
     this.waitQueueSize.set(mergeLabelsWithStandardLabels({ server_address: event.address }), 0)
   }
 
-  private onConnectionCreated (event: ConnectionCreatedEvent): void {
+  private onConnectionCreated(event: ConnectionCreatedEvent): void {
     this.poolSize.inc(mergeLabelsWithStandardLabels({ server_address: event.address }))
   }
 
-  private onConnectionClosed (event: ConnectionClosedEvent): void {
+  private onConnectionClosed(event: ConnectionClosedEvent): void {
     this.poolSize.dec(mergeLabelsWithStandardLabels({ server_address: event.address }))
   }
 
-  private onConnectionCheckOutStarted (event: ConnectionCheckOutStartedEvent): void {
+  private onConnectionCheckOutStarted(event: ConnectionCheckOutStartedEvent): void {
     this.waitQueueSize.inc(mergeLabelsWithStandardLabels({ server_address: event.address }))
   }
 
-  private onConnectionCheckedOut (event: ConnectionCheckedOutEvent): void {
+  private onConnectionCheckedOut(event: ConnectionCheckedOutEvent): void {
     this.checkedOut.inc(mergeLabelsWithStandardLabels({ server_address: event.address }))
     this.waitQueueSize.dec(mergeLabelsWithStandardLabels({ server_address: event.address }))
   }
 
-  private onConnectionCheckOutFailed (event: ConnectionCheckOutFailedEvent): void {
+  private onConnectionCheckOutFailed(event: ConnectionCheckOutFailedEvent): void {
     this.waitQueueSize.dec(mergeLabelsWithStandardLabels({ server_address: event.address }))
   }
 
-  private onConnectionCheckedIn (event: ConnectionCheckedInEvent): void {
+  private onConnectionCheckedIn(event: ConnectionCheckedInEvent): void {
     this.checkedOut.dec(mergeLabelsWithStandardLabels({ server_address: event.address }))
   }
 
-  private onConnectionPoolClosed (event: ConnectionPoolClosedEvent): void {
+  private onConnectionPoolClosed(event: ConnectionPoolClosedEvent): void {
     this.poolSize.set(mergeLabelsWithStandardLabels({ server_address: event.address }), 0)
     this.minSize.reset()
     this.maxSize.reset()
@@ -152,11 +184,17 @@ export class MongoDBDriverExporter {
     this.waitQueueSize.reset()
   }
 
-  private onCommandSucceeded (event: CommandSucceededEvent): void {
-    this.commands.observe(mergeLabelsWithStandardLabels({ command: event.commandName, server_address: event.address, status: 'SUCCESS' }), event.duration / 1000)
+  private onCommandSucceeded(event: CommandSucceededEvent): void {
+    this.commands.observe(
+      mergeLabelsWithStandardLabels({ command: event.commandName, server_address: event.address, status: 'SUCCESS' }),
+      event.duration / 1000
+    )
   }
 
-  private onCommandFailed (event: CommandFailedEvent): void {
-    this.commands.observe(mergeLabelsWithStandardLabels({ command: event.commandName, server_address: event.address, status: 'FAILED' }), event.duration / 1000)
+  private onCommandFailed(event: CommandFailedEvent): void {
+    this.commands.observe(
+      mergeLabelsWithStandardLabels({ command: event.commandName, server_address: event.address, status: 'FAILED' }),
+      event.duration / 1000
+    )
   }
 }

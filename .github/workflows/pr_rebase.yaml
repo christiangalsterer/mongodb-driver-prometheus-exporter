@@ -11,6 +11,5 @@ permissions:
 
 jobs:
   rebase:
-    uses:
-      christiangalsterer/github-actions/.github/workflows/common_pr_rebase.yaml@main
+    uses: christiangalsterer/github-actions/.github/workflows/common_pr_rebase.yaml@main
     secrets: inherit
