@@ -53,10 +53,10 @@
     "@types/jest": "29.5.12",
     "eslint-config-love": "53.0.0",
     "eslint-plugin-jest": "28.6.0",
-    "eslint-plugin-simple-import-sort": "12.1.0",
+    "eslint-plugin-simple-import-sort": "12.1.1",
     "jest": "29.7.0",
     "prettier": "3.3.2",
-    "renovate": "37.421.7",
+    "renovate": "37.422.4",
     "ts-jest": "29.1.5",
     "typescript": "5.5.3"
   },
