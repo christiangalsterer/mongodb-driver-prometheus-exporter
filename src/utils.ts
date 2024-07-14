@@ -1,5 +1,6 @@
 import type { Logger } from './exporter'
 
+/* eslint @typescript-eslint/class-methods-use-this: ["error", { "exceptMethods": ["info", "warn", "error"] }] */
 export class ConsoleLogger implements Logger {
   info(message: string): void {
     console.log(message)
