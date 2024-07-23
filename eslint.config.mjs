@@ -15,12 +15,12 @@ export default [
     },
     rules: {
       '@typescript-eslint/no-non-null-assertion': 'warn',
+      '@typescript-eslint/init-declarations': 'off',
       'import/first': 'error',
       'import/newline-after-import': 'error',
       'import/no-duplicates': 'error',
       'simple-import-sort/imports': 'error',
-      'simple-import-sort/exports': 'error',
-      '@typescript-eslint/init-declarations': "off"
+      'simple-import-sort/exports': 'error'
     },
     languageOptions: {
       parser: tseslint.parser,
