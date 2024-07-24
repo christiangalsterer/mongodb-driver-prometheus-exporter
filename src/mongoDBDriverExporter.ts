@@ -13,7 +13,7 @@ import type {
 } from 'mongodb'
 import { Gauge, Histogram, type Registry } from 'prom-client'
 
-import { type MongoDBDriverExporterOptions } from './exporter'
+import type { MongoDBDriverExporterOptions } from './exporter'
 import { mergeLabelNamesWithStandardLabels, mergeLabelsWithStandardLabels } from './utils'
 
 export class MongoDBDriverExporter {
