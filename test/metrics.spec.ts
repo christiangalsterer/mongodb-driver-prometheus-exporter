@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/consistent-type-assertions */
 import { beforeEach } from '@jest/globals'
 import { MongoClient } from 'mongodb'

@@ -3,10 +3,23 @@ import tseslint from 'typescript-eslint'
 import simpleImportSortPlugin from 'eslint-plugin-simple-import-sort'
 import jest from 'eslint-plugin-jest'
 
-export default [
+export default tseslint.config(
   love,
   ...tseslint.configs.strictTypeChecked,
   ...tseslint.configs.stylisticTypeChecked,
+  {
+    name: 'base',
+    languageOptions: {
+      parser: tseslint.parser,
+      parserOptions: {
+        ecmaVersion: 'latest',
+        sourceType: 'module'
+      }
+    },
+    linterOptions: {
+      reportUnusedDisableDirectives: 'error'
+    }
+  },
   {
     plugins: {
       jest,
@@ -21,35 +34,22 @@ export default [
       'import/no-duplicates': 'error',
       'simple-import-sort/imports': 'error',
       'simple-import-sort/exports': 'error'
-    },
-    languageOptions: {
-      parser: tseslint.parser,
-      parserOptions: {
-        ecmaVersion: 'latest',
-        sourceType: 'module'
-      }
     }
   },
+
   {
     ignores: ['dist/**/*.*', '**/*.js', '**/*.mjs']
   },
   {
+    name: 'src',
     files: ['src/**/*.ts'],
-    languageOptions: {
-      parserOptions: {
-        project: ['tsconfig.json']
-      }
-    }
+    ignores: ['test/**/*.ts']
   },
   {
+    name: 'test',
     files: ['test/**/*.ts'],
     ...jest.configs['flat/recommended'],
     ...jest.configs['flat/style'],
-    languageOptions: {
-      parserOptions: {
-        project: ['tsconfig.test.json']
-      }
-    },
     rules: {
       // you should turn the original rule off *only* for test files
       '@typescript-eslint/unbound-method': 'off',
@@ -62,4 +62,4 @@ export default [
       'jest/unbound-method': 'error'
     }
   }
-]
+)
