@@ -50,6 +50,7 @@
   },
   "devDependencies": {
     "@jest/globals": "29.7.0",
+    "@testcontainers/mongodb": "10.13.0",
     "@types/jest": "29.5.12",
     "eslint-config-love": "63.0.0",
     "eslint-plugin-jest": "28.8.3",
