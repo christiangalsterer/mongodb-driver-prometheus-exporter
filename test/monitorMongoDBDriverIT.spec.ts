@@ -19,7 +19,12 @@ describe('it monitorMongoDBDriver', () => {
   })
 
   beforeEach(async () => {
-    mongoClient = new MongoClient(mongoDBContainer.getConnectionString(), { directConnection: true, monitorCommands: true, minPoolSize:0, maxPoolSize: 10 })
+    mongoClient = new MongoClient(mongoDBContainer.getConnectionString(), {
+      directConnection: true,
+      monitorCommands: true,
+      minPoolSize: 0,
+      maxPoolSize: 10
+    })
     register = new Registry()
     monitorMongoDBDriver(mongoClient, register)
     await mongoClient.connect()
