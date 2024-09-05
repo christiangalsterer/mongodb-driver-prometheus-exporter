@@ -19,7 +19,7 @@ describe('it monitorMongoDBDriver', () => {
   })
 
   beforeEach(async () => {
-    mongoClient = new MongoClient(mongoDBContainer.getConnectionString(), { directConnection: true, monitorCommands: true, minPoolSize:1, maxPoolSize: 10 })
+    mongoClient = new MongoClient(mongoDBContainer.getConnectionString(), { directConnection: true, monitorCommands: true, minPoolSize:0, maxPoolSize: 10 })
     register = new Registry()
     monitorMongoDBDriver(mongoClient, register)
     await mongoClient.connect()
@@ -30,6 +30,7 @@ describe('it monitorMongoDBDriver', () => {
   })
 
   test('it mongodb driver pool metrics ', async () => {
+    await mongoClient.db('admin').command({ ping: 1 })
     const mongodbDrivePoolSize = await register.getSingleMetric('mongodb_driver_pool_size')?.get()
     expect(mongodbDrivePoolSize?.type).toEqual('gauge')
     expect(mongodbDrivePoolSize?.values.length).toEqual(1)
