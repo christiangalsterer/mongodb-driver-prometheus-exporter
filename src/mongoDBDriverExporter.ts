@@ -16,11 +16,15 @@ import { Gauge, Histogram, type Registry } from 'prom-client'
 import type { MongoDBDriverExporterOptions } from './exporter'
 import { mergeLabelNamesWithStandardLabels, mergeLabelsWithStandardLabels } from './utils'
 
+const MILLISECONDS_IN_A_SECOND = 1000
+const METRIC_INITIAL_ZERO = 0
+
 export class MongoDBDriverExporter {
   private readonly register: Registry
   private readonly mongoClient: MongoClient
   private readonly options: MongoDBDriverExporterOptions
   private readonly defaultOptions: MongoDBDriverExporterOptions = {
+    // eslint-disable-next-line @typescript-eslint/no-magic-numbers
     mongodbDriverCommandsSecondsHistogramBuckets: [0.001, 0.005, 0.01, 0.02, 0.03, 0.04, 0.05, 0.1, 0.2, 0.5, 1, 2, 5, 10]
   }
 
@@ -144,11 +148,11 @@ export class MongoDBDriverExporter {
   }
 
   private onConnectionPoolCreated(event: ConnectionPoolCreatedEvent): void {
-    this.poolSize.set(mergeLabelsWithStandardLabels({ server_address: event.address }), 0)
+    this.poolSize.set(mergeLabelsWithStandardLabels({ server_address: event.address }), METRIC_INITIAL_ZERO)
     this.minSize.set(mergeLabelsWithStandardLabels({ server_address: event.address }), event.options.minPoolSize)
     this.maxSize.set(mergeLabelsWithStandardLabels({ server_address: event.address }), event.options.maxPoolSize)
-    this.checkedOut.set(mergeLabelsWithStandardLabels({ server_address: event.address }), 0)
-    this.waitQueueSize.set(mergeLabelsWithStandardLabels({ server_address: event.address }), 0)
+    this.checkedOut.set(mergeLabelsWithStandardLabels({ server_address: event.address }), METRIC_INITIAL_ZERO)
+    this.waitQueueSize.set(mergeLabelsWithStandardLabels({ server_address: event.address }), METRIC_INITIAL_ZERO)
   }
 
   private onConnectionCreated(event: ConnectionCreatedEvent): void {
@@ -177,7 +181,7 @@ export class MongoDBDriverExporter {
   }
 
   private onConnectionPoolClosed(event: ConnectionPoolClosedEvent): void {
-    this.poolSize.set(mergeLabelsWithStandardLabels({ server_address: event.address }), 0)
+    this.poolSize.set(mergeLabelsWithStandardLabels({ server_address: event.address }), METRIC_INITIAL_ZERO)
     this.minSize.reset()
     this.maxSize.reset()
     this.checkedOut.reset()
@@ -187,14 +191,14 @@ export class MongoDBDriverExporter {
   private onCommandSucceeded(event: CommandSucceededEvent): void {
     this.commands.observe(
       mergeLabelsWithStandardLabels({ command: event.commandName, server_address: event.address, status: 'SUCCESS' }),
-      event.duration / 1000
+      event.duration / MILLISECONDS_IN_A_SECOND
     )
   }
 
   private onCommandFailed(event: CommandFailedEvent): void {
     this.commands.observe(
       mergeLabelsWithStandardLabels({ command: event.commandName, server_address: event.address, status: 'FAILED' }),
-      event.duration / 1000
+      event.duration / MILLISECONDS_IN_A_SECOND
     )
   }
 }

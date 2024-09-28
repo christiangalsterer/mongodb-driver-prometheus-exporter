@@ -52,6 +52,7 @@ export default tseslint.config(
     ...jest.configs['flat/style'],
     rules: {
       // you should turn the original rule off *only* for test files
+      '@typescript-eslint/no-magic-numbers': 'off',
       '@typescript-eslint/unbound-method': 'off',
       'jest/expect-expect': 'error',
       'jest/prefer-comparison-matcher': 'error',
