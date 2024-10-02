@@ -148,40 +148,40 @@ export class MongoDBDriverExporter {
   }
 
   private onConnectionPoolCreated(event: ConnectionPoolCreatedEvent): void {
-    this.poolSize.set(mergeLabelsWithStandardLabels({ server_address: event.address }), METRIC_INITIAL_ZERO)
-    this.minSize.set(mergeLabelsWithStandardLabels({ server_address: event.address }), event.options.minPoolSize)
-    this.maxSize.set(mergeLabelsWithStandardLabels({ server_address: event.address }), event.options.maxPoolSize)
-    this.checkedOut.set(mergeLabelsWithStandardLabels({ server_address: event.address }), METRIC_INITIAL_ZERO)
-    this.waitQueueSize.set(mergeLabelsWithStandardLabels({ server_address: event.address }), METRIC_INITIAL_ZERO)
+    this.poolSize.set(mergeLabelsWithStandardLabels({ server_address: event.address }, this.options.defaultLabels), METRIC_INITIAL_ZERO)
+    this.minSize.set(mergeLabelsWithStandardLabels({ server_address: event.address }, this.options.defaultLabels), event.options.minPoolSize)
+    this.maxSize.set(mergeLabelsWithStandardLabels({ server_address: event.address }, this.options.defaultLabels), event.options.maxPoolSize)
+    this.checkedOut.set(mergeLabelsWithStandardLabels({ server_address: event.address }, this.options.defaultLabels), METRIC_INITIAL_ZERO)
+    this.waitQueueSize.set(mergeLabelsWithStandardLabels({ server_address: event.address }, this.options.defaultLabels), METRIC_INITIAL_ZERO)
   }
 
   private onConnectionCreated(event: ConnectionCreatedEvent): void {
-    this.poolSize.inc(mergeLabelsWithStandardLabels({ server_address: event.address }))
+    this.poolSize.inc(mergeLabelsWithStandardLabels({ server_address: event.address }, this.options.defaultLabels))
   }
 
   private onConnectionClosed(event: ConnectionClosedEvent): void {
-    this.poolSize.dec(mergeLabelsWithStandardLabels({ server_address: event.address }))
+    this.poolSize.dec(mergeLabelsWithStandardLabels({ server_address: event.address }, this.options.defaultLabels))
   }
 
   private onConnectionCheckOutStarted(event: ConnectionCheckOutStartedEvent): void {
-    this.waitQueueSize.inc(mergeLabelsWithStandardLabels({ server_address: event.address }))
+    this.waitQueueSize.inc(mergeLabelsWithStandardLabels({ server_address: event.address }, this.options.defaultLabels))
   }
 
   private onConnectionCheckedOut(event: ConnectionCheckedOutEvent): void {
-    this.checkedOut.inc(mergeLabelsWithStandardLabels({ server_address: event.address }))
-    this.waitQueueSize.dec(mergeLabelsWithStandardLabels({ server_address: event.address }))
+    this.checkedOut.inc(mergeLabelsWithStandardLabels({ server_address: event.address }, this.options.defaultLabels))
+    this.waitQueueSize.dec(mergeLabelsWithStandardLabels({ server_address: event.address }, this.options.defaultLabels))
   }
 
   private onConnectionCheckOutFailed(event: ConnectionCheckOutFailedEvent): void {
-    this.waitQueueSize.dec(mergeLabelsWithStandardLabels({ server_address: event.address }))
+    this.waitQueueSize.dec(mergeLabelsWithStandardLabels({ server_address: event.address }, this.options.defaultLabels))
   }
 
   private onConnectionCheckedIn(event: ConnectionCheckedInEvent): void {
-    this.checkedOut.dec(mergeLabelsWithStandardLabels({ server_address: event.address }))
+    this.checkedOut.dec(mergeLabelsWithStandardLabels({ server_address: event.address }, this.options.defaultLabels))
   }
 
   private onConnectionPoolClosed(event: ConnectionPoolClosedEvent): void {
-    this.poolSize.set(mergeLabelsWithStandardLabels({ server_address: event.address }), METRIC_INITIAL_ZERO)
+    this.poolSize.set(mergeLabelsWithStandardLabels({ server_address: event.address }, this.options.defaultLabels), METRIC_INITIAL_ZERO)
     this.minSize.reset()
     this.maxSize.reset()
     this.checkedOut.reset()
@@ -190,14 +190,14 @@ export class MongoDBDriverExporter {
 
   private onCommandSucceeded(event: CommandSucceededEvent): void {
     this.commands.observe(
-      mergeLabelsWithStandardLabels({ command: event.commandName, server_address: event.address, status: 'SUCCESS' }),
+      mergeLabelsWithStandardLabels({ command: event.commandName, server_address: event.address, status: 'SUCCESS' }, this.options.defaultLabels),
       event.duration / MILLISECONDS_IN_A_SECOND
     )
   }
 
   private onCommandFailed(event: CommandFailedEvent): void {
     this.commands.observe(
-      mergeLabelsWithStandardLabels({ command: event.commandName, server_address: event.address, status: 'FAILED' }),
+      mergeLabelsWithStandardLabels({ command: event.commandName, server_address: event.address, status: 'FAILED' }, this.options.defaultLabels),
       event.duration / MILLISECONDS_IN_A_SECOND
     )
   }
