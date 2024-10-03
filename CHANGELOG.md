@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.1](https://github.com/christiangalsterer/mongodb-driver-prometheus-exporter/compare/v2.2.0...v2.2.1) (2024-10-03)
+
+
+### Bug Fixes
+
+* **labels:** respect `defaultLabels` option ([#130](https://github.com/christiangalsterer/mongodb-driver-prometheus-exporter/issues/130)) ([62c1f1b](https://github.com/christiangalsterer/mongodb-driver-prometheus-exporter/commit/62c1f1b097cb5257acb558a9bebff9f45b8663f7)), closes [#129](https://github.com/christiangalsterer/mongodb-driver-prometheus-exporter/issues/129)
+
 ## [2.2.0](https://github.com/christiangalsterer/mongodb-driver-prometheus-exporter/compare/v2.1.0...v2.2.0) (2024-05-08)
 
 
