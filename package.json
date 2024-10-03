@@ -10,7 +10,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc -p tsconfig.build.json",
     "ci": "npm i --save-dev && npm run format && npm run lint && npm run build && npm run test && npm run renovate:config",
     "clean": "npm run clean:dist && npm run clean:deps",
     "clean:dist": "rm -rf ./dist",
