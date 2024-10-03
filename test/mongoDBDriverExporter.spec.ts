@@ -115,10 +115,11 @@ describe('tests mongoDBDriverExporter with real mongo client', () => {
   test.each(allEvents)('metrics are emitted with default labels for event "%s"', async (event) => {
     const mongoClient = new MongoClient('mongodb://localhost:27017', { monitorCommands: true })
     const options = { defaultLabels: { foo: 'bar', alice: 2 } }
+    const expectedLabels = { server_address: 'localhost:27017', foo: 'bar', alice: 2 }
     const exporter = new MongoDBDriverExporter(mongoClient, register, options)
     const mockEvent = {
-      address: 'foo',
-      commandName: 'bar',
+      address: 'localhost:27017',
+      commandName: 'ping',
       duration: 42,
       options: {
         minPoolSize: 1,
@@ -131,7 +132,7 @@ describe('tests mongoDBDriverExporter with real mongo client', () => {
     const metrics = await register.getMetricsAsJSON()
     for (const metric of metrics) {
       for (const value of metric.values) {
-        expect(value.labels).toMatchObject(options.defaultLabels)
+        expect(value.labels).toMatchObject(expectedLabels)
       }
     }
   })
