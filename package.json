@@ -5,10 +5,10 @@
   "license": "MIT",
   "description": "Prometheus exporter to monitor the MongoDB Node.js driver",
   "files": [
-    "/dist"
+    "/dist/src"
   ],
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
   "scripts": {
     "build": "tsc",
     "ci": "npm i --save-dev && npm run format && npm run lint && npm run build && npm run test && npm run renovate:config",
