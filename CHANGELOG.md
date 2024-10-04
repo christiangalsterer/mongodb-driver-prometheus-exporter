@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.2](https://github.com/christiangalsterer/mongodb-driver-prometheus-exporter/compare/v2.2.1...v2.2.2) (2024-10-04)
+
+
+### Bug Fixes
+
+* wrong entrypoint after migration to single tsconfig ([72716b9](https://github.com/christiangalsterer/mongodb-driver-prometheus-exporter/commit/72716b9655262dc1dfd972b33a4c58b3427ac135))
+
 ## [2.2.1](https://github.com/christiangalsterer/mongodb-driver-prometheus-exporter/compare/v2.2.0...v2.2.1) (2024-10-03)
 
 
