@@ -7,13 +7,13 @@ import { MongoDBDriverExporter } from '../src/mongoDBDriverExporter'
 
 jest.mock('prom-client', () => ({
   Gauge: jest.fn(() => ({
-      set: jest.fn(),
-      get: jest.fn()
-    })),
+    set: jest.fn(),
+    get: jest.fn()
+  })),
   Histogram: jest.fn(() => ({
-      set: jest.fn(),
-      get: jest.fn()
-    }))
+    set: jest.fn(),
+    get: jest.fn()
+  }))
 }))
 
 describe('all metrics are created with the correct parameters', () => {
