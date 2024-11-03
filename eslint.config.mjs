@@ -29,6 +29,7 @@ export default tseslint.config(
     rules: {
       '@typescript-eslint/no-non-null-assertion': 'warn',
       '@typescript-eslint/init-declarations': 'off',
+      'eslint-comments/require-description': 'off',
       'import/first': 'error',
       'import/newline-after-import': 'error',
       'import/no-duplicates': 'error',
@@ -54,6 +55,7 @@ export default tseslint.config(
       // you should turn the original rule off *only* for test files
       '@typescript-eslint/no-magic-numbers': 'off',
       '@typescript-eslint/unbound-method': 'off',
+      'eslint-comments/require-description': 'off',
       'jest/expect-expect': 'error',
       'jest/prefer-comparison-matcher': 'error',
       'jest/prefer-called-with': 'error',
