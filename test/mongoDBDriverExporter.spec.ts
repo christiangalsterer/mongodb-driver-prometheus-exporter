@@ -127,7 +127,7 @@ describe('tests mongoDBDriverExporter with real mongo client', () => {
       }
     }
     exporter.enableMetrics()
-    /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+    /* eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-type-assertion */
     mongoClient.emit(event as any, mockEvent)
     const metrics = await register.getMetricsAsJSON()
     for (const metric of metrics) {

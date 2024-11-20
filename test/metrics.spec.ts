@@ -19,6 +19,7 @@ jest.mock('prom-client', () => ({
 describe('all metrics are created with the correct parameters', () => {
   const options = { defaultLabels: { foo: 'bar', alice: 2 } }
   const mongoClient = new MongoClient('mongodb://localhost:27017', { monitorCommands: true })
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
   const register: Registry = {} as Registry
 
   beforeEach(() => {

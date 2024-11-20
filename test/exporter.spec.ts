@@ -35,7 +35,7 @@ describe('tests monitorMongoDBDriver', () => {
     monitorMongoDBDriver(mongoClient, register)
     // eslint-disable-next-line @typescript-eslint/prefer-destructuring
     const mockMongoDBDriverExporterInstance = mockMongoDBDriverExporter.mock.instances[0]
-    // eslint-disable-next-line jest/unbound-method
+    // eslint-disable-next-line jest/unbound-method, @typescript-eslint/no-unsafe-type-assertion
     const mockEnableMetrics = mockMongoDBDriverExporterInstance.enableMetrics as jest.Mock
     expect(mockEnableMetrics).toHaveBeenCalledTimes(1)
   })
