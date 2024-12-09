@@ -1,6 +1,6 @@
 {
   "name": "@christiangalsterer/mongodb-driver-prometheus-exporter",
-  "version": "2.2.2",
+  "version": "2.3.0",
   "author": "Christian Galsterer",
   "license": "MIT",
   "description": "Prometheus exporter to monitor the MongoDB Node.js driver",

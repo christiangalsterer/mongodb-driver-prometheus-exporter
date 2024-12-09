@@ -32,7 +32,7 @@ describe('all metrics are created with the correct parameters', () => {
     new MongoDBDriverExporter(mongoClient, register)
 
     expect(Gauge).toHaveBeenCalledTimes(5)
-    expect(Histogram).toHaveBeenCalledTimes(1)
+    expect(Histogram).toHaveBeenCalledTimes(2)
 
     expect(Gauge).toHaveBeenCalledWith({
       name: 'mongodb_driver_pool_size',
@@ -83,7 +83,7 @@ describe('all metrics are created with the correct parameters', () => {
     new MongoDBDriverExporter(mongoClient, register, options)
 
     expect(Gauge).toHaveBeenCalledTimes(5)
-    expect(Histogram).toHaveBeenCalledTimes(1)
+    expect(Histogram).toHaveBeenCalledTimes(2)
 
     expect(Gauge).toHaveBeenCalledWith({
       name: 'mongodb_driver_pool_size',
@@ -134,7 +134,7 @@ describe('all metrics are created with the correct parameters', () => {
     new MongoDBDriverExporter(mongoClient, register, { prefix: 'test_' })
 
     expect(Gauge).toHaveBeenCalledTimes(5)
-    expect(Histogram).toHaveBeenCalledTimes(1)
+    expect(Histogram).toHaveBeenCalledTimes(2)
 
     expect(Gauge).toHaveBeenCalledWith({
       name: 'test_mongodb_driver_pool_size',
