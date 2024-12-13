@@ -28,8 +28,10 @@ The exporter provides the following metrics.
 |mongodb_driver_pool_max|the maximum size of the connection pool|<ul><li>_server_address_: URL of the MongoDB Service instance where the driver is connected to </li><ul> | 1.0.0 |
 |mongodb_driver_pool_checkedout|the count of connections that are currently in use|<ul><li>_server_address_: URL of the MongoDB Service instance where the driver is connected to </li><ul> | 1.0.0 |
 |mongodb_driver_pool_waitqueuesize|the current size of the wait queue for a connection from the pool|<ul><li>_server_address_: URL of the MongoDB Service instance where the driver is connected to </li><ul> | 1.0.0 |
-|mongodb_driver_commands_seconds_sum|Duration of the executed command in seconds| <ul><li>_server_address_: URL of the MongoDB Service instance where the driver is connected to </li><li> _command_: Name if the command </li><li> _status_: SUCCESS or ERROR </li><ul>| 1.0.0 |
-|mongodb_driver_commands_seconds_count|Number of executed commands|<ul><li>_server_address_: URL of the MongoDB Service instance where the driver is connected to </li><li> _command_: Name if the command </li><li> _status_: SUCCESS or ERROR</li><ul>| 1.0.0 |
+|mongodb_driver_pool_waitqueue_seconds_sum|Total duration of wait queue in seconds<br/>* Requires `mongodb` >=6.9.0| <ul><li>_server_address_: URL of the MongoDB Service instance where the driver is connected to </li><li> _status_: SUCCESS or FAILED </li><ul>| 2.3.0 |
+|mongodb_driver_pool_waitqueue_seconds_count|Total number of connections checked out from the waitqueue<br/>* Requires `mongodb` >=6.9.0|<ul><li>_server_address_: URL of the MongoDB Service instance where the driver is connected to </li><li> _status_: SUCCESS or FAILED</li><ul>| 2.3.0 |
+|mongodb_driver_commands_seconds_sum|Duration of the executed command in seconds| <ul><li>_server_address_: URL of the MongoDB Service instance where the driver is connected to </li><li> _command_: Name if the command </li><li> _status_: SUCCESS or FAILED </li><ul>| 1.0.0 |
+|mongodb_driver_commands_seconds_count|Number of executed commands|<ul><li>_server_address_: URL of the MongoDB Service instance where the driver is connected to </li><li> _command_: Name if the command </li><li> _status_: SUCCESS or FAILED</li><ul>| 1.0.0 |
 
 ## Example Output
 
@@ -65,6 +67,26 @@ mongodb_driver_pool_checkedout{server_address="127.0.0.3:27017"} 1
 mongodb_driver_pool_waitqueuesize{server_address="127.0.0.1:27017"} 0
 mongodb_driver_pool_waitqueuesize{server_address="127.0.0.2:27017"} 0
 mongodb_driver_pool_waitqueuesize{server_address="127.0.0.3:27017"} 0
+
+# HELP mongodb_driver_pool_waitqueue_seconds Duratrion of mongodb connection wait queue
+# TYPE mongodb_driver_pool_waitqueue_seconds histogram
+mongodb_driver_pool_waitqueue_seconds_bucket{le="0.001",server_address="127.0.0.3:27017",status="SUCCESS"} 141
+mongodb_driver_pool_waitqueue_seconds_bucket{le="0.005",server_address="127.0.0.3:27017",status="SUCCESS"} 141
+mongodb_driver_pool_waitqueue_seconds_bucket{le="0.01",server_address="127.0.0.3:27017",status="SUCCESS"} 145
+mongodb_driver_pool_waitqueue_seconds_bucket{le="0.02",server_address="127.0.0.3:27017",status="SUCCESS"} 148
+mongodb_driver_pool_waitqueue_seconds_bucket{le="0.03",server_address="127.0.0.3:27017",status="SUCCESS"} 151
+mongodb_driver_pool_waitqueue_seconds_bucket{le="0.04",server_address="127.0.0.3:27017",status="SUCCESS"} 152
+mongodb_driver_pool_waitqueue_seconds_bucket{le="0.05",server_address="127.0.0.3:27017",status="SUCCESS"} 155
+mongodb_driver_pool_waitqueue_seconds_bucket{le="0.1",server_address="127.0.0.3:27017",status="SUCCESS"} 214
+mongodb_driver_pool_waitqueue_seconds_bucket{le="0.2",server_address="127.0.0.3:27017",status="SUCCESS"} 223
+mongodb_driver_pool_waitqueue_seconds_bucket{le="0.5",server_address="127.0.0.3:27017",status="SUCCESS"} 223
+mongodb_driver_pool_waitqueue_seconds_bucket{le="1",server_address="127.0.0.3:27017",status="SUCCESS"} 223
+mongodb_driver_pool_waitqueue_seconds_bucket{le="2",server_address="127.0.0.3:27017",status="SUCCESS"} 223
+mongodb_driver_pool_waitqueue_seconds_bucket{le="5",server_address="127.0.0.3:27017",status="SUCCESS"} 223
+mongodb_driver_pool_waitqueue_seconds_bucket{le="10",server_address="127.0.0.3:27017",status="SUCCESS"} 223
+mongodb_driver_pool_waitqueue_seconds_bucket{le="+Inf",server_address="127.0.0.3:27017",status="SUCCESS"} 223
+mongodb_driver_pool_waitqueue_seconds_sum{server_address="127.0.0.3:27017",status="SUCCESS"} 6.4500000000000055
+mongodb_driver_pool_waitqueue_seconds_count{server_address="127.0.0.3:27017",status="SUCCESS"} 223
 
 # HELP mongodb_driver_commands_seconds Timer of mongodb commands
 # TYPE mongodb_driver_commands_seconds histogram
@@ -158,6 +180,7 @@ _MongoDBDriverExporterOptions_.
 |property|Description|Example|Since |
 |---|---|---|---|
 | mongodbDriverCommandsSecondsHistogramBuckets | Buckets for the mongodb_driver_commands_seconds_bucket metric in seconds. Default buckets are [0.001, 0.005, 0.01, 0.02, 0.03, 0.04, 0.05, 0.1, 0.2, 0.5, 1, 2, 5, 10] | [0.001, 0.005, 0.01, 0.02, 0.03, 0.04, 0.05, 0.1, 0.2, 0.5, 1, 2, 5, 10]| 1.0.0|
+| waitQueueSecondsHistogramBuckets | Buckets for the mongodb_driver_pool_waitqueue_seconds_bucket metric in seconds. Default buckets are [0.001, 0.005, 0.01, 0.02, 0.03, 0.04, 0.05, 0.1, 0.2, 0.5, 1, 2, 5, 10] | [0.001, 0.005, 0.01, 0.02, 0.03, 0.04, 0.05, 0.1, 0.2, 0.5, 1, 2, 5, 10]| 2.3.0|
 | defaultLabels | Default labels added to each metrics. | {'foo':'bar', 'alice': 3} | 1.1.0 |
 | prefix | Metric name prefix for all metrics. | 'service1_' | 2.1.0 |
 
