@@ -76,6 +76,14 @@ describe('all metrics are created with the correct parameters', () => {
       labelNames: ['command', 'server_address', 'status'],
       registers: [register]
     })
+
+    expect(Histogram).toHaveBeenCalledWith({
+      name: 'mongodb_driver_pool_waitqueue_seconds',
+      help: 'Duration of waiting for a connection from the pool',
+      buckets: [0.001, 0.005, 0.01, 0.02, 0.03, 0.04, 0.05, 0.1, 0.2, 0.5, 1, 2, 5, 10],
+      labelNames: ['server_address', 'status'],
+      registers: [register]
+    })
   })
 
   test('all metrics are created with default labels', () => {
@@ -127,6 +135,15 @@ describe('all metrics are created with the correct parameters', () => {
       labelNames: ['command', 'server_address', 'status', 'foo', 'alice'],
       registers: [register]
     })
+
+
+    expect(Histogram).toHaveBeenCalledWith({
+      name: 'mongodb_driver_pool_waitqueue_seconds',
+      help: 'Duration of waiting for a connection from the pool',
+      buckets: [0.001, 0.005, 0.01, 0.02, 0.03, 0.04, 0.05, 0.1, 0.2, 0.5, 1, 2, 5, 10],
+      labelNames: ['server_address', 'status', 'foo', 'alice'],
+      registers: [register]
+    })
   })
 
   test('all metrics include the name prefix.', () => {
@@ -176,6 +193,14 @@ describe('all metrics are created with the correct parameters', () => {
       help: 'Timer of mongodb commands',
       buckets: [0.001, 0.005, 0.01, 0.02, 0.03, 0.04, 0.05, 0.1, 0.2, 0.5, 1, 2, 5, 10],
       labelNames: ['command', 'server_address', 'status'],
+      registers: [register]
+    })
+
+    expect(Histogram).toHaveBeenCalledWith({
+      name: 'test_mongodb_driver_pool_waitqueue_seconds',
+      help: 'Duration of waiting for a connection from the pool',
+      buckets: [0.001, 0.005, 0.01, 0.02, 0.03, 0.04, 0.05, 0.1, 0.2, 0.5, 1, 2, 5, 10],
+      labelNames: ['server_address', 'status'],
       registers: [register]
     })
   })

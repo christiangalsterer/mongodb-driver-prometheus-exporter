@@ -50,12 +50,14 @@ describe('tests mongoDBDriverExporter with real mongo client', () => {
     expect(register.getSingleMetric('mongodb_driver_pool_checkedout')).toBeDefined()
     expect(register.getSingleMetric('mongodb_driver_pool_waitqueuesize')).toBeDefined()
     expect(register.getSingleMetric('mongodb_driver_commands_seconds')).toBeDefined()
+    expect(register.getSingleMetric('mongodb_driver_pool_waitqueue_seconds')).toBeDefined()
   })
 
   test('connection and commands metrics are registered in registry with optional configurations', () => {
     const mongoClient = new MongoClient('mongodb://localhost:27017', { monitorCommands: true })
     const options = {
       mongodbDriverCommandsSecondsHistogramBuckets: [0.001, 0.005, 0.01, 0.02, 0.03, 0.04, 0.05, 0.1, 0.2, 0.5, 1.0, 2.0, 5.0, 20],
+      waitQueueSecondsHistogramBuckets: [0.001, 0.005, 0.01, 0.02, 0.03, 0.04, 0.05, 0.1, 0.2, 0.5, 1.0, 2.0, 5.0, 20],
       defaultLabels: { foo: 'bar', alice: 2 }
     }
     // eslint-disable-next-line no-new
