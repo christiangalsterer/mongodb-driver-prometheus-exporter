@@ -27,7 +27,7 @@ export class MongoDBDriverExporter {
     // eslint-disable-next-line @typescript-eslint/no-magic-numbers
     mongodbDriverCommandsSecondsHistogramBuckets: [0.001, 0.005, 0.01, 0.02, 0.03, 0.04, 0.05, 0.1, 0.2, 0.5, 1, 2, 5, 10],
     // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-    waitQueueSecondsHistogramBuckets: [0.001, 0.005, 0.01, 0.02, 0.03, 0.04, 0.05, 0.1, 0.2, 0.5, 1, 2, 5, 10],
+    waitQueueSecondsHistogramBuckets: [0.001, 0.005, 0.01, 0.02, 0.03, 0.04, 0.05, 0.1, 0.2, 0.5, 1, 2, 5, 10]
   }
 
   // pool metrics
@@ -204,7 +204,9 @@ export class MongoDBDriverExporter {
   private onConnectionCheckedOut(event: ConnectionCheckedOutEvent): void {
     this.checkedOut.inc(mergeLabelsWithStandardLabels({ server_address: event.address }, this.options.defaultLabels))
     this.waitQueueSize.dec(mergeLabelsWithStandardLabels({ server_address: event.address }, this.options.defaultLabels))
-    if (event.durationMS !== undefined) { // conditional observation for backward compatibility with `mongodb` <6.9.0
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    if (event.durationMS !== undefined) {
+      // conditional observation for backward compatibility with `mongodb` <6.9.0
       this.waitQueueSeconds.observe(
         mergeLabelsWithStandardLabels({ server_address: event.address, status: 'SUCCESS' }, this.options.defaultLabels),
         event.durationMS / MILLISECONDS_IN_A_SECOND
@@ -214,7 +216,9 @@ export class MongoDBDriverExporter {
 
   private onConnectionCheckOutFailed(event: ConnectionCheckOutFailedEvent): void {
     this.waitQueueSize.dec(mergeLabelsWithStandardLabels({ server_address: event.address }, this.options.defaultLabels))
-    if (event.durationMS !== undefined) { // conditional observation for backward compatibility with `mongodb` <6.9.0
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    if (event.durationMS !== undefined) {
+      // conditional observation for backward compatibility with `mongodb` <6.9.0
       this.waitQueueSeconds.observe(
         mergeLabelsWithStandardLabels({ server_address: event.address, status: 'FAILED' }, this.options.defaultLabels),
         event.durationMS / MILLISECONDS_IN_A_SECOND

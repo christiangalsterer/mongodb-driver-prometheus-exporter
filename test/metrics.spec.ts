@@ -136,7 +136,6 @@ describe('all metrics are created with the correct parameters', () => {
       registers: [register]
     })
 
-
     expect(Histogram).toHaveBeenCalledWith({
       name: 'mongodb_driver_pool_waitqueue_seconds',
       help: 'Duration of waiting for a connection from the pool',
