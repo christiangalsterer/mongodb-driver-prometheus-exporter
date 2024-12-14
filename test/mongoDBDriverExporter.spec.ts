@@ -9,7 +9,8 @@ const poolMetrics: string[] = [
   'mongodb_driver_pool_min',
   'mongodb_driver_pool_max',
   'mongodb_driver_pool_checkedout',
-  'mongodb_driver_pool_waitqueuesize'
+  'mongodb_driver_pool_waitqueuesize',
+  'mongodb_driver_pool_waitqueue_seconds'
 ]
 
 const commandMetrics: string[] = ['mongodb_driver_commands_seconds']
@@ -42,19 +43,21 @@ describe('tests mongoDBDriverExporter with real mongo client', () => {
     const mongoClient = new MongoClient('mongodb://localhost:27017', { monitorCommands: true })
     // eslint-disable-next-line no-new
     new MongoDBDriverExporter(mongoClient, register)
-    expect(register.getMetricsAsArray()).toHaveLength(6)
+    expect(register.getMetricsAsArray()).toHaveLength(poolMetrics.length + commandMetrics.length)
     expect(register.getSingleMetric('mongodb_driver_pool_size')).toBeDefined()
     expect(register.getSingleMetric('mongodb_driver_pool_min')).toBeDefined()
     expect(register.getSingleMetric('mongodb_driver_pool_max')).toBeDefined()
     expect(register.getSingleMetric('mongodb_driver_pool_checkedout')).toBeDefined()
     expect(register.getSingleMetric('mongodb_driver_pool_waitqueuesize')).toBeDefined()
     expect(register.getSingleMetric('mongodb_driver_commands_seconds')).toBeDefined()
+    expect(register.getSingleMetric('mongodb_driver_pool_waitqueue_seconds')).toBeDefined()
   })
 
   test('connection and commands metrics are registered in registry with optional configurations', () => {
     const mongoClient = new MongoClient('mongodb://localhost:27017', { monitorCommands: true })
     const options = {
       mongodbDriverCommandsSecondsHistogramBuckets: [0.001, 0.005, 0.01, 0.02, 0.03, 0.04, 0.05, 0.1, 0.2, 0.5, 1.0, 2.0, 5.0, 20],
+      waitQueueSecondsHistogramBuckets: [0.001, 0.005, 0.01, 0.02, 0.03, 0.04, 0.05, 0.1, 0.2, 0.5, 1.0, 2.0, 5.0, 20],
       defaultLabels: { foo: 'bar', alice: 2 }
     }
     // eslint-disable-next-line no-new
