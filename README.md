@@ -110,7 +110,7 @@ mongodb_driver_commands_seconds_count{command="ping",server_address="127.0.0.3:2
 
 ## Add Dependency
 
-Add the following dependency to your project to download the packge from [npm](https://www.npmjs.com/package/@christiangalsterer/mongodb-driver-prometheus-exporter).
+Add the following dependency to your project to download the package from [npm](https://www.npmjs.com/package/@christiangalsterer/mongodb-driver-prometheus-exporter).
 
 ```sh
 npm i @christiangalsterer/mongodb-driver-prometheus-exporter
