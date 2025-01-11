@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { describe, expect, test } from '@jest/globals'
 
 import { ConsoleLogger, mergeLabelNamesWithStandardLabels, mergeLabelsWithStandardLabels } from '../src/utils'

@@ -50,7 +50,6 @@ describe('it monitorMongoDBDriver', () => {
   test('it mongodb driver command metrics ', async () => {
     await mongoClient.db('admin').command({ ping: 1 })
     const mongodbDriverCommandsSeconds = await register.getSingleMetric('mongodb_driver_commands_seconds')?.get()
-    console.log(mongodbDriverCommandsSeconds)
     expect(mongodbDriverCommandsSeconds?.type).toEqual('histogram')
     expect(getValueByName('mongodb_driver_commands_seconds_count', mongodbDriverCommandsSeconds?.values)?.value).toEqual(1)
     expect(getValueByName('mongodb_driver_commands_seconds_sum', mongodbDriverCommandsSeconds?.values)?.value).toBeGreaterThanOrEqual(0)

@@ -3,14 +3,17 @@ import type { Logger } from './exporter'
 /* eslint @typescript-eslint/class-methods-use-this: ["error", { "exceptMethods": ["info", "warn", "error"] }] */
 export class ConsoleLogger implements Logger {
   info(message: string): void {
+    // eslint-disable-next-line no-console
     console.log(message)
   }
 
   warn(message: string): void {
+    // eslint-disable-next-line no-console
     console.log(message)
   }
 
   error(message: string): void {
+    // eslint-disable-next-line no-console
     console.log(message)
   }
 }
