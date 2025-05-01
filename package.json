@@ -50,14 +50,14 @@
   },
   "devDependencies": {
     "@jest/globals": "29.7.0",
-    "@testcontainers/mongodb": "10.24.2",
+    "@testcontainers/mongodb": "10.25.0",
     "@types/jest": "29.5.14",
     "eslint-config-love": "119.0.0",
     "eslint-plugin-jest": "28.11.0",
     "eslint-plugin-simple-import-sort": "12.1.1",
     "jest": "29.7.0",
     "prettier": "3.5.3",
-    "renovate": "40.0.6",
+    "renovate": "40.0.7",
     "ts-jest": "29.3.2",
     "typescript": "5.8.3"
   },
