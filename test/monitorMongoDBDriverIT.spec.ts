@@ -11,7 +11,7 @@ describe('it monitorMongoDBDriver', () => {
   let mongoDBContainer: StartedMongoDBContainer
 
   beforeAll(async () => {
-    mongoDBContainer = await new MongoDBContainer('mongo:6.0.17').start()
+    mongoDBContainer = await new MongoDBContainer('mongo:6').start()
   }, 60000)
 
   afterAll(async () => {

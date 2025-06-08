@@ -45,7 +45,7 @@
     "monitoring"
   ],
   "dependencies": {
-    "mongodb": "^6.0.0",
+    "mongodb": "^6",
     "prom-client": "^15.0.0"
   },
   "devDependencies": {
