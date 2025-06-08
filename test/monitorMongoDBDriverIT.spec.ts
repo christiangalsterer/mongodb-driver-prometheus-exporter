@@ -5,13 +5,15 @@ import { type MetricValueWithName, Registry } from 'prom-client'
 
 import { monitorMongoDBDriver } from '../src/exporter'
 
-describe('it monitorMongoDBDriver', () => {
+const mongoDBVersions = ['6', '7', '8']
+
+describe.each(mongoDBVersions)('it monitorMongoDBDriver with MongoDB version %s', (mongoDBversion) => {
   let mongoClient: MongoClient
   let register: Registry
   let mongoDBContainer: StartedMongoDBContainer
 
   beforeAll(async () => {
-    mongoDBContainer = await new MongoDBContainer('mongo:6').start()
+    mongoDBContainer = await new MongoDBContainer(`mongo:${mongoDBversion}`).start()
   }, 60000)
 
   afterAll(async () => {
@@ -35,6 +37,9 @@ describe('it monitorMongoDBDriver', () => {
   })
 
   test('it mongodb driver pool metrics ', async () => {
+    mongoDBContainer = await new MongoDBContainer(`mongo:${mongoDBVersions[0]}`).start()
+
+
     await mongoClient.db('admin').command({ ping: 1 })
     const mongodbDrivePoolSize = await register.getSingleMetric('mongodb_driver_pool_size')?.get()
     expect(mongodbDrivePoolSize?.type).toEqual('gauge')
