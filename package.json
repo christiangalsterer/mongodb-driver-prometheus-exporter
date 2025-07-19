@@ -57,7 +57,7 @@
     "eslint-plugin-simple-import-sort": "12.1.1",
     "jest": "30.0.4",
     "prettier": "3.6.2",
-    "renovate": "41.38.2",
+    "renovate": "41.40.0",
     "ts-jest": "29.4.0",
     "typescript": "5.8.3"
   },
