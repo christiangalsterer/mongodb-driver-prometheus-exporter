@@ -3,6 +3,11 @@
   "extends": ["config:js-lib", "schedule:nonOfficeHours", "schedule:automergeNonOfficeHours"],
   "addLabels": ["renovate"],
   "timezone": "Europe/Berlin",
+  "npm": {
+    "minimumReleaseAge": "3 days",
+    "internalChecksFilter": "strict",
+    "prCreation": "not-pending"
+  },
   "packageRules": [
     {
       "groupName": "All dev dependencies",
