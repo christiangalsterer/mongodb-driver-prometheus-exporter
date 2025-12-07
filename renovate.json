@@ -6,7 +6,8 @@
   "npm": {
     "minimumReleaseAge": "3 days",
     "internalChecksFilter": "strict",
-    "prCreation": "not-pending"
+    "prCreation": "not-pending",
+    "postUpdateOptions": ["npmInstallTwice"]
   },
   "packageRules": [
     {
