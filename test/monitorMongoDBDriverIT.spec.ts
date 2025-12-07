@@ -30,7 +30,7 @@ describe.each(mongoDBVersions)('it monitorMongoDBDriver with MongoDB version %s'
     register = new Registry()
     monitorMongoDBDriver(mongoClient, register)
     await mongoClient.connect()
-  })
+  }, 10000)
 
   afterEach(async () => {
     await mongoClient.close()
