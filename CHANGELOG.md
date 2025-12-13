@@ -5,6 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.0](https://github.com/christiangalsterer/mongodb-driver-prometheus-exporter/compare/v3.0.0...v3.0.0) (2025-12-13)
+
+
+### Features
+
+* add `mongodb_driver_pool_waitqueue_seconds` Histogram ([#152](https://github.com/christiangalsterer/mongodb-driver-prometheus-exporter/issues/152)) ([1e7df79](https://github.com/christiangalsterer/mongodb-driver-prometheus-exporter/commit/1e7df792d69bdf9d1ebdef2545f88e643c7b8289))
+* support for multiple instances of exporter, multiple registrations of metrics ([85fda82](https://github.com/christiangalsterer/mongodb-driver-prometheus-exporter/commit/85fda82889a098a357c162a2545cc59eaa9414ce))
+
+
+### Bug Fixes
+
+* **deps:** update dependency mongodb to v7 ([60f3400](https://github.com/christiangalsterer/mongodb-driver-prometheus-exporter/commit/60f34005b9d5ceaffc6469647dd22ee0f07c7d9b))
+* **labels:** respect `defaultLabels` option ([#130](https://github.com/christiangalsterer/mongodb-driver-prometheus-exporter/issues/130)) ([62c1f1b](https://github.com/christiangalsterer/mongodb-driver-prometheus-exporter/commit/62c1f1b097cb5257acb558a9bebff9f45b8663f7)), closes [#129](https://github.com/christiangalsterer/mongodb-driver-prometheus-exporter/issues/129)
+* wrong entrypoint after migration to single tsconfig ([72716b9](https://github.com/christiangalsterer/mongodb-driver-prometheus-exporter/commit/72716b9655262dc1dfd972b33a4c58b3427ac135))
+
+
+### Miscellaneous Chores
+
+* release 3.0.0 ([b109cb7](https://github.com/christiangalsterer/mongodb-driver-prometheus-exporter/commit/b109cb7840ff85f8d9ce090de7049181e0faf55e))
+* release 3.0.0 ([6b8880a](https://github.com/christiangalsterer/mongodb-driver-prometheus-exporter/commit/6b8880aa30a8199bb349369e4b80ea9cde870ef6))
+
 ## [3.0.0](https://github.com/christiangalsterer/mongodb-driver-prometheus-exporter/compare/v2.3.0...v3.0.0) (2025-12-13)
 
 
