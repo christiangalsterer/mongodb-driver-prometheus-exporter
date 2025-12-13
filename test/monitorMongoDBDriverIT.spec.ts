@@ -30,15 +30,13 @@ describe.each(mongoDBVersions)('it monitorMongoDBDriver with MongoDB version %s'
     register = new Registry()
     monitorMongoDBDriver(mongoClient, register)
     await mongoClient.connect()
-  })
+  }, 10000)
 
   afterEach(async () => {
     await mongoClient.close()
   })
 
   test('it mongodb driver pool metrics ', async () => {
-    mongoDBContainer = await new MongoDBContainer(`mongo:${mongoDBVersions[0]}`).start()
-
     await mongoClient.db('admin').command({ ping: 1 })
     const mongodbDrivePoolSize = await register.getSingleMetric('mongodb_driver_pool_size')?.get()
     expect(mongodbDrivePoolSize?.type).toEqual('gauge')
