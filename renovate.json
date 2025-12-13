@@ -4,10 +4,15 @@
   "addLabels": ["renovate"],
   "timezone": "Europe/Berlin",
   "npm": {
-    "minimumReleaseAge": "3 days",
+    "minimumReleaseAge": "14 days",
     "internalChecksFilter": "strict",
     "prCreation": "not-pending",
     "postUpdateOptions": ["npmInstallTwice"]
+  },
+  "vulnerabilityAlerts": {
+    "labels": ["security"],
+    "automerge": true,
+    "vulnerabilityFixStrategy": "highest"
   },
   "packageRules": [
     {
