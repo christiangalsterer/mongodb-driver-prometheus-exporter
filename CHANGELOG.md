@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.0](https://github.com/christiangalsterer/mongodb-driver-prometheus-exporter/compare/v2.3.0...v3.0.0) (2025-12-13)
+
+
+### Bug Fixes
+
+* **deps:** update dependency mongodb to v7 ([60f3400](https://github.com/christiangalsterer/mongodb-driver-prometheus-exporter/commit/60f34005b9d5ceaffc6469647dd22ee0f07c7d9b))
+
+
+### Miscellaneous Chores
+
+* release 3.0.0 ([6b8880a](https://github.com/christiangalsterer/mongodb-driver-prometheus-exporter/commit/6b8880aa30a8199bb349369e4b80ea9cde870ef6))
+
 ## [2.3.0](https://github.com/christiangalsterer/mongodb-driver-prometheus-exporter/compare/v2.2.2...v2.3.0) (2024-12-14)
 
 
