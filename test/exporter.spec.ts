@@ -14,7 +14,8 @@ describe('tests monitorMongoDBDriver', () => {
   let register: Registry
 
   beforeEach(() => {
-    const mongoClientOptions: MongoClientOptions = { monitorCommands: true }
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion -- MongoClientOptions extends Node.js TLS types that gained required properties in Node.js 24
+    const mongoClientOptions = { monitorCommands: true } as unknown as MongoClientOptions
     mongoClient = new MongoClient('mongodb://localhost:27017', mongoClientOptions)
     register = new Registry()
     mockMongoDBDriverExporter.mockClear()

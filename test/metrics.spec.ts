@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/consistent-type-assertions -- mock objects in tests require type assertions to satisfy Registry interface */
 import { beforeEach } from '@jest/globals'
+import type { MongoClientOptions } from 'mongodb'
 import { MongoClient } from 'mongodb'
 import { Gauge, Histogram, type Registry } from 'prom-client'
 
@@ -18,7 +18,8 @@ jest.mock('prom-client', () => ({
 
 describe('all metrics are created with the correct parameters', () => {
   const options = { defaultLabels: { foo: 'bar', alice: 2 } }
-  const mongoClient = new MongoClient('mongodb://localhost:27017', { monitorCommands: true })
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion -- MongoClientOptions extends Node.js TLS types that gained required properties in Node.js 24
+  const mongoClient = new MongoClient('mongodb://localhost:27017', { monitorCommands: true } as unknown as MongoClientOptions)
   // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion -- minimal mock object cast to Registry for testing constructor behavior
   const register: Registry = {} as Registry
 

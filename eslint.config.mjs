@@ -54,6 +54,7 @@ export default tseslint.config(
     ...jest.configs['flat/style'],
     rules: {
       // you should turn the original rule off *only* for test files
+      '@typescript-eslint/consistent-type-assertions': 'off',
       '@typescript-eslint/no-magic-numbers': 'off',
       '@typescript-eslint/unbound-method': 'off',
       'eslint-comments/require-description': 'off',
