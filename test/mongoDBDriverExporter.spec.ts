@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, test } from '@jest/globals'
-import { MongoClient } from 'mongodb'
+import { MongoClient, type MongoClientOptions } from 'mongodb'
 import { Registry } from 'prom-client'
 
 import { MongoDBDriverExporter } from '../src/mongoDBDriverExporter'
@@ -40,7 +40,7 @@ describe('tests mongoDBDriverExporter with real mongo client', () => {
   })
 
   test('connection and commands metrics are registered in registry', () => {
-    const mongoClient = new MongoClient('mongodb://localhost:27017', { monitorCommands: true })
+    const mongoClient = new MongoClient('mongodb://localhost:27017', { monitorCommands: true } as MongoClientOptions)
     // eslint-disable-next-line no-new -- constructing MongoDBDriverExporter to test its side effects on the registry
     new MongoDBDriverExporter(mongoClient, register)
     expect(register.getMetricsAsArray()).toHaveLength(poolMetrics.length + commandMetrics.length)
@@ -54,7 +54,7 @@ describe('tests mongoDBDriverExporter with real mongo client', () => {
   })
 
   test('connection and commands metrics are registered in registry with optional configurations', () => {
-    const mongoClient = new MongoClient('mongodb://localhost:27017', { monitorCommands: true })
+    const mongoClient = new MongoClient('mongodb://localhost:27017', { monitorCommands: true } as MongoClientOptions)
     const options = {
       mongodbDriverCommandsSecondsHistogramBuckets: [0.001, 0.005, 0.01, 0.02, 0.03, 0.04, 0.05, 0.1, 0.2, 0.5, 1.0, 2.0, 5.0, 20],
       waitQueueSecondsHistogramBuckets: [0.001, 0.005, 0.01, 0.02, 0.03, 0.04, 0.05, 0.1, 0.2, 0.5, 1.0, 2.0, 5.0, 20],
@@ -69,7 +69,7 @@ describe('tests mongoDBDriverExporter with real mongo client', () => {
   })
 
   test('only connection metrics are registered in registry', () => {
-    const mongoClient = new MongoClient('mongodb://localhost:27017', { monitorCommands: false })
+    const mongoClient = new MongoClient('mongodb://localhost:27017', { monitorCommands: false } as MongoClientOptions)
     const exporter = new MongoDBDriverExporter(mongoClient, register)
     exporter.enableMetrics()
     expect(register.getMetricsAsArray()).toHaveLength(poolMetrics.length)
@@ -79,7 +79,7 @@ describe('tests mongoDBDriverExporter with real mongo client', () => {
   })
 
   test('event connection and command listeners are registered for mongo client events', () => {
-    const mongoClient = new MongoClient('mongodb://localhost:27017', { monitorCommands: true })
+    const mongoClient = new MongoClient('mongodb://localhost:27017', { monitorCommands: true } as MongoClientOptions)
     const exporter = new MongoDBDriverExporter(mongoClient, register)
     exporter.enableMetrics()
     expect(mongoClient.eventNames()).toEqual(expect.arrayContaining(allEvents))
@@ -90,7 +90,7 @@ describe('tests mongoDBDriverExporter with real mongo client', () => {
   })
 
   test('only event connection listeners are registered for mongo client events', () => {
-    const mongoClient = new MongoClient('mongodb://localhost:27017', { monitorCommands: false })
+    const mongoClient = new MongoClient('mongodb://localhost:27017', { monitorCommands: false } as MongoClientOptions)
     const exporter = new MongoDBDriverExporter(mongoClient, register)
     exporter.enableMetrics()
     expect(mongoClient.eventNames()).toEqual(expect.arrayContaining(connectionEvents))
@@ -101,7 +101,7 @@ describe('tests mongoDBDriverExporter with real mongo client', () => {
   })
 
   test('registered metrics are taken from the registry', () => {
-    const mongoClient = new MongoClient('mongodb://localhost:27017', { monitorCommands: true })
+    const mongoClient = new MongoClient('mongodb://localhost:27017', { monitorCommands: true } as MongoClientOptions)
     // eslint-disable-next-line no-new -- constructing MongoDBDriverExporter to test its side effects on the registry
     new MongoDBDriverExporter(mongoClient, register)
     // eslint-disable-next-line no-new -- constructing MongoDBDriverExporter to test its side effects on the registry
@@ -114,7 +114,7 @@ describe('tests mongoDBDriverExporter with real mongo client', () => {
   })
 
   test.each(allEvents)('metrics are emitted with default labels for event "%s"', async (event) => {
-    const mongoClient = new MongoClient('mongodb://localhost:27017', { monitorCommands: true })
+    const mongoClient = new MongoClient('mongodb://localhost:27017', { monitorCommands: true } as MongoClientOptions)
     const options = { defaultLabels: { foo: 'bar', alice: 2 } }
     const expectedLabels = { server_address: 'localhost:27017', foo: 'bar', alice: 2 }
     const exporter = new MongoDBDriverExporter(mongoClient, register, options)
