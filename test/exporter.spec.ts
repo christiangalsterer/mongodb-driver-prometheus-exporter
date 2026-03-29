@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, jest, test } from '@jest/globals'
+import type { MongoClientOptions } from 'mongodb'
 import { MongoClient } from 'mongodb'
 import { Registry } from 'prom-client'
 
@@ -13,7 +14,8 @@ describe('tests monitorMongoDBDriver', () => {
   let register: Registry
 
   beforeEach(() => {
-    mongoClient = new MongoClient('mongodb://localhost:27017', { monitorCommands: true })
+    const mongoClientOptions: MongoClientOptions = { monitorCommands: true }
+    mongoClient = new MongoClient('mongodb://localhost:27017', mongoClientOptions)
     register = new Registry()
     mockMongoDBDriverExporter.mockClear()
   })
