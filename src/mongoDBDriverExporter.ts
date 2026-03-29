@@ -24,9 +24,9 @@ export class MongoDBDriverExporter {
   private readonly mongoClient: MongoClient
   private readonly options: MongoDBDriverExporterOptions
   private readonly defaultOptions: MongoDBDriverExporterOptions = {
-    // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+    // eslint-disable-next-line @typescript-eslint/no-magic-numbers -- standard Prometheus histogram buckets for MongoDB command durations in seconds
     mongodbDriverCommandsSecondsHistogramBuckets: [0.001, 0.005, 0.01, 0.02, 0.03, 0.04, 0.05, 0.1, 0.2, 0.5, 1, 2, 5, 10],
-    // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+    // eslint-disable-next-line @typescript-eslint/no-magic-numbers -- standard Prometheus histogram buckets for connection wait queue durations in seconds
     waitQueueSecondsHistogramBuckets: [0.001, 0.005, 0.01, 0.02, 0.03, 0.04, 0.05, 0.1, 0.2, 0.5, 1, 2, 5, 10]
   }
 
@@ -204,7 +204,7 @@ export class MongoDBDriverExporter {
   private onConnectionCheckedOut(event: ConnectionCheckedOutEvent): void {
     this.checkedOut.inc(mergeLabelsWithStandardLabels({ server_address: event.address }, this.options.defaultLabels))
     this.waitQueueSize.dec(mergeLabelsWithStandardLabels({ server_address: event.address }, this.options.defaultLabels))
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- durationMS may be undefined for backward compatibility with mongodb <6.9.0
     if (event.durationMS !== undefined) {
       // conditional observation for backward compatibility with `mongodb` <6.9.0
       this.waitQueueSeconds.observe(
@@ -216,7 +216,7 @@ export class MongoDBDriverExporter {
 
   private onConnectionCheckOutFailed(event: ConnectionCheckOutFailedEvent): void {
     this.waitQueueSize.dec(mergeLabelsWithStandardLabels({ server_address: event.address }, this.options.defaultLabels))
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- durationMS may be undefined for backward compatibility with mongodb <6.9.0
     if (event.durationMS !== undefined) {
       // conditional observation for backward compatibility with `mongodb` <6.9.0
       this.waitQueueSeconds.observe(

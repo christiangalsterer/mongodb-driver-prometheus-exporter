@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+/* eslint-disable no-console -- testing ConsoleLogger which intentionally uses console.log */
 import { describe, expect, test } from '@jest/globals'
 
 import { ConsoleLogger, mergeLabelNamesWithStandardLabels, mergeLabelsWithStandardLabels } from '../src/utils'

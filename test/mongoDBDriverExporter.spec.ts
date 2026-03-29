@@ -41,7 +41,7 @@ describe('tests mongoDBDriverExporter with real mongo client', () => {
 
   test('connection and commands metrics are registered in registry', () => {
     const mongoClient = new MongoClient('mongodb://localhost:27017', { monitorCommands: true })
-    // eslint-disable-next-line no-new
+    // eslint-disable-next-line no-new -- constructing MongoDBDriverExporter to test its side effects on the registry
     new MongoDBDriverExporter(mongoClient, register)
     expect(register.getMetricsAsArray()).toHaveLength(poolMetrics.length + commandMetrics.length)
     expect(register.getSingleMetric('mongodb_driver_pool_size')).toBeDefined()
@@ -60,7 +60,7 @@ describe('tests mongoDBDriverExporter with real mongo client', () => {
       waitQueueSecondsHistogramBuckets: [0.001, 0.005, 0.01, 0.02, 0.03, 0.04, 0.05, 0.1, 0.2, 0.5, 1.0, 2.0, 5.0, 20],
       defaultLabels: { foo: 'bar', alice: 2 }
     }
-    // eslint-disable-next-line no-new
+    // eslint-disable-next-line no-new -- constructing MongoDBDriverExporter to test its side effects on the registry
     new MongoDBDriverExporter(mongoClient, register, options)
     expect(register.getMetricsAsArray()).toHaveLength(allMetrics.length)
     allMetrics.forEach((metric) => {
@@ -102,9 +102,9 @@ describe('tests mongoDBDriverExporter with real mongo client', () => {
 
   test('registered metrics are taken from the registry', () => {
     const mongoClient = new MongoClient('mongodb://localhost:27017', { monitorCommands: true })
-    // eslint-disable-next-line no-new
+    // eslint-disable-next-line no-new -- constructing MongoDBDriverExporter to test its side effects on the registry
     new MongoDBDriverExporter(mongoClient, register)
-    // eslint-disable-next-line no-new
+    // eslint-disable-next-line no-new -- constructing MongoDBDriverExporter to test its side effects on the registry
     new MongoDBDriverExporter(mongoClient, register)
 
     expect(register.getMetricsAsArray()).toHaveLength(allMetrics.length)
@@ -128,7 +128,7 @@ describe('tests mongoDBDriverExporter with real mongo client', () => {
       }
     }
     exporter.enableMetrics()
-    /* eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-type-assertion */
+    /* eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-type-assertion -- emit requires any for parameterized event names in tests */
     mongoClient.emit(event as any, mockEvent)
     const metrics = await register.getMetricsAsJSON()
     for (const metric of metrics) {
@@ -162,17 +162,17 @@ describe('enableMetrics attach event listeners', () => {
         monitorCommands: false
       }
     }
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- passing untyped mock client that satisfies the required MongoClient interface
     exporter = new MongoDBDriverExporter(mockMongoClient, register, mockOptions)
     exporter.enableMetrics()
     connectionEvents.forEach((event) => {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access -- accessing jest mock property on untyped mock object
       expect(mockMongoClient.on).toHaveBeenCalledTimes(connectionEvents.length)
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access -- accessing jest mock property on untyped mock object
       expect(mockMongoClient.on).toHaveBeenCalledWith(event, expect.any(Function))
     })
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access -- accessing jest mock property on untyped mock options object
     expect(mockOptions.logger.info).toHaveBeenCalledWith('Successfully enabled connection pool metrics for the MongoDB Node.js driver.')
   })
 
@@ -183,20 +183,20 @@ describe('enableMetrics attach event listeners', () => {
         monitorCommands: true
       }
     }
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- passing untyped mock client that satisfies the required MongoClient interface
     exporter = new MongoDBDriverExporter(mockMongoClient, register, mockOptions)
     exporter.enableMetrics()
 
     allEvents.forEach((event) => {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access -- accessing jest mock property on untyped mock object
       expect(mockMongoClient.on).toHaveBeenCalledTimes(allEvents.length)
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access -- accessing jest mock property on untyped mock object
       expect(mockMongoClient.on).toHaveBeenCalledWith(event, expect.any(Function))
     })
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access -- accessing jest mock property on untyped mock options object
     expect(mockOptions.logger.info).toHaveBeenCalledWith('Successfully enabled connection pool metrics for the MongoDB Node.js driver.')
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access -- accessing jest mock property on untyped mock options object
     expect(mockOptions.logger.info).toHaveBeenCalledWith('Successfully enabled command metrics for the MongoDB Node.js driver.')
   })
 })

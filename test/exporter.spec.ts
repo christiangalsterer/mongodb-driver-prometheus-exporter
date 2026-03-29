@@ -36,9 +36,9 @@ describe('tests monitorMongoDBDriver', () => {
 
   test('monitorMongoDBDriver calls methods of MongoDBDriverExporter instance', () => {
     monitorMongoDBDriver(mongoClient, register)
-    // eslint-disable-next-line @typescript-eslint/prefer-destructuring
+    // eslint-disable-next-line @typescript-eslint/prefer-destructuring -- index access is clearer when referencing a specific mock instance by position
     const mockMongoDBDriverExporterInstance = mockMongoDBDriverExporter.mock.instances[0]
-    // eslint-disable-next-line jest/unbound-method, @typescript-eslint/no-unsafe-type-assertion
+    // eslint-disable-next-line jest/unbound-method, @typescript-eslint/no-unsafe-type-assertion -- accessing jest mock on instance method requires cast
     const mockEnableMetrics = mockMongoDBDriverExporterInstance.enableMetrics as jest.Mock
     expect(mockEnableMetrics).toHaveBeenCalledTimes(1)
   })

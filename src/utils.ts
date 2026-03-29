@@ -1,19 +1,19 @@
 import type { Logger } from './exporter'
 
-/* eslint @typescript-eslint/class-methods-use-this: ["error", { "exceptMethods": ["info", "warn", "error"] }] */
+/* eslint @typescript-eslint/class-methods-use-this: ["error", { "exceptMethods": ["info", "warn", "error"] }] -- Logger interface methods don't require 'this' but must be instance methods */
 export class ConsoleLogger implements Logger {
   info(message: string): void {
-    // eslint-disable-next-line no-console
+    // eslint-disable-next-line no-console -- ConsoleLogger intentionally delegates to console
     console.log(message)
   }
 
   warn(message: string): void {
-    // eslint-disable-next-line no-console
+    // eslint-disable-next-line no-console -- ConsoleLogger intentionally delegates to console
     console.log(message)
   }
 
   error(message: string): void {
-    // eslint-disable-next-line no-console
+    // eslint-disable-next-line no-console -- ConsoleLogger intentionally delegates to console
     console.log(message)
   }
 }
