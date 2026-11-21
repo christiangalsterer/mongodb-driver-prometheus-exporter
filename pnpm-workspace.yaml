@@ -1,0 +1,7 @@
+allowBuilds:
+  core-js-pure: true
+  cpu-features: true
+  dtrace-provider: true
+  protobufjs: true
+  ssh2: true
+  unrs-resolver: true
