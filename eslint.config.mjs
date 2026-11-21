@@ -3,10 +3,23 @@ import tseslint from 'typescript-eslint'
 import simpleImportSortPlugin from 'eslint-plugin-simple-import-sort'
 import jest from 'eslint-plugin-jest'
 
+const typescriptConfigs = (configs) =>
+  configs.map((config) =>
+    config.plugins?.['@typescript-eslint'] === tseslint.plugin
+      ? {
+          ...config,
+          plugins: {
+            ...config.plugins,
+            '@typescript-eslint': love.plugins['@typescript-eslint']
+          }
+        }
+      : config
+  )
+
 export default tseslint.config(
   love,
-  ...tseslint.configs.strictTypeChecked,
-  ...tseslint.configs.stylisticTypeChecked,
+  ...typescriptConfigs(tseslint.configs.strictTypeChecked),
+  ...typescriptConfigs(tseslint.configs.stylisticTypeChecked),
   {
     name: 'base',
     languageOptions: {
@@ -31,9 +44,6 @@ export default tseslint.config(
       '@typescript-eslint/init-declarations': 'off',
       complexity: 'off',
       'eslint-comments/require-description': 'off',
-      'import/first': 'error',
-      'import/newline-after-import': 'error',
-      'import/no-duplicates': 'error',
       'simple-import-sort/imports': 'error',
       'simple-import-sort/exports': 'error'
     }

@@ -1,6 +1,5 @@
 import { beforeEach } from '@jest/globals'
-import type { MongoClientOptions } from 'mongodb'
-import { MongoClient } from 'mongodb'
+import { MongoClient, type MongoClientOptions } from 'mongodb'
 import { Gauge, Histogram, type Registry } from 'prom-client'
 
 import { MongoDBDriverExporter } from '../src/mongoDBDriverExporter'
@@ -18,8 +17,9 @@ jest.mock('prom-client', () => ({
 
 describe('all metrics are created with the correct parameters', () => {
   const options = { defaultLabels: { foo: 'bar', alice: 2 } }
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion -- MongoClientOptions extends Node.js TLS types that gained required properties in Node.js 24
-  const mongoClient = new MongoClient('mongodb://localhost:27017', { monitorCommands: true } as unknown as MongoClientOptions)
+  const mongoClientOptions = {} as MongoClientOptions
+  mongoClientOptions.monitorCommands = true
+  const mongoClient = new MongoClient('mongodb://localhost:27017', mongoClientOptions)
   // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion -- minimal mock object cast to Registry for testing constructor behavior
   const register: Registry = {} as Registry
 
