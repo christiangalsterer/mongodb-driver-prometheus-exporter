@@ -5,3 +5,4 @@ allowBuilds:
   protobufjs: true
   ssh2: true
   unrs-resolver: true
+  re2: true
